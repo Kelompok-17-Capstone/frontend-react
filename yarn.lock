@@ -426,6 +426,11 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
+"@phosphor-icons/react@^2.0.9":
+  version "2.0.9"
+  resolved "https://registry.yarnpkg.com/@phosphor-icons/react/-/react-2.0.9.tgz#9b720dfe35ed9cb75fa0c59921bbc98acf483b45"
+  integrity sha512-/dtQ0M9MXAr35wy8zPlwF684EvYRvGWZPAv+Bd0BR4vzIhjzfLBdHSovFxSP1rj3UOHvVR08qgRL04Kv90oqHA==
+
 "@rc-component/color-picker@~1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@rc-component/color-picker/-/color-picker-1.1.1.tgz#9f54276a10c0ce198fe88281499aa4b924bdac77"
