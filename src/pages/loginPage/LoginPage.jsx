@@ -4,6 +4,8 @@ import ReactDOM from "react-dom";
 import { Button, Input, Checkbox, Form, Card, Modal } from "antd";
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { BG_Login } from "../../assets";
+
 
 
 const LoginPage = () => {
@@ -48,7 +50,7 @@ const LoginPage = () => {
     <div
       className="background-container"
       style={{
-        backgroundImage: `url(${process.env.PUBLIC_URL}/BG_Login.png)`,
+        backgroundImage: `url(${BG_Login})`,
       }}>
       <div className="login-container">
         <Card className="login-card">
@@ -110,23 +112,20 @@ const LoginPage = () => {
 
       <Modal
         title="Login Successful"
-        visible={isSuccessModalVisible}
+        open={isSuccessModalVisible}
         footer={[
-          <link to = "/dashboard"> 
-          <Button
-            type="primary"
-            className="confirm-button">
-            
-            Confirm
+          <Link to="/dashboard">
+            <Button type="primary" className="confirm-button">
+              Confirm
             </Button>
-          </link>
+          </Link>,
         ]}>
         <p className="modal-content">Welcome To Dashboard Admin</p>
       </Modal>
 
       <Modal
         title="Login Failed"
-        visible={isFailureModalVisible}
+        open={isFailureModalVisible}
         footer={[
           <Button
             type="primary"
@@ -141,7 +140,7 @@ const LoginPage = () => {
   );
 };
 
-const mountNode = document.getElementById("root");
-ReactDOM.render(<App />, mountNode);
+// const mountNode = document.getElementById("root");
+// ReactDOM.render(<LoginPage />, mountNode);
 
 export default LoginPage;
