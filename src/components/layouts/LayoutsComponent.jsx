@@ -14,6 +14,7 @@ import {
   User,
 } from "@phosphor-icons/react";
 import Search from "antd/es/input/Search";
+import { Link } from "react-router-dom";
 const { Header, Sider, Content } = Layout;
 
 const LayoutsComponent = ({ children }) => {
@@ -39,31 +40,31 @@ const LayoutsComponent = ({ children }) => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["1"]}
+          defaultSelectedKeys={["/dashboard"]}
           style={{
             height: "100vh",
             backgroundColor: "#00317B",
           }}
           items={[
             {
-              key: "1",
+              key: "/dashboard",
               icon: <House size={25} />,
-              label: "Dashboard",
+              label: <Link to="/dashboard">Dashboard</Link>,
             },
             {
-              key: "2",
+              key: "/data-user",
               icon: <IdentificationCard size={25} />,
-              label: "Data User",
+              label: <Link to="/data-user">Data User</Link>,
             },
             {
-              key: "3",
+              key: "/daftar-pesanan",
               icon: <Notebook size={25} />,
-              label: "Daftar Pesanan",
+              label: <Link to="/daftar-pesanan">Daftar Pesanan</Link>,
             },
             {
-              key: "4",
+              key: "/data-product",
               icon: <Package size={25} />,
-              label: "Data Product",
+              label: <Link to="/data-product">Data Product</Link>,
             },
           ]}
         />
