@@ -1,9 +1,19 @@
 import React from "react";
-import { Button, Layout, Menu, theme } from 'antd';
-import { useState } from 'react';
-import './layoutsComponent.css'
+import { Button, Layout, Menu, theme } from "antd";
+import { useState } from "react";
+import "./layoutsComponent.css";
 import { LogoLayout } from "../../assets";
-import { House, IdentificationCard, List, Notebook, Package } from "@phosphor-icons/react";
+import {
+  Bell,
+  DoorOpen,
+  House,
+  IdentificationCard,
+  List,
+  Notebook,
+  Package,
+  User,
+} from "@phosphor-icons/react";
+import Search from "antd/es/input/Search";
 const { Header, Sider, Content } = Layout;
 
 const LayoutsComponent = ({ children }) => {
@@ -12,63 +22,98 @@ const LayoutsComponent = ({ children }) => {
     token: { colorBgContainer },
   } = theme.useToken();
   return (
-      <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed} className="siderLayout">
-        {!collapsed && 
-        <div> 
-          <img src={LogoLayout} alt="" /> 
-          <p className="textLogo" >Alta Tech</p>
-        </div>}
-        
+    <Layout>
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        className="siderLayout"
+      >
+        {!collapsed && (
+          <div className="logo-container">
+            <img src={LogoLayout} alt="" />
+            <p className="text-logo">Alta Tech</p>
+          </div>
+        )}
+
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={['1']}
-          style={{ 
-            height: '100vh',
-            backgroundColor: '#00317B'
-           }}
+          defaultSelectedKeys={["1"]}
+          style={{
+            height: "100vh",
+            backgroundColor: "#00317B",
+          }}
           items={[
             {
-              key: '1',
+              key: "1",
               icon: <House size={25} />,
-              label: 'Dashboard',
+              label: "Dashboard",
             },
             {
-              key: '2',
+              key: "2",
               icon: <IdentificationCard size={25} />,
-              label: 'Data User',
+              label: "Data User",
             },
             {
-              key: '3',
+              key: "3",
               icon: <Notebook size={25} />,
-              label: 'Daftar Pesanan',
+              label: "Daftar Pesanan",
             },
             {
-              key: '4',
+              key: "4",
               icon: <Package size={25} />,
-              label: 'Data Product',
+              label: "Data Product",
             },
           ]}
         />
+        <div className="logout-container">
+          <button className="logout-button">
+            <DoorOpen size={25} />
+            {!collapsed && <span>Logout</span>}
+          </button>
+        </div>
       </Sider>
       <Layout>
         <Header
           style={{
             padding: 0,
             background: colorBgContainer,
+            backgroundColor: "#F0F0F0",
+            height: "93px",
+            display: "flex",
+            alignItems: "center",
           }}
         >
           <Button
             type="text"
-            icon={<List size={32} />}
+            icon={<List size={28} weight="fill" color="white" />}
             onClick={() => setCollapsed(!collapsed)}
             style={{
-              fontSize: '16px',
-              width: 64,
-              height: 64,
+              fontSize: "16px",
+              width: 50,
+              height: 50,
+              backgroundColor: "#00317B",
+              marginTop: "15px",
+              marginRight: "auto",
             }}
           />
+
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginRight: "15px",
+            }}
+          >
+            <Bell size={20} style={{ marginRight: "10px" }} />
+            <Search
+              placeholder="Search..."
+              style={{ width: 200, marginRight: "10px" }}
+            />
+            <span style={{ marginRight: "10px" }}>Hi, Admin</span>
+            <User size={20} />
+          </div>
         </Header>
         <Content
           style={{
@@ -80,7 +125,7 @@ const LayoutsComponent = ({ children }) => {
           {children}
         </Content>
       </Layout>
-      </Layout>
+    </Layout>
   );
 };
 

@@ -1,10 +1,37 @@
 .siderLayout{
     background-color: #00317B !important;
 }
-.textLogo{
+.text-logo{
     color: white;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 16px;
     font-weight: 500;
     text-align: center;
 }
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.logout-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+  }
+  .logout-button {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .logout-button span {
+    margin-left: 8px;
+  }
