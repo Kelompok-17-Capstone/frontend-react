@@ -22,6 +22,7 @@ const LayoutsComponent = ({ children }) => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  console.log(collapsed)
   return (
     <Layout>
       <Sider
@@ -29,6 +30,7 @@ const LayoutsComponent = ({ children }) => {
         collapsible
         collapsed={collapsed}
         className="siderLayout"
+        width={250}
       >
         {!collapsed && (
           <div className="logo-container">
@@ -36,13 +38,27 @@ const LayoutsComponent = ({ children }) => {
             <p className="text-logo">Alta Tech</p>
           </div>
         )}
+        {collapsed && 
+            <Button
+              type="text"
+              icon={<List size={28} weight="fill" color="white" />}
+              onClick={() => setCollapsed(!collapsed)}
+              style={{
+                fontSize: "16px",
+                width: 50,
+                height: 50,
+                backgroundColor: "#00317B",
+                marginTop: "15px",
+                marginLeft: "18px"
+              }}
+            />
+          }
 
         <Menu
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["/dashboard"]}
           style={{
-            height: "100vh",
             backgroundColor: "#00317B",
           }}
           items={[
@@ -86,19 +102,21 @@ const LayoutsComponent = ({ children }) => {
             alignItems: "center",
           }}
         >
-          <Button
-            type="text"
-            icon={<List size={28} weight="fill" color="white" />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              fontSize: "16px",
-              width: 50,
-              height: 50,
-              backgroundColor: "#00317B",
-              marginTop: "15px",
-              marginRight: "auto",
-            }}
-          />
+          {!collapsed && 
+            <Button
+              type="text"
+              icon={<List size={28} weight="fill" color="white" />}
+              onClick={() => setCollapsed(!collapsed)}
+              style={{
+                fontSize: "16px",
+                width: 50,
+                height: 50,
+                backgroundColor: "#00317B",
+                marginTop: "15px",
+                marginRight: "auto",
+              }}
+            />
+          }
 
           <div
             style={{
