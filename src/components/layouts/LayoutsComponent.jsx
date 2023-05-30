@@ -14,6 +14,7 @@ import {
   User,
 } from "@phosphor-icons/react";
 import Search from "antd/es/input/Search";
+import { Link } from "react-router-dom";
 const { Header, Sider, Content } = Layout;
 
 const LayoutsComponent = ({ children }) => {
@@ -21,6 +22,7 @@ const LayoutsComponent = ({ children }) => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  console.log(collapsed)
   return (
     <Layout>
       <Sider
@@ -28,6 +30,7 @@ const LayoutsComponent = ({ children }) => {
         collapsible
         collapsed={collapsed}
         className="siderLayout"
+        width={250}
       >
         {!collapsed && (
           <div className="logo-container">
@@ -35,35 +38,49 @@ const LayoutsComponent = ({ children }) => {
             <p className="text-logo">Alta Tech</p>
           </div>
         )}
+        {collapsed && 
+            <Button
+              type="text"
+              icon={<List size={28} weight="fill" color="white" />}
+              onClick={() => setCollapsed(!collapsed)}
+              style={{
+                fontSize: "16px",
+                width: 50,
+                height: 50,
+                backgroundColor: "#00317B",
+                marginTop: "15px",
+                marginLeft: "18px"
+              }}
+            />
+          }
 
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["1"]}
+          defaultSelectedKeys={["/dashboard"]}
           style={{
-            height: "100vh",
             backgroundColor: "#00317B",
           }}
           items={[
             {
-              key: "1",
+              key: "/dashboard",
               icon: <House size={25} />,
-              label: "Dashboard",
+              label: <Link to="/dashboard">Dashboard</Link>,
             },
             {
-              key: "2",
+              key: "/data-user",
               icon: <IdentificationCard size={25} />,
-              label: "Data User",
+              label: <Link to="/data-user">Data User</Link>,
             },
             {
-              key: "3",
+              key: "/daftar-pesanan",
               icon: <Notebook size={25} />,
-              label: "Daftar Pesanan",
+              label: <Link to="/daftar-pesanan">Daftar Pesanan</Link>,
             },
             {
-              key: "4",
+              key: "/data-product",
               icon: <Package size={25} />,
-              label: "Data Product",
+              label: <Link to="/data-product">Data Product</Link>,
             },
           ]}
         />
@@ -85,19 +102,21 @@ const LayoutsComponent = ({ children }) => {
             alignItems: "center",
           }}
         >
-          <Button
-            type="text"
-            icon={<List size={28} weight="fill" color="white" />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              fontSize: "16px",
-              width: 50,
-              height: 50,
-              backgroundColor: "#00317B",
-              marginTop: "15px",
-              marginRight: "auto",
-            }}
-          />
+          {!collapsed && 
+            <Button
+              type="text"
+              icon={<List size={28} weight="fill" color="white" />}
+              onClick={() => setCollapsed(!collapsed)}
+              style={{
+                fontSize: "16px",
+                width: 50,
+                height: 50,
+                backgroundColor: "#00317B",
+                marginTop: "15px",
+                marginRight: "auto",
+              }}
+            />
+          }
 
           <div
             style={{
