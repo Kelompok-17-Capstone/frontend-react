@@ -1,0 +1,129 @@
+.background-container {
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card {
+  width: 600px;
+  height: 550px;
+  margin: auto;
+}
+
+.login-title {
+  margin-left: 5%;
+  font-weight: bold;
+  font-size: 45px;
+  margin-bottom: 20px;
+  font-family: "Poppins";
+}
+
+.noted {
+  margin-left: 5%;
+  margin-bottom: 20px;
+  color: grey;
+  font-family: "Poppins";
+  font-size: 15px;
+}
+
+.name-form {
+  color: grey;
+  font-size: 15px;
+  margin-left: 0%;
+  margin-bottom: 5px;
+  font-family: "Poppins";
+}
+
+.login-form {
+  margin: 20px;
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.login-form-button {
+  margin-top: 5%;
+  width: 510px;
+  height: 50px;
+  font-size: 20px;
+  font-family: "Poppins";
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.register-now {
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Additional Styles for Form Inputs */
+.ant-input {
+  height: 50px;
+  font-size: 16px;
+  font-family: "Poppins";
+}
+.ant-modal-content {
+  font-family: "Poppins", sans-serif;
+}
+
+.ant-modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ant-modal-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.ant-modal-footer .ant-btn {
+  margin: 0 8px;
+}
+
+.confirm-button {
+  width: 600px;
+  height: 50px;
+  background-color: #52c41a;
+  border-color: #52c41a;
+  font-size: 20px;
+}
+
+.confirm-button:hover,
+.confirm-button:focus {
+  background-color: #389e0d;
+  border-color: #389e0d;
+}
+
+.try-again-button {
+  width: 600px;
+  height: 50px;
+  background-color: #f5222d;
+  border-color: #f5222d;
+  font-size: 20px;
+}
+
+.try-again-button:hover,
+.try-again-button:focus {
+  background-color: #cf1322;
+  border-color: #cf1322;
+}
+
+.modal-content {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: "Poppins";
+}
