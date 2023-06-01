@@ -1,9 +1,8 @@
 import "./loginPage.css";
 import { useState } from "react";
-import ReactDOM from "react-dom";
 import { Button, Input, Checkbox, Form, Card, Modal } from "antd";
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { BG_Login } from "../../assets";
 
 
@@ -45,6 +44,12 @@ const LoginPage = () => {
       showFailureModal();
     }
   };
+  const navigate = useNavigate();
+
+  const handleConfirm = () => {
+    localStorage.setItem('token', 'true')
+    navigate('/dashboard');
+  }
 
   return (
     <div
@@ -97,7 +102,7 @@ const LoginPage = () => {
                 }
               />
             </Form.Item>
-
+ 
             <Form.Item>
               <Button
                 type="primary"
@@ -114,11 +119,9 @@ const LoginPage = () => {
         title="Login Successful"
         open={isSuccessModalVisible}
         footer={[
-          <Link to="/dashboard">
-            <Button type="primary" className="confirm-button">
+            <Button key="confirm-button" type="primary" className="confirm-button" on onClick={handleConfirm}>
               Confirm
             </Button>
-          </Link>,
         ]}>
         <p className="modal-content">Welcome To Dashboard Admin</p>
       </Modal>
