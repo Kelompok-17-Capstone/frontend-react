@@ -85,10 +85,16 @@ const LayoutsComponent = ({ children }) => {
           ]}
         />
         <div className="logout-container">
-          <button className="logout-button">
-            <DoorOpen size={25} />
-            {!collapsed && <span>Logout</span>}
-          </button>
+          <Link to='/'>
+            <Button
+             className="logout-button"
+             onClick={() => {
+              localStorage.removeItem('token')
+             }}>
+              <DoorOpen size={25} />
+              {!collapsed && <span>Logout</span>}
+            </Button>
+          </Link>
         </div>
       </Sider>
       <Layout>
