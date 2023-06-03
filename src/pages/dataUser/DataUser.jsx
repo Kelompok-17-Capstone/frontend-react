@@ -6,12 +6,9 @@ import {
   useGetBiodata,
   useUpdateBiodata,
 } from "./hooks/useBiodatas";
-import Gap from "../../components/gap/Gap";
 import { ITEMS } from "./ConstansTabs";
-import EditUser from "./EditUser";
 import Edit from "../../assets/icons/Edit.png";
 import Delete from "../../assets/icons/Delete.png";
-import Background from "../../assets/images/BackgroundDataUser.png";
 
 const DataUser = () => {
   const { Search } = Input;
