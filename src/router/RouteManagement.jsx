@@ -24,12 +24,13 @@ const RouteManagement = () => {
                 <Route path="/" element={<LandingPage />} />
                 {!token && <Route path="/admin" element={<LoginPage />} />}
                 {token && (
-                    <LayoutsComponent>
-                        <Route path="/dashboard" element={<Dashboard />} />
-                        <Route path="/data-user" element={<DataUser />} />
-                        <Route path="/daftar-pesanan" element={<DaftarPesanan />} />
-                        <Route path="/data-produk" element={<DataProduk />} />
-                    </LayoutsComponent>
+                    <React.Fragment>
+                        <Route path="/admin" element={<LayoutsComponent><Dashboard /></LayoutsComponent>} />
+                        <Route path="/dashboard" element={<LayoutsComponent><Dashboard /></LayoutsComponent>} />
+                        <Route path="/data-user" element={<LayoutsComponent><DataUser /></LayoutsComponent>} />
+                        <Route path="/daftar-pesanan" element={<LayoutsComponent><DaftarPesanan /></LayoutsComponent>} />
+                        <Route path="/data-produk" element={<LayoutsComponent><DataProduk /></LayoutsComponent>} />
+                    </React.Fragment>
                 )}
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
@@ -37,6 +38,6 @@ const RouteManagement = () => {
     );
 };
 
-
-
 export default RouteManagement;
+
+

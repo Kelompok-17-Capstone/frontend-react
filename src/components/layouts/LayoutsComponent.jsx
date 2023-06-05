@@ -78,9 +78,9 @@ const LayoutsComponent = ({ children }) => {
               label: <Link to="/daftar-pesanan">Daftar Pesanan</Link>,
             },
             {
-              key: "/data-product",
+              key: "/data-produk",
               icon: <Package size={25} />,
-              label: <Link to="/data-product">Data Product</Link>,
+              label: <Link to="/data-produk">Data Product</Link>,
             },
           ]}
         />
