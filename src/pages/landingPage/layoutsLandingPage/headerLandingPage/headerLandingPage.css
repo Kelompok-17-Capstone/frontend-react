@@ -1,0 +1,44 @@
+.header-container{
+    background-color: #264ECA;
+    padding-inline: 250px;
+    position: relative;
+    height: auto;
+    padding-block: 10px;
+}
+.container-img {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100px;
+}
+.logo-alta{
+    text-align: center;
+    margin-left: 15px;
+    width: 35px;
+}
+.text-alta{
+    width: 65px;
+}
+
+.container-img img {
+    margin-bottom: 10px;
+    display: inline-block;
+}
+.list-container {
+    text-align: center;
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list li {
+    display: inline-block;
+    margin-right: 10px; 
+}
+.header.content{
+    display: flex;
+    align-items: center;
+}
