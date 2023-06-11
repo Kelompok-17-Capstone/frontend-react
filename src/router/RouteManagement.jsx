@@ -7,6 +7,8 @@ import DataUser from '../pages/dataUser/DataUser';
 import DataProduk from '../pages/dataProduk/DataProduk';
 import DaftarPesanan from '../pages/daftarPesanan/DaftarPesanan';
 import LandingPage from '../pages/landingPage/LandingPage';
+import EditPemesanan from '../pages/daftarPesanan/editPesanan/EditPesanan';
+
 
 const RouteManagement = () => {
     const token = localStorage.getItem('token');
@@ -30,6 +32,7 @@ const RouteManagement = () => {
                         <Route path="/data-user" element={<LayoutsComponent><DataUser /></LayoutsComponent>} />
                         <Route path="/daftar-pesanan" element={<LayoutsComponent><DaftarPesanan /></LayoutsComponent>} />
                         <Route path="/data-produk" element={<LayoutsComponent><DataProduk /></LayoutsComponent>} />
+                        <Route path="/edit-pemesanan" element={<LayoutsComponent><EditPemesanan/></LayoutsComponent>} />
                     </React.Fragment>
                 )}
                 <Route path="*" element={<Navigate to="/" />} />
