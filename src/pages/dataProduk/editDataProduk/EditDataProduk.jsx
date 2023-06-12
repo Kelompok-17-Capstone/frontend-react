@@ -1,22 +1,14 @@
 import React, { useState } from "react";
-import {
-  Form,
-  Input,
-
-  Radio,
-  Button,
-  
-  Modal,
-} from "antd";
+import { Form, Input, Radio, Button, Modal } from "antd";
 import { PlusOutlined, MinusOutlined, UploadOutlined } from "@ant-design/icons";
 import "./editDataProduk.css";
-
 
 const EditDataProduk = () => {
   const [componentSize, setComponentSize] = useState("default");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
   const [uploadedFile, setUploadedFile] = useState(null);
+  const [jumlahProduk, setJumlahProduk] = useState(0);
 
   const onFormLayoutChange = ({ size }) => {
     setComponentSize(size);
@@ -34,19 +26,19 @@ const EditDataProduk = () => {
   const handleModalCancel = () => {
     setIsModalVisible(false);
   };
-const [jumlahProduk, setJumlahProduk] = useState(0);
+
   const onFinish = (values) => {
     const formValues = Object.values(values);
     const isFormEmpty = formValues.some(
       (value) => value === undefined || value === ""
     );
-
+    // Handle form submission
   };
 
-const handleFileUpload = (event) => {
-  const file = event.target.files[0];
-  setUploadedFile(file);
-};
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    setUploadedFile(file);
+  };
 
   return (
     <div className="bro">
@@ -87,9 +79,7 @@ const handleFileUpload = (event) => {
           label="Jumlah Produk"
           className="form-item-label"
           name="jumlahProduk">
-          <div
-            className="Jumlahproduk"
-            style={{ display: "flex", width: "17%", justifyContent:"center",alignItems: "center" }}>
+          <div className="Jumlahproduk">
             <Button
               type="text"
               icon={<MinusOutlined className="minus-icon" />}
@@ -102,7 +92,6 @@ const handleFileUpload = (event) => {
             />
             <Input
               className="input-number"
-              style={{ alignItems: "center" }}
               placeholder="0"
               value={jumlahProduk}
               min={0}
@@ -145,21 +134,10 @@ const handleFileUpload = (event) => {
           className="form-item-label-upload"
           name="fotoProduk">
           <div className="upload-container">
-            <div className="uploadf">
+            <div className="uploadf"  style={{justifyContent:"center"}}>
               {uploadedFile && <span>{uploadedFile.name}</span>}
             </div>
-            <label
-              htmlFor="upload-file-input"
-              className="upload-file-label"
-              style={{
-                backgroundColor: "#00317B",
-                justifyContent: "center",
-                marginLeft: "100px",
-                width: "fit-content",
-                // minWidth: "250px",
-                padding: "20px",
-                color: "#ffffff",
-              }}>
+            <label htmlFor="upload-file-input" className="upload-file-label">
               Upload
               <input
                 id="upload-file-input"
@@ -176,14 +154,10 @@ const handleFileUpload = (event) => {
           className="form-item-label"
           name="statusProduk">
           <Radio.Group>
-            <Radio
-              value="Tersedia"
-              className="radio-container"
-              style={{ marginRight: "1px" }}>
+            <Radio value="Tersedia" className="radio-container">
               Tersedia
             </Radio>
             <Radio value="Habis" className="radio-containerh">
-              {/* style={{ marginRight: "11px" }} */}
               Habis
             </Radio>
           </Radio.Group>

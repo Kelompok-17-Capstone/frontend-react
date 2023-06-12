@@ -8,6 +8,7 @@ const TambahDataProduk = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
   const [uploadedFile, setUploadedFile] = useState(null);
+  const [jumlahProduk, setJumlahProduk] = useState(0);
 
   const onFormLayoutChange = ({ size }) => {
     setComponentSize(size);
@@ -25,12 +26,13 @@ const TambahDataProduk = () => {
   const handleModalCancel = () => {
     setIsModalVisible(false);
   };
-  const [jumlahProduk, setJumlahProduk] = useState(0);
+
   const onFinish = (values) => {
     const formValues = Object.values(values);
     const isFormEmpty = formValues.some(
       (value) => value === undefined || value === ""
     );
+    // Handle form submission
   };
 
   const handleFileUpload = (event) => {
@@ -40,8 +42,12 @@ const TambahDataProduk = () => {
 
   return (
     <div className="bro">
-      <h1 className="judul">Tambah Data Produk</h1>
-      <h3 className="judul1">Masukkan Informasi Produk</h3>
+      <h1 className="judul" style={{ marginBottom: "-3%" }}>
+        Tambah Data Produk
+      </h1>
+      <h3 className="judul1" style={{ marginBottom: "3%" }}>
+        Masukkan Informasi Produk
+      </h3>
       <Form
         form={form}
         labelCol={{ span: 4 }}
@@ -73,9 +79,7 @@ const TambahDataProduk = () => {
           label="Jumlah Produk"
           className="form-item-label"
           name="jumlahProduk">
-          <div
-            className="Jumlahproduk"
-            style={{ display: "flex", width: "17%", alignItems: "center" }}>
+          <div className="Jumlahproduk">
             <Button
               type="text"
               icon={<MinusOutlined className="minus-icon" />}
@@ -88,7 +92,6 @@ const TambahDataProduk = () => {
             />
             <Input
               className="input-number"
-              style={{ alignItems: "center" }}
               placeholder="0"
               value={jumlahProduk}
               min={0}
@@ -134,15 +137,7 @@ const TambahDataProduk = () => {
             <div className="uploadf">
               {uploadedFile && <span>{uploadedFile.name}</span>}
             </div>
-            <label
-              htmlFor="upload-file-input"
-              className="upload-file-label"
-              style={{
-                backgroundColor: "#00317B",
-                width: "50%",
-                height: "10",
-                color: "#ffffff",
-              }}>
+            <label htmlFor="upload-file-input" className="upload-file-label">
               Upload
               <input
                 id="upload-file-input"
@@ -159,23 +154,16 @@ const TambahDataProduk = () => {
           className="form-item-label"
           name="statusProduk">
           <Radio.Group>
-            <Radio
-              value="Tersedia"
-              className="radio-container"
-              style={{ marginRight: "1px" }}>
+            <Radio value="Tersedia" className="radio-container">
               Tersedia
             </Radio>
-            <Radio
-              value="Habis"
-              className="radio-container"
-              style={{ marginRight: "11px" }}>
-              {/* style={{ marginRight: "11px" }} */}
+            <Radio value="Habis" className="radio-containerh">
               Habis
             </Radio>
           </Radio.Group>
         </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 12, span: 40 }}>
+        <Form.Item wrapperCol={{ offset: 12, span: 70 }}>
           <div className="button-container">
             <Button onClick={showModal} className="cancel-button">
               Cancel

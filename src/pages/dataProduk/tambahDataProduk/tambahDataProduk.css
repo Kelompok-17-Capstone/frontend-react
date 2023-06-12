@@ -1,5 +1,174 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
+.bro {
+  font-weight: bold;
+}
+
+.judul {
+  position: relative;
+  left: 400px;
+  color: black;
+}
+
+.judul1 {
+  position: relative;
+  font-size: 30px;
+  left: 95px;
+  margin-bottom: 5%;
+  margin-top: 5%;
+}
+
+.button-container {
+  display: flex;
+  justify-content: baseline;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.save-button {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  width: 165px;
+  height: 44px;
+  background: #007b1b;
+  border-radius: 4px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-right: 42%;
+   justify-content: center;
+}
+
+.cancel-button {
+  display: flex;
+  width: 165px;
+  height: 44px;
+  color: #999999;
+  background-color: transparent;
+  border-radius: 4px;
+  font-weight: bold;
+  margin-right: 2%;
+  align-items: center;
+  padding: 8px;
+  justify-content: center;
+}
+
+.radio-container {
+  border: 3px solid #00317B;
+  border-radius: 7px;
+  margin-left: 50px;
+  padding: 10px;
+}
+
+.radio-containerh {
+  border: 3px solid #00317B;
+  border-radius: 7px;
+  margin-left: 20px;
+  padding: 10px;
+}
+
+.Deskripsis {
+  background-color: #fcfcfc;
+  border: 1px solid #00317B;
+  padding: 10% 10% 10% 10px;
+    margin-left: 50px;
+}
+
+.nama-produk {
+  background-color: #fcfcfc;
+  border: 1px solid #00317B;
+  margin-left: 50px;
+}
+
+.produk {
+  background-color: #fcfcfc;
+  border: 1px solid #00317B;
+  margin-left: 50px;
+}
+
+.upload-container {
+  display: flex;
+  justify-content: center;
+  width: fit-content;
+  border: 1px solid #00317B;
+  border-radius: 7px;
+  padding: 5px;
+}
+
+.form-item-label-upload {
+  align-items: center;
+  margin-top: 5px;
+  font-weight: 900;
+  margin-left: 50px;
+}
+
+.upload-file-label {
+  display: flex;
+  cursor: pointer;
+  justify-content:center;
+  align-items:end;
+  background-color: #00317B;
+  width: 80px;
+  height: 40px;
+  border-radius: 5px;
+   margin-left: 50px;
+  color: #ffffff;
+}
+
+.uploadf {
+  width: max-content;
+  font-family: 'Poppins', sans-serif;
+  padding: 5px;
+    margin-left: 50px;
+}
+
+.upload-file-input {
+  margin-left: 50px;
+}
+
+.minus-button,
+.plus-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15px;
+  height: 20px;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+.minus-button:hover,
+.plus-button:hover {
+  background-color: #fcfcfc;
+}
+
+.minus-icon,
+.plus-icon {
+  font-size: 16px;
+}
+
+.plus-icon {
+  color: #969696;
+}
+
+.minus-icon {
+  color: #969696;
+}
+
+.input-number {
+  width: 40%;
+  text-align: center;
+  background-color: #ffffff;
+}
+
+.Jumlahproduk {
+  background-color: #ffffff;
+  padding: 10px;
+  border: 1px solid #00317B;
+  border-radius: 7px;
+  margin-left: 50px;
+}
+
 @media screen and (min-width: 1024px) {
   /* Aturan CSS untuk layar besar di atas 1023px */
   .container {
@@ -19,195 +188,17 @@
     float: right;
   }
 }
+
 .form-item-label {
   font-weight: 900;
-  /* margin-right: 100%; */
   font-family: 'Poppins', sans-serif;
- 
+  /* margin-left: 50px; */
 }
 
 .form-item-label-harga {
   font-weight: 900;
- border: 1px solid #00317B;
- border-radius: 7%;
-  margin-left: 50px;
+  border: 1px solid #00317B;
+  border-radius: 7%;
+  /* margin-left: 50px; */
   font-family: 'Poppins', sans-serif;
 }
-
-.bro {
-  font-weight: bold;
-}
-
-.judul {
-  position: relative;
-  left: 400px;
-  color: black;
-}
-
-.judul1 {
-  position: relative;
-  font-size: 30px;
-  left: 95px;
-  margin-bottom: 13px;
-  margin-top: 5%;
-}
-
-.button-container {
-  display: flex;
-  justify-content:baseline;
-  align-items: center;
-  margin-top: 16px;
-}
-
-.save-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 8px;
-  /* gap: 10px; */
-  width: 165px;
-  height: 44px;
-  background: #007b1b;
-  border-radius: 4px;
-  font-weight: bold;
-  color: #ffffff;
-  margin-right: 42%;
-  
-}
-
-.cancel-button {
-  display: flex;
-  /* justify-content: center;
-  align-items: center; */
-  /* padding: 8px; */
-  /* gap: 10px; */
-  width: 165px;
-  height: 44px;
-  color: #999999;
-  background-color: transparent;
-  border-radius: 4px;
-  /* right: 250px; */
-  font-weight: bold;
-  /* margin-block-end: auto; */
-
-}
-
-.radio-container{
-  /* display: grid; */
-border: 3px solid #00317B;
-border-radius: 7px;
-margin-left: 50px;
-margin-right: 100px;
-padding-left: 5px;
-padding-right: 5px;
-
-}
-.Deskripsis {
-  background-color: #FCFCFC;
-  border: 1px solid #00317B;
-  padding: 10% 10% 10% 10px;
-  margin-left: 50px;
-}
-
-.nama-produk {
-  background-color: #FCFCFC;
-  border: 1px solid #00317B;
-   margin-left: 50px;
-}
-
-.produk {
-  background-color: #FCFCFC;
-  border: 1px solid #00317B;
-   margin-left: 50px;
-}
-
-.upload-container {
-  display: flex;
-  justify-content: center;
-  border: 1px solid #00317B;
-  width: fit-content;
-  min-width: 200px; /* Ukuran minimal */
-  margin-left: 50px;
-  border-radius: 7px;
-  padding: 5px;
-}
-
-.form-item-label-upload {
-  align-items: center;
-  margin-top: 5px;
-  font-weight: 900;
-}
-
-.upload-file-label {
-  display: flex;
-  cursor: pointer;
-  /* padding: 100px; */
-  background-color: #00317B;
-  /* margin-left: 5px; */
-  padding: 5px 5px 5px 5px;
-  justify-content: flex-end;
-}
-
-.uploadf {
-  grid-column: 1 / span 2;
-  /* margin-bottom: 2%; */
-  width: max-content;
-  font-family: 'Poppins', sans-serif;
-  padding: 5px;
-}
-
-.upload-file-input {
-  margin-left: 50px;
-}
-
-
-.minus-button,
-.plus-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 15px;
-  height: 20px;
-  background-color: #ffffff;
-  cursor: pointer;
-
-}
-
-.minus-button:hover,
-.plus-button:hover {
-  background-color: #FCFCFC;
-}
-
-.minus-icon,
-.plus-icon {
-  font-size: 16px;
-}
-
-.plus-icon {
-  color: #969696;
-}
-
-.minus-icon {
-  color: #969696;
-  
-}
-
-.input-number {
-  width: 40%;
-  text-align: center;
-  /* border:1px solid rgb(0, 0, 0);
-  padding: 6px; */
-  background-color: #ffffff;
-  
-}
-
-
-
-  .Jumlahproduk {
-    background-color: #ffffff;
-    padding: 2px;
-    border:1px solid #00317B;
-    border-radius: 7px;
-     margin-left: 50px;
-
-  }
