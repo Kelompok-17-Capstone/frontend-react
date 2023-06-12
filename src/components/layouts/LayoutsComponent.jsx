@@ -22,7 +22,6 @@ const LayoutsComponent = ({ children }) => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-  console.log(collapsed)
   return (
     <Layout>
       <Sider
