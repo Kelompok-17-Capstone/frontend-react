@@ -1,72 +1,74 @@
-.radio-container {
-        border: 1px solid #000;
-        padding: 8px;
-        margin-right: 38px;
-    }
-      
-.bro{
-    font-weight: bold;
+.form-item-label {
+  font-weight: 900;
 }
-.form-kodepos{
-    width: 276px; 
-    background-color: #F5F5F5;
-}
-.judul{
-    position: relative;
-    left: 400px;
-    color: black;
-}
-.judul1{
-    position:relative;
-    font-size: 30px;
-    left: 95px;
-    bottom: 40px;
-}
-.button-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 16px;
-  }
-  
-  .save-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 8px;
-    gap: 10px;
-    width: 165px;
-    height: 44px;
-    background: #007B1B;
-    border-radius: 4px;
-    font-weight: bold;
-  }
-  
-  .cancel-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 8px;
-    gap: 10px;
-    width: 165px;
-    height: 44px;
-    color: #999999;
-    background-color: transparent; 
-    border-radius: 4px;
-    right: 250px;
-    font-weight: bold;
-  }
 
-  .Deskripsis{
-    background-color: #F5F5F5;
-  }
-  .nama-produk{
-    background-color: #F5F5F5;
-  }
-  .produk{
-    background-color: #F5F5F5;
-  }
-  .upload-container {
+.bro {
+  font-weight: bold;
+}
+
+.judul {
+  position: relative;
+  left: 400px;
+  color: black;
+}
+
+.judul1 {
+  position: relative;
+  font-size: 30px;
+  left: 95px;
+  margin-bottom: 13px;
+  margin-top: 5%;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.save-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  gap: 10px;
+  width: 165px;
+  height: 44px;
+  background: #007b1b;
+  border-radius: 4px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.cancel-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  gap: 10px;
+  width: 165px;
+  height: 44px;
+  color: #999999;
+  background-color: transparent;
+  border-radius: 4px;
+  right: 250px;
+  font-weight: bold;
+}
+
+.Deskripsis {
+  background-color: #f5f5f5;
+}
+
+.nama-produk {
+  background-color: #f5f5f5;
+}
+
+.produk {
+  background-color: #f5f5f5;
+}
+
+.upload-container {
   display: flex;
   align-items: center;
   margin-top: 16px;
@@ -80,7 +82,7 @@
   gap: 10px;
   width: 165px;
   height: 44px;
-  background: #007B1B;
+  background: #007b1b;
   border-radius: 4px;
   font-weight: bold;
   color: #ffffff;
@@ -93,7 +95,46 @@
 .upload-file-label {
   cursor: pointer;
   padding: 8px 16px;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   border: 1px solid #000000;
   border-radius: 4px;
 }
+
+.minus-button,
+.plus-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  background-color: #FCFCFC;
+  border: 1px solid #FCFCFC;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.minus-button:hover,
+.plus-button:hover {
+  background-color: #FCFCFC;
+}
+
+.minus-icon,
+.plus-icon {
+  font-size: 16px;
+}
+
+.plus-icon {
+  color: #000000;
+}
+
+.minus-icon {
+  color: #000000;
+}
+
+.input-number {
+  width: 100%;
+  text-align: center;
+  border:1px solid rgb(0, 0, 0);
+  background-color: #FCFCFC;
+}
+

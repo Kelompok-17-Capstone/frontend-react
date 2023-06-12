@@ -13,7 +13,7 @@ import {
 import { PlusOutlined, MinusOutlined, UploadOutlined } from "@ant-design/icons";
 import "./tambahDataProduk.css";
 
-const App = () => {
+const TambahDataProduk = () => {
   const [componentSize, setComponentSize] = useState("default");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
@@ -91,44 +91,44 @@ const App = () => {
           </Col>
         </Row>
 
-        <Form.Item label="Jumlah Produk" name="jumlahProduk">
-          <InputNumber
-            placeholder="0"
-            min={0}
-            max={500}
-            formatter={(value) =>
-              `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-            }
-            parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
-            style={{ width: "23%" }}
-            step={1}
-            addonAfter={
-              <Button
-                type="text"
-                icon={<PlusOutlined />}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  const currentValue = form.getFieldValue("jumlahProduk");
-                  form.setFieldsValue({
-                    jumlahProduk: currentValue + 1,
-                  });
-                }}
-              />
-            }
-            addonBefore={
-              <Button
-                type="text"
-                icon={<MinusOutlined />}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  const currentValue = form.getFieldValue("jumlahProduk");
-                  form.setFieldsValue({
-                    jumlahProduk: currentValue - 1,
-                  });
-                }}
-              />
-            }
-          />
+        <Form.Item
+          label="Jumlah Produk"
+          className="form-item-label"
+          name="jumlahProduk">
+          <div style={{ display: "flex", width: "20%", alignItems: "center" }}>
+            <Button
+              type="text"
+              icon={<MinusOutlined className="minus-icon" />}
+              onClick={() => {
+                if (jumlahProduk > 0) {
+                  setJumlahProduk(jumlahProduk - 1);
+                }
+              }}
+              className="minus-button"
+            />
+            <Input
+              className="input-number"
+              placeholder="0"
+              value={jumlahProduk}
+              min={0}
+              max={500}
+              formatter={(value) =>
+                `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+              }
+              parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+              step={1}
+            />
+            <Button
+              type="text"
+              icon={<PlusOutlined className="plus-icon" />}
+              onClick={() => {
+                if (jumlahProduk < 500) {
+                  setJumlahProduk(jumlahProduk + 1);
+                }
+              }}
+              className="plus-button"
+            />
+          </div>
         </Form.Item>
 
         <Form.Item label="Harga Produk" name="hargaProduk">
