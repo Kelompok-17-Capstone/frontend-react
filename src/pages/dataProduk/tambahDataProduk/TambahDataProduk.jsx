@@ -1,15 +1,5 @@
 import React, { useState } from "react";
-import {
-  Form,
-  Input,
-  InputNumber,
-  Radio,
-  Button,
-  message,
-  Col,
-  Row,
-  Modal,
-} from "antd";
+import { Form, Input, Radio, Button, Modal } from "antd";
 import { PlusOutlined, MinusOutlined, UploadOutlined } from "@ant-design/icons";
 import "./tambahDataProduk.css";
 
@@ -35,23 +25,12 @@ const TambahDataProduk = () => {
   const handleModalCancel = () => {
     setIsModalVisible(false);
   };
-
+  const [jumlahProduk, setJumlahProduk] = useState(0);
   const onFinish = (values) => {
     const formValues = Object.values(values);
     const isFormEmpty = formValues.some(
       (value) => value === undefined || value === ""
     );
-
-    if (isFormEmpty) {
-      message.error("Gagal mengirim. Pastikan semua form telah diisi.");
-    } else {
-      const { waktuPesan, waktuSampai } = values;
-      if (waktuPesan && waktuSampai && waktuPesan.isAfter(waktuSampai)) {
-        message.error("Waktu pesan tidak boleh lebih besar dari waktu sampai.");
-      } else {
-        message.success("Form berhasil dikirim!");
-      }
-    }
   };
 
   const handleFileUpload = (event) => {
@@ -73,29 +52,30 @@ const TambahDataProduk = () => {
         size={componentSize}
         style={{ maxWidth: 1400 }}
         onFinish={onFinish}>
-        <Form.Item label="Nama Produk" name="namaProduk">
+        <Form.Item
+          label="Nama Produk"
+          className="form-item-label"
+          name="namaProduk">
           <Input placeholder="Keyboard" className="nama-produk" />
         </Form.Item>
 
-        <Row>
-          <Col span={12} pull={8}>
-            <Form.Item
-              label="Deskripsi"
-              className="Deskripsi"
-              name="deskripsiProduk">
-              <Input.TextArea
-                placeholder="Deskripsi Produk"
-                className="Deskripsis"
-              />
-            </Form.Item>
-          </Col>
-        </Row>
+        <Form.Item
+          label="Deskripsi"
+          className="form-item-label"
+          name="deskripsiProduk">
+          <Input.TextArea
+            placeholder="Deskripsi Produk"
+            className="Deskripsis"
+          />
+        </Form.Item>
 
         <Form.Item
           label="Jumlah Produk"
           className="form-item-label"
           name="jumlahProduk">
-          <div style={{ display: "flex", width: "20%", alignItems: "center" }}>
+          <div
+            className="Jumlahproduk"
+            style={{ display: "flex", width: "17%", alignItems: "center" }}>
             <Button
               type="text"
               icon={<MinusOutlined className="minus-icon" />}
@@ -108,6 +88,7 @@ const TambahDataProduk = () => {
             />
             <Input
               className="input-number"
+              style={{ alignItems: "center" }}
               placeholder="0"
               value={jumlahProduk}
               min={0}
@@ -131,38 +112,67 @@ const TambahDataProduk = () => {
           </div>
         </Form.Item>
 
-        <Form.Item label="Harga Produk" name="hargaProduk">
+        <Form.Item
+          label="Harga Produk"
+          className="form-item-label"
+          name="hargaProduk">
           <Input
-            addonBefore={<span style={{ fontWeight: "bold" }}>RP</span>}
+            className="form-item-label-harga"
+            addonBefore={
+              <span style={{ fontWeight: "bold", color: "#ffffff" }}>RP</span>
+            }
             placeholder="100000"
-            style={{ backgroundColor: "#D9D5D5", width: "25%" }}
+            style={{ backgroundColor: "#00317B", width: "25%" }}
           />
         </Form.Item>
 
-        <Form.Item label="Status Produk" name="statusProduk">
+        <Form.Item
+          label="Upload Foto Produk"
+          className="form-item-label-upload"
+          name="fotoProduk">
+          <div className="upload-container">
+            <div className="uploadf">
+              {uploadedFile && <span>{uploadedFile.name}</span>}
+            </div>
+            <label
+              htmlFor="upload-file-input"
+              className="upload-file-label"
+              style={{
+                backgroundColor: "#00317B",
+                width: "50%",
+                height: "10",
+                color: "#ffffff",
+              }}>
+              Upload
+              <input
+                id="upload-file-input"
+                type="file"
+                onChange={handleFileUpload}
+                style={{ display: "none" }}
+              />
+            </label>
+          </div>
+        </Form.Item>
+
+        <Form.Item
+          label="Status Produk"
+          className="form-item-label"
+          name="statusProduk">
           <Radio.Group>
-            <Radio value="Tersedia" className="radio-container">
+            <Radio
+              value="Tersedia"
+              className="radio-container"
+              style={{ marginRight: "1px" }}>
               Tersedia
             </Radio>
-            <Radio value="Habis" className="radio-container">
+            <Radio
+              value="Habis"
+              className="radio-container"
+              style={{ marginRight: "11px" }}>
+              {/* style={{ marginRight: "11px" }} */}
               Habis
             </Radio>
           </Radio.Group>
-        </Form.Item>
-
-        <Form.Item label="Upload Foto Produk" name="fotoProduk">
-          <div className="upload-container">
-            <input
-              type="file"
-              id="upload-file-input"
-              className="upload-file-input"
-              onChange={handleFileUpload}
-            />
-            <label htmlFor="upload-file-input" className="upload-file-label">
-              <UploadOutlined /> Pilih File
-            </label>
-            {uploadedFile && <span>{uploadedFile.name}</span>}
-          </div>
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 12, span: 40 }}>
