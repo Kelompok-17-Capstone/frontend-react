@@ -79,7 +79,14 @@ const TambahDataProduk = () => {
           label="Jumlah Produk"
           className="form-item-label"
           name="jumlahProduk">
-          <div className="Jumlahproduk">
+          <div
+            className="Jumlahproduk"
+            style={{
+              display: "flex",
+              width: "17%",
+              justifyContent: "center",
+              alignItems: "center",
+            }}>
             <Button
               type="text"
               icon={<MinusOutlined className="minus-icon" />}
@@ -92,6 +99,7 @@ const TambahDataProduk = () => {
             />
             <Input
               className="input-number"
+              style={{ alignItems: "center" }}
               placeholder="0"
               value={jumlahProduk}
               min={0}
@@ -134,7 +142,7 @@ const TambahDataProduk = () => {
           className="form-item-label-upload"
           name="fotoProduk">
           <div className="upload-container">
-            <div className="uploadf">
+            <div className="uploadf" style={{ justifyContent: "center" }}>
               {uploadedFile && <span>{uploadedFile.name}</span>}
             </div>
             <label htmlFor="upload-file-input" className="upload-file-label">
