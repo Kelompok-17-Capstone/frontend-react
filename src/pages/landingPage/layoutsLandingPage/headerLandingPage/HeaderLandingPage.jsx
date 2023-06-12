@@ -1,28 +1,26 @@
-import { Col, Layout, Row } from "antd";
 import React from "react";
 import "./headerLandingPage.css";
 import { AltaTech, LogoHeader } from "../../../../assets";
+import { MENU_ITEM } from "./constants";
 
 const HeaderLandingPage = () => {
-  const { Header } = Layout;
   return (
     <div>
-        <Header className='header-container'>
             <div className="header-content">
                 <div className="container-img">
                     <img src={LogoHeader} alt="Logo Alta" className='logo-alta' />
                     <img src={AltaTech} alt="" className='text-alta' />
                 </div>
-                <div className="list-container">
                     <ul className="list">
-                        <li>Tentang Kami</li>
-                        <li>Beli Sekarang</li>
-                        <li>Membership</li>
-                        <li>Download</li>
+                        {MENU_ITEM.map((item) => (
+                            <li key={item.key}>
+                                <a href="">
+                                    {item.label}
+                                </a>
+                            </li>
+                        ))}
                     </ul>
-                </div>
             </div>
-        </Header>
 
     </div>
   );
