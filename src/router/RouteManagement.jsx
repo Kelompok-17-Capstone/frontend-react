@@ -14,7 +14,6 @@ const RouteManagement = () => {
                     <Route path='/' element={<LoginPage/>}/>
                     <Route path='/dashboard' element={<Dashboard/>}/>
                     <Route path='/data-user' element={<DataUser/>}/>
-                    <Route path='/edit-user' element={<EditUser/>}/>
                 </Routes>    
             </LayoutsComponent>   
         </>

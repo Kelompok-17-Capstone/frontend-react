@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const baseAPI = axios.create({
-  baseURL: "https://documenter.getpostman.com/view/27665493/2s93m7XMnc",
+  baseURL: "",
 });
 
 export const sheetDBAPI = axios.create({

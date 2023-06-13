@@ -31,11 +31,6 @@ const DataUser = () => {
       key: "email",
     },
     {
-      title: "Gender",
-      dataIndex: "gender",
-      key: "gender",
-    },
-    {
       title: "No Telepon",
       dataIndex: "noTelepon",
       key: "noTelepon",
