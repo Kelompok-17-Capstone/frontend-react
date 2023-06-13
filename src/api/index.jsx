@@ -3,10 +3,10 @@ import { baseAPI, sheetDBAPI } from "../config/apiService";
 export const api = {
   // API Auth
   register: (body) => {
-    return sheetDBAPI.post(`?sheet=profile`, body);
+    return sheetDBAPI.post(`?sheet=`, body);
   },
   getProfile: () => {
-    return sheetDBAPI.get(`?sheet=profile`);
+    return sheetDBAPI.get(`?sheet=`);
   },
 
   // API Users
@@ -18,21 +18,16 @@ export const api = {
     return baseAPI.get(`/users/${id}`);
   },
 
-  // API Biodata
-  getBiodata: () => {
-    return baseAPI.get(`/biodatas`);
+  updateUsers: (id, body) => {
+    return baseAPI.put(`/users/${id}`, body);
   },
-  getBiodataById: (id) => {
-    return baseAPI.get(`/biodatas/${id}`);
+
+  deleteUsers: (id) => {
+    return baseAPI.delete(`/users/${id}`);
   },
-  createBiodata: (body) => {
-    return baseAPI.post(`/biodatas`, body);
-  },
-  updateBiodata: (id, body) => {
-    return baseAPI.put(`/biodatas/${id}`, body);
-  },
-  deleteBiodata: (id) => {
-    return baseAPI.delete(`/biodatas/${id}`);
-  },
+
+  // createBiodata: (body) => {
+  //   return baseAPI.post(`/biodatas`, body);
+  // },
 
 };

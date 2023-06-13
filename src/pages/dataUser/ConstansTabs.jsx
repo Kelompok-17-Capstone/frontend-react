@@ -1,17 +1,14 @@
 export const ITEMS = [
   {
-    key: '1',
+    key: 'dataUser',
     label: `Data User`,
-    // children: `Content of Tab Pane 1`,
   },
   {
-    key: '2',
+    key: 'dataMember',
     label: `Data Member`,
-    // children: `Content of Tab Pane 2`,
   },
   {
-    key: '3',
+    key: 'dataRegulerr',
     label: `Data Reguler`,
-    // children: `Content of Tab Pane 3`,
   },
 ];

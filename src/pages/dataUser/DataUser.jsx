@@ -1,14 +1,11 @@
-import { Form, Popconfirm, Space, Table, Tabs, Input } from "antd";
+import { Popconfirm, Space, Table, Tabs, Input } from "antd";
 import React, { useEffect, useState } from "react";
 import { INITIAL_TABLE_DATA } from "./constants";
 import {
-  useDeleteBiodata,
-  useGetBiodata,
-  useUpdateBiodata,
-} from "./hooks/useBiodatas";
-import Gap from "../../components/gap/Gap";
+  useDeleteUser,
+  useGetUser,
+} from "./hooks/useUsers";
 import { ITEMS } from "./ConstansTabs";
-import EditUser from "./EditUser";
 import Edit from "../../assets/icons/Edit.png";
 import Delete from "../../assets/icons/Delete.png";
 import Background from "../../assets/images/BackgroundDataUser.png";
@@ -16,10 +13,8 @@ import Background from "../../assets/images/BackgroundDataUser.png";
 const DataUser = () => {
   const { Search } = Input;
 
-  const [formBio] = Form.useForm();
-  const [isLoadingBiodata, biodata, getBiodata] = useGetBiodata();
-  const [isLoadingUpdateBiodata, updateBiodata] = useUpdateBiodata();
-  const [isLoadingDeleteBiodata, deleteBiodata] = useDeleteBiodata();
+  const [isLoadingUser, user, getUser] = useGetUser();
+  const [isLoadingDeleteUser, deleteUser] = useDeleteUser();
 
   const [rowData, setRowData] = useState();
   const [isEdit, setIsEdit] = useState(false);
@@ -51,18 +46,24 @@ const DataUser = () => {
       key: "alamat",
     },
     {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+    },
+    {
       title: "Action",
       dataIndex: "action",
       render: (_, record) =>
         INITIAL_TABLE_DATA.length >= 1 ? (
           <Space>
-            <a>
+            <a href="/edit-user">
               <img
                 src={Edit}
                 alt="Edit"
                 onClick={() => handleEdit(record)}
               ></img>
             </a>
+
             <Popconfirm
               title="Yakin mau dihapus?"
               arrow={false}
@@ -84,31 +85,15 @@ const DataUser = () => {
     window.scrollTo(0, 0);
   };
 
-  //   to handle cancel button
-  const handleCancel = () => {
-    setRowData();
-    setIsEdit(false);
-    formBio.resetFields();
-  };
-
   //   Delete Data from table
   const onDelete = (row_id) => {
-    deleteBiodata(row_id, () => {
-      getBiodata();
-    });
-  };
-
-  //   Edit Data from table
-  const onEdit = (values) => {
-    const id = rowData?.id;
-    updateBiodata(id, values, () => {
-      getBiodata();
-      handleCancel();
+    deleteUser(row_id, () => {
+      getUser();
     });
   };
 
   useEffect(() => {
-    getBiodata();
+    getUser();
   }, []);
 
   const onChange = (key) => {
@@ -117,29 +102,27 @@ const DataUser = () => {
 
   const onSearch = (value) => console.log(value);
 
-  const Pencarian = () => {
-    <Space direction="vertical">
+  return (
+    <>
+      <Tabs defaultActiveKey="1" items={ITEMS} onChange={onChange} />
+
+      <Space direction="vertical">
       <Search
         placeholder="Search 'Data Pesanan'"
         allowClear
         onSearch={onSearch}
         style={{
-          width: 200,
+          width: 300,
         }}
       />
-    </Space>;
-  };
-
-  return (
-    <>
-      <Tabs defaultActiveKey="1" items={ITEMS} onChange={onChange} />
+    </Space>
 
       {/* Table */}
       <Table
         rowKey="id"
         columns={TABLE_COLUMNS}
-        dataSource={biodata}
-        loading={isLoadingBiodata || isLoadingDeleteBiodata}
+        dataSource={user}
+        loading={isLoadingUser || isLoadingDeleteUser}
       />
     </>
   );

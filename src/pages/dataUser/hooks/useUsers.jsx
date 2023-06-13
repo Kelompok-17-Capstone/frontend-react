@@ -3,13 +3,13 @@ import { api } from "../../../api";
 import { message } from "antd";
 
 // Read Data
-export const useGetBiodata = () => {
+export const useGetUser = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
 
   const getData = useCallback(async () => {
     try {
-      const res = await api.getBiodata();
+      const res = await api.getUser();
       setData(res?.data);
     } catch (err) {
       message.open({
@@ -25,13 +25,13 @@ export const useGetBiodata = () => {
 };
 
 // Create Data
-export const usePostBiodata = () => {
+export const usePostUser = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const createData = useCallback(async (body, onSuccess) => {
     try {
       setIsLoading(true);
-      await api.createBiodata(body);
+      await api.createUser(body);
       onSuccess && onSuccess();
       message.open({
         type: "success",
@@ -52,13 +52,13 @@ export const usePostBiodata = () => {
 };
 
 // Update Data
-export const useUpdateBiodata = () => {
+export const useUpdateUser = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const updateData = useCallback(async (id, body, onSuccess) => {
     try {
       setIsLoading(true);
-      await api.updateBiodata(id, body);
+      await api.updateUser(id, body);
       onSuccess && onSuccess();
       message.open({
         type: "success",
@@ -79,13 +79,13 @@ export const useUpdateBiodata = () => {
 };
 
 // Delete Data
-export const useDeleteBiodata = () => {
+export const useDeleteUser = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const deleteData = useCallback(async (id, onSuccess) => {
     try {
       setIsLoading(true);
-      await api.deleteBiodata(id);
+      await api.deleteUser(id);
       onSuccess && onSuccess();
       message.open({
         type: "success",
