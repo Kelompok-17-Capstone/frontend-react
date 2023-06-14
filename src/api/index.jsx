@@ -1,4 +1,4 @@
-import { baseAPI, sheetDBAPI } from "../config/apiService";
+import { baseAPI, cobaAPI, sheetDBAPI } from "../config/apiService";
 
 export const api = {
   // API Auth
@@ -35,4 +35,10 @@ export const api = {
     return baseAPI.delete(`/biodatas/${id}`);
   },
 
+  // getProduct: () => {
+  //   return cobaAPI.get('/admin/products')
+  // }
+
 };
+
+

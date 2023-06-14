@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Table, Tabs } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { dataPesananTab, dataPesanananHeader, dataProdukHeader, dataProdukTab, dataUserHeader, dataUserTab,  } from './constants';
+// import { useGetBiodata } from '../../hooks/useGetData';
 
 const TableComponent = () => {
     const location = useLocation()
     const currentRoute = location.pathname
+
+
+    // API
+    // const [isLoadingBiodata, biodata, getBiodata] = useGetBiodata();
+    // console.log({biodata})
 
     const getTableColumns = () => {
         if (currentRoute === '/data-produk') {
@@ -29,8 +35,10 @@ const TableComponent = () => {
             return dataPesananTab
         }
     }
-
     const items = getTableTab();
+
+    useEffect(() => {getBiodata()}, [])
+
     return (
         <div>
             <Tabs onChange={onChangeTabs}>
