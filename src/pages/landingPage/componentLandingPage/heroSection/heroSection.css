@@ -65,6 +65,7 @@
 .circleContainer{
     /* border: solid 1px; */
     text-align: center;
+    background-color: #ECEDEF;
 }
 .rowContainer {
     display: flex;
