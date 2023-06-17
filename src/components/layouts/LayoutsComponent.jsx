@@ -44,7 +44,7 @@ const LayoutsComponent = ({ children }) => {
         collapsible
         collapsed={collapsed}
         className="siderLayout"
-        style={{ height: '100vh', left: '0' }}
+        style={{ height: "100vh", left: "0" }}
         width={250}
       >
         {!collapsed && (
@@ -122,9 +122,8 @@ const LayoutsComponent = ({ children }) => {
                 marginTop: "1rem",
               }}
             >
-              <Button onClick={cancelLogout}
-                className="btnCancelLogout"
-              >Kembali Ke Home Page
+              <Button onClick={cancelLogout} className="btnCancelLogout">
+                Kembali Ke Home Page
               </Button>
               <Button
                 type="primary"
@@ -160,7 +159,7 @@ const LayoutsComponent = ({ children }) => {
                 backgroundColor: "#00317B",
                 marginTop: "15px",
                 marginRight: "auto",
-                borderRadius: "0 10px 10px 0"
+                borderRadius: "0 10px 10px 0",
               }}
             />
           )}
@@ -174,8 +173,12 @@ const LayoutsComponent = ({ children }) => {
           >
             <Bell size={20} style={{ marginRight: "10px" }} />
             <Search
-              placeholder="Search..."
-              style={{ width: 200, marginRight: "10px" }}
+              placeholder="input search text"
+              // onSearch={onSearch}
+              style={{
+                width: 200,
+                marginRight: '20px',
+              }}
             />
             <span style={{ marginRight: "10px" }}>Hi, Admin</span>
             <User size={20} />
