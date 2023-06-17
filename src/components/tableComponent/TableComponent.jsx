@@ -37,7 +37,6 @@ const TableComponent = () => {
     }
     const items = getTableTab();
 
-    useEffect(() => {getBiodata()}, [])
 
     return (
         <div>
