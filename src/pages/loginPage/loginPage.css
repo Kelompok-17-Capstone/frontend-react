@@ -69,11 +69,7 @@
 }
 
 /* Additional Styles for Form Inputs */
-.ant-input {
-  height: 50px;
-  font-size: 16px;
-  font-family: "Poppins";
-}
+
 .ant-modal-content {
   font-family: "Poppins", sans-serif;
   height: 250px;
