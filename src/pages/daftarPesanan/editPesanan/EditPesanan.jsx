@@ -17,16 +17,32 @@ import './editPesanan.css';
 const App = () => {
   const [componentSize, setComponentSize] = useState('default');
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
+  const [isFailureModalVisible, setIsFailureModalVisible] = useState(false);
   const [form] = Form.useForm();
 
   const onFormLayoutChange = ({ size }) => {
     setComponentSize(size);
   };
 
+  const showSuccessModal = () => {
+    setIsSuccessModalVisible(true);
+  };
+
+  const showFailureModal = () => {
+    setIsFailureModalVisible(true);
+  };
+
+  const handleSuccessModalConfirm = () => {
+    setIsSuccessModalVisible(false);
+  };
+
+  const handleFailureModalTryAgain = () => {
+    setIsFailureModalVisible(false);
+  };
   const showModal = () => {
     setIsModalVisible(true);
   };
-
   const handleModalOk = () => {
     form.resetFields();
     setIsModalVisible(false);
@@ -41,16 +57,18 @@ const App = () => {
     const isFormEmpty = formValues.some((value) => value === undefined || value === '');
 
     if (isFormEmpty) {
-      message.error('Gagal mengirim. Pastikan semua form telah diisi.');
+      showFailureModal();message.error('Gagal mengirim. Pastikan semua form telah diisi.');
     } else {
       const { waktuPesan, waktuSampai } = values;
       if (waktuPesan && waktuSampai && waktuPesan.isAfter(waktuSampai)) {
-        message.error('Waktu pesan tidak boleh lebih besar dari waktu sampai.');
+        showFailureModal();message.error('Waktu pesan tidak boleh lebih besar dari waktu sampai.');
       } else {
-        message.success('Form berhasil dikirim!');
+        showSuccessModal();message.success('Form berhasil dikirim!');
       }
     }
   };
+  
+
 
   return (
     <div className="bro">
@@ -103,7 +121,6 @@ const App = () => {
             formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
             parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
             style={{ width: '23%'}}
-            step={1}
             addonAfter={
               <Button
                 type="text"
@@ -176,15 +193,49 @@ const App = () => {
 
         <Form.Item wrapperCol={{ offset: 12, span: 40 }}>
           <div className="button-container">
-            <Button type="primary" htmlType="submit" className="save-button">
+          <Button type="primary" htmlType="submit" className="save-button">
               Save
             </Button>
-            <Button onClick={showModal} className="cancel-button">
+            <Button className="cancel-button" onClick={showModal}>
               Cancel
             </Button>
           </div>
         </Form.Item>
       </Form>
+
+      <Modal
+ title={<h2 style={{ textAlign: 'center', fontSize: '42px', color: '#33DF3A', fontFamily : 'Poppins' }}>Success</h2>}
+        open={isSuccessModalVisible}
+        footer={[
+          <Button
+            key="confirm-button"
+            type="primary"
+            className="confirm-button"
+            onClick={handleSuccessModalConfirm}
+          >
+            Confirm
+          </Button>,
+        ]}
+      >
+        <p className="modal-content">Dafar Pesanan Berhasil Diubah</p>
+      </Modal>
+
+      <Modal
+ title={<h2 style={{ textAlign: 'center', fontSize: '42px', color: 'red' , fontFamily : 'Poppins'}}>Failed</h2>}
+  open={isFailureModalVisible}
+  footer={[
+    <Button
+      key="try-again-button"
+      type="primary"
+      className="try-again-button"
+      onClick={handleFailureModalTryAgain}
+    >
+      Try Again
+    </Button>,
+  ]}
+>
+  <p className="modal-content">Daftar Pesanan Gagal Diubah</p>
+</Modal>
 
       <Modal
         title="Konfirmasi"
@@ -194,6 +245,8 @@ const App = () => {
       >
         <p>Anda yakin ingin membatalkan?</p>
       </Modal>
+
+
     </div>
   );
 };
