@@ -59,7 +59,7 @@ const LoginPage = () => {
                 },
               ]}
             >
-              <Input placeholder="Email Address" />
+              <Input placeholder="Email Address" style={{ height: "40px" }}/>
             </Form.Item>
             <p className="name-form">Password</p>
             <Form.Item
@@ -74,6 +74,7 @@ const LoginPage = () => {
               <Input
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
+                style={{ height: "40px" }}
                 suffix={
                   showPassword ? (
                     <EyeSlash onClick={toggleShowPassword} size={16} />
