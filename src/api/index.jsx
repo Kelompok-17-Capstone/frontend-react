@@ -5,6 +5,11 @@ export const api = {
   postLogin: (body) => {
     return altaAPI.post('/login', body);
   },
+
+  // API Product
+  getProduct: () => {
+    return altaAPI.get('/admin/products')
+  }
 };
 
 

@@ -2,16 +2,19 @@ import React, { useEffect } from 'react';
 import { Table, Tabs } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { dataPesananTab, dataPesanananHeader, dataProdukHeader, dataProdukTab, dataUserHeader, dataUserTab,  } from './constants';
-// import { useGetBiodata } from '../../hooks/useGetData';
+import { useGetProduct } from '../../hooks/useGetData';
 
 const TableComponent = () => {
     const location = useLocation()
     const currentRoute = location.pathname
 
 
-    // API
-    // const [isLoadingBiodata, biodata, getBiodata] = useGetBiodata();
-    // console.log({biodata})
+    // API Get Product
+    const [isLoadingProduct, product, getProduct] = useGetProduct();
+    console.log({product})
+
+    // const [rowData, setRowData] = useState();
+    // const [isEdit, setIsEdit] = useState(false);
 
     const getTableColumns = () => {
         if (currentRoute === '/data-produk') {
@@ -45,7 +48,7 @@ const TableComponent = () => {
                     <Tabs.TabPane key={tab.key} tab={tab.tab} />
                 ))}
             </Tabs>
-            <Table columns={columns} />
+            <Table columns={columns} dataSource={product}/>
         </div>
     );
 }
