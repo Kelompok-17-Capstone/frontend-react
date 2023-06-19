@@ -1,13 +1,13 @@
 export const dataProdukHeader = [
     {
         title: "Nama Produk",
-        dataIndex: "namaProduk",
-        key: 'namaProduk'
+        dataIndex: "name",
+        key: 'name'
     },
     {
         title: "Deskripsi",
-        dataIndex: "deskripsi",
-        key: 'deskripsi'
+        dataIndex: "description",
+        key: 'description'
     },
     {
         title: "Kondisi",

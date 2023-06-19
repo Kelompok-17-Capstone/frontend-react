@@ -24,7 +24,7 @@ export const useLogin = () => {
       console.log({ res });
 
       if (res.status === 200) {
-        const token = res.data?.access_token;
+        const token = res.data?.token;
         localStorage.setItem("token", token);
         openModal("success");
         onSuccess && onSuccess();
