@@ -90,6 +90,7 @@ const LoginPage = () => {
                 type="primary"
                 htmlType="submit"
                 className="login-form-button"
+                loading={isLoadingLogin}
               >
                 Log in
               </Button>
