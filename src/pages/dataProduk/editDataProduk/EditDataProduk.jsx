@@ -142,7 +142,7 @@ const EditDataProduk = () => {
           className="form-item-label-upload"
           name="fotoProduk">
           <div className="upload-container">
-            <div className="uploadf" style={{ justifyContent: "center" }}>
+            <div className="upload" style={{ justifyContent: "center" }}>
               {uploadedFile && <span>{uploadedFile.name}</span>}
             </div>
             <label htmlFor="upload-file-input" className="upload-file-label">
@@ -182,12 +182,19 @@ const EditDataProduk = () => {
           </div>
         </Form.Item>
       </Form>
-
       <Modal
         title="Konfirmasi"
-        visible={isModalVisible}
+        open={isModalVisible}
         onOk={handleModalOk}
-        onCancel={handleModalCancel}>
+        onCancel={handleModalCancel}
+        footer={[
+          <Button key="cancel" onClick={handleModalCancel}>
+            Batal
+          </Button>,
+          <Button key="ok" type="primary" onClick={handleModalOk}>
+            Ok
+          </Button>,
+        ]}>
         <p>Anda yakin ingin membatalkan?</p>
       </Modal>
     </div>

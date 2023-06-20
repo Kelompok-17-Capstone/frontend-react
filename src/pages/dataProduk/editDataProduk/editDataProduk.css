@@ -56,16 +56,10 @@
 .radio-container {
   border: 3px solid #00317B;
   border-radius: 7px;
-  margin-left: 50px;
-  padding: 10px;
-}
-
-.radio-containerh {
-  border: 3px solid #00317B;
-  border-radius: 7px;
   margin-left: 20px;
   padding: 10px;
 }
+
 
 .Deskripsis {
   background-color: #fcfcfc;
@@ -93,6 +87,7 @@
   border: 1px solid #00317B;
   border-radius: 7px;
   padding: 5px;
+  margin-left: 1%;
 }
 
 .form-item-label-upload {
@@ -111,7 +106,7 @@
   width: 80px;
   height: 40px;
   border-radius: 5px;
-   /* margin-left: 35px; */
+   /* margin-left: 2px; */
   color: #ffffff;
 }
 
@@ -204,4 +199,11 @@
   border-radius: 7%;
   margin-left: 50px;
   font-family: 'Poppins', sans-serif;
+}
+
+.modal-buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
 }
