@@ -185,7 +185,7 @@ const TambahDataProduk = () => {
 
       <Modal
         title="Konfirmasi"
-        visible={isModalVisible}
+        open={isModalVisible}
         onOk={handleModalOk}
         onCancel={handleModalCancel}>
         <p>Anda yakin ingin membatalkan?</p>
