@@ -1,62 +1,40 @@
 import "./loginPage.css";
 import { useState } from "react";
-import { Button, Input, Checkbox, Form, Card, Modal } from "antd";
-import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Button, Input, Form, Card, Modal } from "antd";
 import { BG_Login } from "../../assets";
-
-
+import { Eye, EyeSlash } from "@phosphor-icons/react";
+import { useLogin } from "./hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
-  const [isFailureModalVisible, setIsFailureModalVisible] = useState(false);
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const showSuccessModal = () => {
-    setIsSuccessModalVisible(true);
-  };
-
-  const showFailureModal = () => {
-    setIsFailureModalVisible(true);
-  };
-
-  const handleSuccessModalConfirm = () => {
-    setIsSuccessModalVisible(false);
-  };
-
-  const handleFailureModalTryAgain = () => {
-    setIsFailureModalVisible(false);
-  };
-
-  const onFinish = (values) => {
-    const { username, password } = values;
-    // Temporary login data for demonstration
-    const validUsername = "admin";
-    const validPassword = "admin";
-
-    if (username === validUsername && password === validPassword) {
-      showSuccessModal();
-    } else {
-      showFailureModal();
-    }
-  };
   const navigate = useNavigate();
 
-  const handleConfirm = () => {
-    localStorage.setItem('token', 'true')
-    navigate('/dashboard');
-  }
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoadingLogin, login, modalVisible, modalContent, closeModal] =
+    useLogin();
+
+  const onLogin = (values) => {
+    login(values, () => {});
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
+  const handleModalConfirm = () => {
+    closeModal();
+    if (modalContent === "success") {
+      navigate("/dashboard");
+    }
+  };
 
   return (
     <div
       className="background-container"
       style={{
         backgroundImage: `url(${BG_Login})`,
-      }}>
+      }}
+    >
       <div className="login-container">
         <Card className="login-card">
           <p className="login-title">Login</p>
@@ -69,17 +47,19 @@ const LoginPage = () => {
             initialValues={{
               remember: true,
             }}
-            onFinish={onFinish}>
+            onFinish={onLogin}
+          >
             <p className="name-form">Email Address</p>
             <Form.Item
-              name="username"
+              name="email"
               rules={[
                 {
                   required: true,
                   message: "Please input your Email Address!",
                 },
-              ]}>
-              <Input placeholder="Email Address" />
+              ]}
+            >
+              <Input placeholder="Email Address" style={{ height: "40px" }}/>
             </Form.Item>
             <p className="name-form">Password</p>
             <Form.Item
@@ -89,61 +69,62 @@ const LoginPage = () => {
                   required: true,
                   message: "Please input your Password!",
                 },
-              ]}>
+              ]}
+            >
               <Input
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
+                style={{ height: "40px" }}
                 suffix={
                   showPassword ? (
-                    <EyeOutlined onClick={togglePasswordVisibility} />
+                    <EyeSlash onClick={toggleShowPassword} size={16} />
                   ) : (
-                    <EyeInvisibleOutlined onClick={togglePasswordVisibility} />
+                    <Eye onClick={toggleShowPassword} size={16} />
                   )
                 }
               />
             </Form.Item>
- 
+
             <Form.Item>
               <Button
                 type="primary"
                 htmlType="submit"
-                className="login-form-button">
+                className="login-form-button"
+                loading={isLoadingLogin}
+              >
                 Log in
               </Button>
             </Form.Item>
           </Form>
         </Card>
       </div>
-
       <Modal
-        title="Login Successful"
-        open={isSuccessModalVisible}
-        footer={[
-            <Button key="confirm-button" type="primary" className="confirm-button" on onClick={handleConfirm}>
+        open={modalVisible}
+        onCancel={closeModal}
+        centered
+        footer={null} // Remove the default footer buttons
+        className="custom-modal"
+      >
+        {modalContent === "success" ? (
+          <>
+            <h3 className="loginSuccessText">Login Success</h3>
+            <p>Welcome to the Dashboard</p>
+            <Button key="confirm" type="primary" onClick={handleModalConfirm} className="btnLoginSuccess">
               Confirm
             </Button>
-        ]}>
-        <p className="modal-content">Welcome To Dashboard Admin</p>
-      </Modal>
-
-      <Modal
-        title="Login Failed"
-        open={isFailureModalVisible}
-        footer={[
-          <Button
-            type="primary"
-            className="try-again-button"
-            onClick={handleFailureModalTryAgain}>
-            Try Again
-          </Button>,
-        ]}>
-        <p className="modal-content">Wrong Email Address / Password</p>
+          </>
+        ) : (
+          <>
+            <h3 className="loginFailedText">Login Failed</h3>
+            <p>Wrong Email Address / Password</p>
+            <Button key="try-again" type="primary" onClick={closeModal} className="btnLoginFailed">
+              Try Again
+            </Button>
+          </>
+        )}
       </Modal>
     </div>
   );
 };
-
-// const mountNode = document.getElementById("root");
-// ReactDOM.render(<LoginPage />, mountNode);
 
 export default LoginPage;

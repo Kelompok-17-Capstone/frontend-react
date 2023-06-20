@@ -1,6 +1,6 @@
 .siderLayout{
     background-color: #00317B !important;
-    height: 100vh;
+    /* height: 100vh; */
 }
 .text-logo{
     color: white;
@@ -36,3 +36,29 @@
   .logout-button span {
     margin-left: 8px;
   }
+  .btnConfirmLogout{
+    width: 500px;
+    margin-top: 5px;
+    font-weight: 500;
+    font-size: 16px;
+    height: 40px;
+    background-color: #EE2E2E;
+  }
+  .btnConfirmLogout:hover{
+    background-color: #d61818 !important;
+  }
+  .btnCancelLogout{
+    width: 500px;
+    border: solid 1px #264ECA;
+    color: #264ECA;
+    font-weight: 500;
+    font-size: 16px;
+    height: 40px;
+  }
+.titleLogout{
+  font-size: 22px;
+  margin-block: 0;
+}
+.bodyLogout{
+  margin-bottom: 30px;
+}

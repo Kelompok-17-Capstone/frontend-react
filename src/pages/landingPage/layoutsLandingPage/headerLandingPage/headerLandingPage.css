@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'Poppins';
+    font-weight: 700;
+    src: url('../../assets/fonts/Poppins-Bold.ttf');
+}
+
 .header-container{
     background-color: #264ECA;
     padding-inline: 250px;
@@ -34,11 +40,29 @@
     margin: 0;
 }
 
-.list li {
-    display: inline-block;
-    margin-right: 10px; 
-}
-.header.content{
+.header-content{
     display: flex;
+    justify-content: center;
     align-items: center;
+    padding: 10px 50px;
+    background-color: #264ECA;
 }
+.logo-alta{
+    width: 45px;
+}
+.list{
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.list li {
+    margin-left: 20px;
+}
+.list li a {
+    color: white;
+    font-family: 'Poppins';
+    font-weight: 700;
+    line-height: 42px;
+}
+
