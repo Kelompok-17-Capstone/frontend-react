@@ -1,13 +1,13 @@
-import { baseAPI, sheetDBAPI } from "../config/apiService";
+import { baseAPI } from "../config/apiService";
 
 export const api = {
   // API Auth
-  register: (body) => {
-    return sheetDBAPI.post(`?sheet=`, body);
-  },
-  getProfile: () => {
-    return sheetDBAPI.get(`?sheet=`);
-  },
+  // register: (body) => {
+  //   return sheetDBAPI.post(`?sheet=`, body);
+  // },
+  // getProfile: () => {
+  //   return sheetDBAPI.get(`?sheet=`);
+  // },
 
   // API Users
   getUsers: () => {

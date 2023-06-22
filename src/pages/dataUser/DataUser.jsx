@@ -1,17 +1,13 @@
-import { Popconfirm, Space, Table, Tabs, Input } from "antd";
+import TableComponent from "../../components/tableComponent/TableComponent";
+import { Popconfirm, Space } from "antd";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { INITIAL_TABLE_DATA } from "./constants";
-import {
-  useDeleteUser,
-  useGetUser,
-} from "./hooks/useUsers";
-import { ITEMS } from "./ConstansTabs";
-import Edit from "../../assets/icons/Edit.png";
-import Delete from "../../assets/icons/Delete.png";
-import Background from "../../assets/images/BackgroundDataUser.png";
+import { useDeleteUser, useGetUser } from "./hooks/useUsers";
+import { Delete, Edit } from "../../assets";
+
 
 const DataUser = () => {
-  const { Search } = Input;
 
   const [isLoadingUser, user, getUser] = useGetUser();
   const [isLoadingDeleteUser, deleteUser] = useDeleteUser();
@@ -56,7 +52,8 @@ const DataUser = () => {
                 src={Edit}
                 alt="Edit"
                 onClick={() => handleEdit(record)}
-              ></img>
+              >
+              </img>
             </a>
 
             <Popconfirm
@@ -91,34 +88,9 @@ const DataUser = () => {
     getUser();
   }, []);
 
-  const onChange = (key) => {
-    console.log(key);
-  };
-
-  const onSearch = (value) => console.log(value);
-
   return (
     <>
-      <Tabs defaultActiveKey="1" items={ITEMS} onChange={onChange} />
-
-      <Space direction="vertical">
-      <Search
-        placeholder="Search 'Data Pesanan'"
-        allowClear
-        onSearch={onSearch}
-        style={{
-          width: 300,
-        }}
-      />
-    </Space>
-
-      {/* Table */}
-      <Table
-        rowKey="id"
-        columns={TABLE_COLUMNS}
-        dataSource={user}
-        loading={isLoadingUser || isLoadingDeleteUser}
-      />
+      <TableComponent />
     </>
   );
 };

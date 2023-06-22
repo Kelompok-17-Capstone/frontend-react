@@ -1,23 +1,46 @@
-import React from 'react';
+import React, { Suspense, useEffect } from 'react';
 import LayoutsComponent from '../components/layouts/LayoutsComponent';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import LoginPage from '../pages/loginPage/LoginPage';
 import Dashboard from '../pages/dashboard/Dashboard';
 import DataUser from '../pages/dataUser/DataUser';
-import EditUser from "../pages/dataUser/EditUser"
+import DataProduk from '../pages/dataProduk/DataProduk';
+import DaftarPesanan from '../pages/daftarPesanan/DaftarPesanan';
+import LandingPage from '../pages/landingPage/LandingPage';
+import EditDataProduk from '../pages/dataProduk/editDataProduk/EditDataProduk';
+import EditUser from '../pages/dataUser/EditUser';
 
 const RouteManagement = () => {
+    const token = localStorage.getItem('token');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (token && window.location.pathname === '/admin') {
+            navigate('/admin');
+        }
+    }, [token, navigate]);
+
     return (
-        <>
-            <LayoutsComponent>
-                <Routes>
-                    <Route path='/' element={<LoginPage/>}/>
-                    <Route path='/dashboard' element={<Dashboard/>}/>
-                    <Route path='/data-user' element={<DataUser/>}/>
-                </Routes>    
-            </LayoutsComponent>   
-        </>
+        <Suspense>
+            <Routes>
+                <Route path="/" element={<LandingPage />} />
+                {!token && <Route path="/admin" element={<LoginPage />} />}
+                {token && (
+                    <React.Fragment>
+                        <Route path="/admin" element={<LayoutsComponent><Dashboard /></LayoutsComponent>} />
+                        <Route path="/dashboard" element={<LayoutsComponent><Dashboard /></LayoutsComponent>} />
+                        <Route path="/data-user" element={<LayoutsComponent><DataUser /></LayoutsComponent>} />
+                        <Route path="/edit-user" element={<LayoutsComponent><EditUser/></LayoutsComponent>}/>
+                        <Route path="/daftar-pesanan" element={<LayoutsComponent><DaftarPesanan /></LayoutsComponent>} />
+                        <Route path="/data-produk" element={<LayoutsComponent><DataProduk /></LayoutsComponent>} />
+                    </React.Fragment>
+                )}
+                <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+        </Suspense>
     );
-}
+};
 
 export default RouteManagement;
+
+

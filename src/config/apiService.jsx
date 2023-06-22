@@ -1,9 +1,9 @@
 import axios from "axios";
+import { BASE_URL } from "../utils";
 
 export const baseAPI = axios.create({
-  baseURL: "",
-});
-
-export const sheetDBAPI = axios.create({
-  baseURL: "",
-});
+  baseURL: BASE_URL.API,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})

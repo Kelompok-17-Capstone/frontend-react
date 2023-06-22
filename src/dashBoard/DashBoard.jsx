@@ -7,7 +7,6 @@ import "./dashBoard.css";
 import { INITIAL_TABLE_DATASS } from "./constans";
 import { INITIAL_TABLE_DATASSS } from "./constans";
 import { PieChart, Pie, Cell, Legend, Tooltip, } from 'recharts';
-
 const data = [
   { name: 'Data 1', value: 30 },
   { name: 'Data 2', value: 50 },
@@ -19,9 +18,10 @@ const PieChartComponent = () => {
   const [datas] = useState(INITIAL_TABLE_DATAS);
   const columns = [
     {
-        dataIndex: 'ICON',
-        key: 'ICON',
+        dataIndex: 'img',
+        key: 'img',
         className:'data1',
+        render: (image) => <img src={image} alt="Gambar" width={20} height={20}/>,
       },
     {
       dataIndex: 'names',
@@ -139,7 +139,6 @@ const columnsss = [
         fill="#8884d8"
         label
       >
-
         {data.map((entry, index) => (
           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
         ))}
@@ -150,7 +149,7 @@ const columnsss = [
     <br />
      <br />
     </Col>
-    <Col span={13} pull={9} className='data3'>
+    <Col span={13} pull={11} className='data3'>
     <a><h1 className='jarak'>Data Produk</h1></a>
     <Table columns={columnsss} dataSource={datasss} />
     </Col>

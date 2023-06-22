@@ -1,26 +1,46 @@
-import { Button, Form, Input, Space, Typography, Radio } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  Space,
+  Typography,
+  Radio,
+  InputNumber,
+  Modal,
+  Row,
+} from "antd";
+import { DownloadOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { useGetUser, useUpdateUser } from "./hooks/useUsers";
 import Gap from "../../components/gap/Gap";
-import Cancel from "../../assets/icons/Cancel.png"
-import Save from "../../assets/icons/Save.png"
+import { Koin, MemberCard, Rp } from "../../assets";
+import { useParams } from "react-router-dom";
 
 const EditUser = () => {
   const { Title } = Typography;
   const { TextArea } = Input;
+  const { name } = useParams();
+  console.log(name);
 
   const [formBio] = Form.useForm();
   const [isLoadingUser, user, getUser] = useGetUser();
   const [isLoadingUpdateUser, updateUser] = useUpdateUser();
 
   const [rowData, setRowData] = useState();
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState(true);
+
+  const [open, setOpen] = useState(false);
+  const [size] = useState("medium");
 
   //   to handle cancel button
   const handleCancel = () => {
     setRowData();
     setIsEdit(false);
     formBio.resetFields();
+  };
+
+  const handleGoBack = () => {
+    history.goBack();
   };
 
   useEffect(() => {
@@ -32,47 +52,40 @@ const EditUser = () => {
       <Title style={{ textAlign: "center" }}>Edit Data User</Title>
       <Title style={{ fontSize: "30px" }}>Informasi Member</Title>
       {/* Form */}
+      <Row></Row>
       <Form
         name="form-bio"
         form={formBio}
         layout="horizontal"
         onFinish={isEdit}
-        style={{
-          width: "600px",
-        }}
         labelAlign="left"
-        labelCol={{
-          span: 4,
-        }}
-        wrapperCol={{
-          span: 14,
-        }}
-        fields={[
-          {
-            name: ["name"],
-            value: rowData?.name,
-          },
-          {
-            name: ["email"],
-            value: rowData?.email,
-          },
-          {
-            name: ["noTelepon"],
-            value: rowData?.noTelepon,
-          },
-          {
-            name: ["alamat"],
-            value: rowData?.alamat,
-          },
-          {
-            name: ["status"],
-            value: rowData?.status,
-          },
-        ]}
+        // fields={[
+        //   {
+        //     name: ["name"],
+        //     value: rowData?.name,
+        //   },
+        //   {
+        //     name: ["email"],
+        //     value: rowData?.email,
+        //   },
+        //   {
+        //     name: ["noTelepon"],
+        //     value: rowData?.noTelepon,
+        //   },
+        //   {
+        //     name: ["alamat"],
+        //     value: rowData?.alamat,
+        //   },
+        //   {
+        //     name: ["status"],
+        //     value: rowData?.status,
+        //   },
+        // ]}
       >
         <Form.Item
           name="name"
           label="Nama User"
+          labelCol={{ span: 3 }}
           rules={[
             {
               required: true,
@@ -80,12 +93,13 @@ const EditUser = () => {
             },
           ]}
         >
-          <Input placeholder="Input your name" />
+          <Input style={{ width: "200px" }} placeholder="Input your name" />
         </Form.Item>
 
         <Form.Item
           name="noTelepon"
           label="No. Telepon"
+          labelCol={{ span: 3 }}
           rules={[
             {
               required: true,
@@ -93,38 +107,51 @@ const EditUser = () => {
             },
           ]}
         >
-          <Input placeholder="Input your No. Telepon" />
+          <Input
+            style={{ width: "200px" }}
+            placeholder="Input your No. Telepon"
+          />
         </Form.Item>
 
-        <Form.Item
-          name="kota"
-          label="Kota"
-          rules={[
-            {
-              required: true,
-              message: "Please input your No. telepon",
-            },
-          ]}
-        >
-          <Input placeholder="Input your No. Telepon" />
-        </Form.Item>
+        <div style={{ display: "flex" }}>
+          <div style={{ flex: 1 }}>
+            <Form.Item
+              name="kota"
+              label="Kota"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your Kota",
+                },
+              ]}
+            >
+              <Input style={{ width: "200px" }} placeholder="Input your Kota" />
+            </Form.Item>
+          </div>
 
-        <Form.Item
-          name="provinsi"
-          label="Provinsi"
-          rules={[
-            {
-              required: true,
-              message: "Please input your No. telepon",
-            },
-          ]}
-        >
-          <Input placeholder="Input your No. Telepon" />
-        </Form.Item>
+          <div style={{ flex: 1 }}>
+            <Form.Item
+              name="provinsi"
+              label="Provinsi"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your Provinsi",
+                },
+              ]}
+            >
+              <Input
+                style={{ width: "200px" }}
+                placeholder="Input your Provinsi"
+              />
+            </Form.Item>
+          </div>
+        </div>
 
         <Form.Item
           name="alamat"
           label="Alamat"
+          labelCol={{ span: 3 }}
           rules={[
             {
               required: true,
@@ -132,8 +159,72 @@ const EditUser = () => {
             },
           ]}
         >
-          <TextArea rows={3} placeholder="Input your address" />
+          <TextArea
+            rows={3}
+            style={{ width: "450px" }}
+            placeholder="Input your Alamat"
+          />
         </Form.Item>
+
+        <div style={{ display: "flex" }}>
+          <div style={{ flex: 1 }}>
+            <Form.Item
+              name="saldo"
+              label="Saldo"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your saldo",
+                },
+              ]}
+            >
+              <InputNumber
+                style={{
+                  width: "150px",
+                  backgroundImage: `url(${Rp})`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "left center",
+                  backgroundSize: "2.5rem",
+                  paddingLeft: "2.5rem",
+                }}
+                placeholder="10.000"
+                formatter={(value) =>
+                  `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                }
+                parser={(value) => value.replace(/\./g, "")}
+              />
+            </Form.Item>
+          </div>
+
+          <div style={{ flex: 1 }}>
+            <Form.Item
+              name="koin"
+              label="Jumlah Koin"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your koin",
+                },
+              ]}
+            >
+              <InputNumber
+                style={{
+                  width: "150px",
+                  backgroundImage: `url(${Koin})`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "left center",
+                  backgroundSize: "2.5rem",
+                  paddingLeft: "2.5rem",
+                }}
+                placeholder="50.000 koin"
+                formatter={(value) =>
+                  `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                }
+                parser={(value) => value.replace(/\./g, "")}
+              />
+            </Form.Item>
+          </div>
+        </div>
 
         <Form.Item
           name="status"
@@ -141,39 +232,101 @@ const EditUser = () => {
           rules={[
             {
               required: true,
-              message: "Please select your gender",
+              message: "Please select your status",
             },
           ]}
         >
           <Radio.Group name="radiogroup" defaultValue={0}>
-            <Radio value={1}>Admin</Radio>
-            <Radio value={2}>Member</Radio>
-            <Radio value={3}>Reguler</Radio>
+            <Space>
+              <Radio
+                value={1}
+                style={{
+                  border: "1px solid black",
+                  borderRadius: "5px",
+                  padding: "5px",
+                }}
+              >
+                Admin
+              </Radio>
+              <Radio
+                value={2}
+                style={{
+                  border: "1px solid black",
+                  borderRadius: "5px",
+                  padding: "5px",
+                }}
+              >
+                Member
+              </Radio>
+              <Radio
+                value={3}
+                style={{
+                  border: "1px solid black",
+                  borderRadius: "5px",
+                  padding: "5px",
+                }}
+              >
+                Reguler
+              </Radio>
+            </Space>
           </Radio.Group>
         </Form.Item>
 
-        {/* {isEdit ? (
+        <Form.Item name="memberCard" label="Member Card">
           <Space>
+            <Button type="primary" onClick={() => setOpen(true)}>
+              Preview
+            </Button>
             <Button
               type="primary"
-              htmlType="submit"
-              loading={isLoadingUpdateUser}
+              icon={<DownloadOutlined />}
+              size={size}
+              href={MemberCard}
+              download
+            />
+            <Modal
+              centered
+              open={open}
+              onOk={() => setOpen(false)}
+              onCancel={() => setOpen(false)}
+              width={2000}
             >
-              <img src={Save} alt="Save" />
-            </Button>
-            <Button type="primary" onClick={handleCancel}>
-              <img src={Cancel} alt="Cancel" />
-            </Button>
+              <img src={MemberCard} alt="Member Card" />
+            </Modal>
           </Space>
-        ) : (
-          <Button
-            type="primary"
-            htmlType="submit"
-            loading={isLoadingUpdateUser}
-          >
-            Submit
-          </Button>
-        )} */}
+        </Form.Item>
+
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          {isEdit ? (
+            <Space>
+              <Button
+                onClick={handleCancel}
+                style={{ width: "100px", height: "40px" }}
+              >
+                Cancel
+              </Button>
+              <Button
+                htmlType="submit"
+                loading={isLoadingUpdateUser}
+                style={{
+                  backgroundColor: "green",
+                  color: "white",
+                  width: "150px",
+                  height: "40px",
+                }}
+              >
+                Save
+              </Button>
+            </Space>
+          ) : (
+            <Button
+              onClick={handleGoBack}
+              style={{ width: "100px", height: "40px" }}
+            >
+              Kembali
+            </Button>
+          )}
+        </div>
       </Form>
     </>
   );
