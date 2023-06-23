@@ -189,7 +189,9 @@ const EditDataProduk = () => {
           </Radio.Group>
         </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 12, span: 70 }}>
+        <Form.Item
+          wrapperCol={{ offset: 12, span: 12 }}
+          style={{ marginTop: "20px" }}>
           <div className="button-container">
             <Button onClick={showModal} className="cancel-button">
               Cancel
@@ -202,17 +204,7 @@ const EditDataProduk = () => {
       </Form>
 
       <Modal
-        title={
-          <h2
-            style={{  
-              textAlign: "center",
-              fontSize: "42px",
-              color: "#33DF3A",
-              fontFamily: "Poppins",
-            }}>
-            Success
-          </h2>
-        }
+        title={<h2 className="modal-title-success">Success</h2>}
         open={isSuccessModalVisible}
         footer={[
           <Button
