@@ -1,0 +1,26 @@
+.headlineContainer{
+    background-color: #ECEDEF;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+.containerTextHeadline{
+    width: 1000px;
+    border: solid 1px orange;
+    margin-top: 20px;
+}
+.textHeadline{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins';
+    font-weight: 700;
+    font-size: 43px;
+}
+.bodyTextHeadline{
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 20px;
+}
+.bodyTextContainer{
+    
+}
