@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Form, Input, Radio, Button, Modal } from "antd";
 import { PlusOutlined, MinusOutlined, UploadOutlined } from "@ant-design/icons";
 import "./editDataProduk.css";
@@ -11,6 +12,7 @@ const EditDataProduk = () => {
   const [jumlahProduk, setJumlahProduk] = useState(0);
   const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
   const [isFailureModalVisible, setIsFailureModalVisible] = useState(false);
+  const [data, setData] = useState(null);
 
   const onFormLayoutChange = ({ size }) => {
     setComponentSize(size);
@@ -45,12 +47,47 @@ const EditDataProduk = () => {
     setIsModalVisible(false);
   };
 
-  const onFinish = (values) => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.VITE_APP_BASE_URL}/api/data`
+      );
+      setData(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const onFinish = async (values) => {
     const formValues = Object.values(values);
     const isFormEmpty = formValues.some(
       (value) => value === undefined || value === ""
     );
-    // Handle form submission
+
+    if (!isFormEmpty) {
+      // Make an API request to save the form data
+      try {
+        // Assuming you have an API endpoint for saving the data
+        const response = await axios.post(
+          `${process.env.VITE_APP_BASE_URL}/api/save`,
+          values
+        );
+
+        // Check the response and show success or failure modal accordingly
+        if (response.data.success) {
+          showSuccessModal();
+        } else {
+          showFailureModal();
+        }
+      } catch (error) {
+        console.error("Error saving data:", error);
+        showFailureModal();
+      }
+    }
   };
 
   const handleFileUpload = (event) => {
@@ -205,7 +242,7 @@ const EditDataProduk = () => {
 
       <Modal
         title={<h2 className="modal-title-success">Success</h2>}
-        open={isSuccessModalVisible}
+        visible={isSuccessModalVisible}
         footer={[
           <Button
             key="confirm-button"
@@ -230,7 +267,7 @@ const EditDataProduk = () => {
             Failed
           </h2>
         }
-        open={isFailureModalVisible}
+        visible={isFailureModalVisible}
         footer={[
           <Button
             key="try-again-button"
@@ -245,7 +282,7 @@ const EditDataProduk = () => {
 
       <Modal
         title="Konfirmasi"
-        open={isModalVisible}
+        visible={isModalVisible}
         onOk={handleModalOk}
         onCancel={handleModalCancel}>
         <p>Anda yakin ingin membatalkan?</p>
