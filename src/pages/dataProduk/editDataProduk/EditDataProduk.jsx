@@ -9,9 +9,27 @@ const EditDataProduk = () => {
   const [form] = Form.useForm();
   const [uploadedFile, setUploadedFile] = useState(null);
   const [jumlahProduk, setJumlahProduk] = useState(0);
+  const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
+  const [isFailureModalVisible, setIsFailureModalVisible] = useState(false);
 
   const onFormLayoutChange = ({ size }) => {
     setComponentSize(size);
+  };
+
+  const showSuccessModal = () => {
+    setIsSuccessModalVisible(true);
+  };
+
+  const showFailureModal = () => {
+    setIsFailureModalVisible(true);
+  };
+
+  const handleSuccessModalConfirm = () => {
+    setIsSuccessModalVisible(false);
+  };
+
+  const handleFailureModalTryAgain = () => {
+    setIsFailureModalVisible(false);
   };
 
   const showModal = () => {
@@ -182,19 +200,62 @@ const EditDataProduk = () => {
           </div>
         </Form.Item>
       </Form>
+
+      <Modal
+        title={
+          <h2
+            style={{  
+              textAlign: "center",
+              fontSize: "42px",
+              color: "#33DF3A",
+              fontFamily: "Poppins",
+            }}>
+            Success
+          </h2>
+        }
+        open={isSuccessModalVisible}
+        footer={[
+          <Button
+            key="confirm-button"
+            type="primary"
+            className="confirm-button"
+            onClick={handleSuccessModalConfirm}>
+            Confirm
+          </Button>,
+        ]}>
+        <p className="modal-content">Daftar Pesanan Berhasil Diubah</p>
+      </Modal>
+
+      <Modal
+        title={
+          <h2
+            style={{
+              textAlign: "center",
+              fontSize: "42px",
+              color: "red",
+              fontFamily: "Poppins",
+            }}>
+            Failed
+          </h2>
+        }
+        open={isFailureModalVisible}
+        footer={[
+          <Button
+            key="try-again-button"
+            type="primary"
+            className="try-again-button"
+            onClick={handleFailureModalTryAgain}>
+            Try Again
+          </Button>,
+        ]}>
+        <p className="modal-content">Daftar Produk Gagal Diubah</p>
+      </Modal>
+
       <Modal
         title="Konfirmasi"
         open={isModalVisible}
         onOk={handleModalOk}
-        onCancel={handleModalCancel}
-        footer={[
-          <Button key="cancel" onClick={handleModalCancel}>
-            Batal
-          </Button>,
-          <Button key="ok" type="primary" onClick={handleModalOk}>
-            Ok
-          </Button>,
-        ]}>
+        onCancel={handleModalCancel}>
         <p>Anda yakin ingin membatalkan?</p>
       </Modal>
     </div>
