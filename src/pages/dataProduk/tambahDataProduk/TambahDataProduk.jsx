@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Input, Radio, Button, Modal } from "antd";
 import { PlusOutlined, MinusOutlined, UploadOutlined } from "@ant-design/icons";
-import "./tambahDataProduk.css";
+import "./TambahDataProduk.css"; // Assuming you want to reuse the same CSS file
 
 const TambahDataProduk = () => {
   const [componentSize, setComponentSize] = useState("default");
@@ -171,7 +171,9 @@ const TambahDataProduk = () => {
           </Radio.Group>
         </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 12, span: 70 }}>
+        <Form.Item
+          wrapperCol={{ offset: 12, span: 12 }}
+          style={{ marginTop: "20px" }}>
           <div className="button-container">
             <Button onClick={showModal} className="cancel-button">
               Cancel
