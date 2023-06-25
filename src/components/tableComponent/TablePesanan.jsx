@@ -1,50 +1,62 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Tabs } from 'antd';
-import { useGetPesanan } from '../../hooks/useGetDataPesanan';
-import { useLocation } from 'react-router-dom';
-
-import { dataPesanananHeader } from './constants';
+import { useGetPesanan, useGetPesananDikemas, useGetPesananDikirim, useGetPesananDiterima } from '../../hooks/useGetDataPesanan';
+import { dataPesananTab, dataPesanananHeader } from './constants';
 
 const TablePesanan = () => {
-  const location = useLocation();
-  const currentRoute = location.pathname;
-  const [currentTab, setCurrentTab] = useState('dataPesanan');
-
+  const [currentTab, setCurrentTab] = useState(dataPesananTab[0].key);
   const [isLoadingPesanan, pesanan, getPesanan] = useGetPesanan();
+  const [isLoadingPesananDikemas, pesananDikemas, getPesananDikemas] = useGetPesananDikemas();
+  const [isLoadingPesananDikirim, pesananDikirim, getPesananDikirim] = useGetPesananDikirim();
+  const [isLoadingPesananDiterima, pesananDiterima, getPesananDiterima] = useGetPesananDiterima();
 
   const onChangeTabs = (key) => {
     setCurrentTab(key);
-  };
-
-  const items = dataPesanananHeader;
-
-  useEffect(() => {
-    setCurrentTab('dataPesanan');
-  }, [currentRoute]);
-
-  useEffect(() => {
-    if (currentRoute === '/daftar-pesanan' && currentTab === 'dataPesanan') {
+    if (key === 'dikemas') {
+      getPesananDikemas();
+    } else if (key === 'dikirim'){
+      getPesananDikirim();
+    } else if (key === 'diterima') {
+      getPesananDiterima();
+    } else {
       getPesanan();
     }
-  }, [currentTab, currentRoute]);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getPesanan();
+      setCurrentTab(dataPesananTab[0].key);
+    };
+
+    fetchData();
+  }, []);
+
+  const items = dataPesananTab;
 
   const tableColumns = dataPesanananHeader;
-  const tableDataSource = currentRoute === '/data-pesanan' && currentTab === 'dataPesanan' ? pesanan : null;
+  const tableDataSource =
+    currentTab === dataPesananTab[0].key
+      ? pesanan
+      : currentTab === dataPesananTab[1].key
+      ? pesananDikemas
+      : currentTab === dataPesananTab[2].key
+      ? pesananDikirim
+      : currentTab === dataPesananTab[3].key
+      ? pesananDiterima
+      : null;
 
   return (
     <div>
       <Tabs activeKey={currentTab} onChange={onChangeTabs}>
         {items.map((tab) => (
-          <Tabs.TabPane key={tab.key} tab={tab.title} />
+          <Tabs.TabPane key={tab.key} tab={tab.tab} />
         ))}
       </Tabs>
-      <Table
-        dataSource={tableDataSource}
-        columns={tableColumns}
-        loading={isLoadingPesanan}
-      />
+      <Table dataSource={tableDataSource} columns={tableColumns} loading={isLoadingPesanan} />
     </div>
   );
 };
+
 
 export default TablePesanan;

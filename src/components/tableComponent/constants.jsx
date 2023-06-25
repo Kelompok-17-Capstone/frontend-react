@@ -165,8 +165,4 @@ export const dataPesananTab = [
         tab: "Diterima",
         key: 'diterima'
     },
-    {
-        tab: "Dibatalkan",
-        key: 'dibatalkan'
-    },
 ]

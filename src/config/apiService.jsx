@@ -21,14 +21,4 @@ const altaAPIWithToken = axios.create({
   },
 })
 
-// altaAPI.interceptors.request.use((config) => {
-//   const token = localStorage.getItem("access_token");
-//   if (token) {
-//     config.headers.Authorization = token;
-//   }
-
-//   return config;
-// });
-
-
 export { altaAPI, altaAPIWithToken };

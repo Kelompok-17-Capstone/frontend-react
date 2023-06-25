@@ -22,30 +22,28 @@ export const api = {
     return altaAPIWithToken.get(`/admin/products?status=${status}`);
   },
   // API Get User
-  getUsers: async () => {
-    try {
-      const response = await altaAPIWithToken.get('/admin/users');
-      console.log(response.data.data); // Log the user data array
-      return response.data.data;
-    } catch (error) {
-      throw new Error(error.message);
-    }
+  getUsers: () => {
+    return altaAPIWithToken.get('/admin/users')
   },
-  getUserMember: () => {
-    return altaAPIWithToken.get('/admin/users?role=member');
-  },
-
-  getUserReguler: () => {
-    return altaAPIWithToken.get('/admin/users?role=reguler');
-  },
-
-  getUserByRole: (role) => {
-    return altaAPIWithToken.get(`/admin/users?role=${role}`);
+  getMember: () => {
+    return altaAPIWithToken.get('/admin/users?role=member')
   },
 
   // API Get Pesanan
   getPesanan: () => {
     return altaAPIWithToken.get('/admin/orders')
+  },
+  getPesananDikemas: () => {
+    return altaAPIWithToken.get('/admin/orders?status=dikemas');
+  },
+  getPesananDikirim: () => {
+    return altaAPIWithToken.get('/admin/orders?status=dikirim');
+  },
+  getPesananDiterima: () => {
+    return altaAPIWithToken.get('/admin/orders?status=diterima')
+  },
+  getPesananByStatus: (status) => {
+    return altaAPIWithToken.get(`/admin/orders?status=${status}`);
   },
 };
 

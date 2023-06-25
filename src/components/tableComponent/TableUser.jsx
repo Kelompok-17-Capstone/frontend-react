@@ -1,68 +1,54 @@
-import { useEffect, useState } from "react";
-import { Table, Tabs, message } from "antd";
-import { useGetUserMember, useGetUserReguler, useGetUsers } from "../../hooks/useGetDataUsers";
+import React, { useEffect, useState } from "react";
+import { Table, Tabs } from "antd";
+import { useGetMember, useGetUsers } from "../../hooks/useGetDataUsers";
 import { dataUserHeader, dataUserTab } from "./constants";
 
 const UserTable = () => {
-  const [isLoadingUsers, users, getUsers] = useGetUsers();
-  const [isLoadingMember, dataMember, getUserMember] = useGetUserMember();
-  const [isLoadingReguler, dataReguler, getUserReguler] = useGetUserReguler();
   const [currentTab, setCurrentTab] = useState(dataUserTab[0].key);
+  const [isLoadingUsers, users, getUsers] = useGetUsers()
+  const [isLoadingMember, member, getMember] = useGetMember()
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (currentTab === "dataUser") {
-          await getUsers();
-        } else if (currentTab === "dataMember") {
-          await getUserMember();
-        } else if (currentTab === "dataReguler") {
-          await getUserReguler();
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        message.error(`${error.message}`);
+
+  const onChangeTabs = (key) => {
+    setCurrentTab(key) 
+      if (key === 'dataMember') {
+        getMember();
+      } else {
+        getUsers();
       }
-    };
-
-    fetchData();
-  }, [currentTab, getUsers, getUserMember, getUserReguler]);
-
-  const handleTabChange = (key) => {
-    setCurrentTab(key);
-  };
-
-  const getDataSource = () => {
-    if (currentTab === "dataUser") {
-      return users;
-    } else if (currentTab === "dataMember") {
-      return dataMember;
-    } else if (currentTab === "dataReguler") {
-      return dataReguler;
     }
-    return [];
-  };
+    useEffect(() => {
+      const fetchData = async () => {
+        await getUsers()
+        setCurrentTab(dataUserTab[0].key)
+      } 
+  
+      fetchData()
+    }, [])
+  
+    const items = dataUserTab;
+  
+    const tableColumns = dataUserHeader;
+    const tableDataSource = 
+      currentTab === dataUserTab[0].key
+        ? users
+        : currentTab === dataUserTab[1].key
+        ? member
+        : null
+  
+        return (
+          <div>
+            <Tabs activeKey={currentTab} onChange={onChangeTabs}>
+              {items.map((tab) => (
+                <Tabs.TabPane key={tab.key} tab={tab.tab}/>
+              ))}
+            </Tabs>
+            <Table dataSource={tableDataSource} columns={tableColumns}/>
+          </div>
+        )
+  }
 
-  return (
-    <div>
-      <Tabs activeKey={currentTab} onChange={handleTabChange}>
-        {dataUserTab.map((tab) => (
-          <Tabs.TabPane key={tab.key} tab={tab.tab} />
-        ))}
-      </Tabs>
-      <Table
-        dataSource={getDataSource()}
-        columns={dataUserHeader}
-        loading={
-          currentTab === "dataUser"
-            ? isLoadingUsers
-            : currentTab === "dataMember"
-            ? isLoadingMember
-            : isLoadingReguler
-        }
-      />
-    </div>
-  );
-};
+
+
 
 export default UserTable;

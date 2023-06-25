@@ -3,55 +3,45 @@ import { api } from "../api";
 import { message } from "antd";
 
 export const useGetUsers = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
+  const [data, setData] = useState([]);
 
   const getUsers = useCallback(async () => {
     try {
       const res = await api.getUsers();
-      setUsers(res?.data?.users);
+      console.log(res?.data?.data?.users || []);
+      setData(res?.data?.data || [])
+      console.log(res)
     } catch (err) {
-      message.error(`${err?.message}`);
+      message.open({
+        type: 'error',
+        content: `${err?.message}`
+      })
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  }, []);
+  }, [])
 
-  return [isLoading, users, getUsers];
+  return [isLoading, data, getUsers]
 };
 
-export const useGetUserMember = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [dataMember, setDataMember] = useState([]);
+export const useGetMember = () => {
+  const [isLoading, setIsLoading] = useState(true)
+  const [data, setData] = useState()
 
-  const getUserMember = useCallback(async () => {
+  const getMember = useCallback(async () => {
     try {
-      const res = await api.getUserByRole('member'); 
-      setDataMember(res?.data?.users);
+      const res = await api.getMember('member')
+      setData(res?.data?.users)
     } catch (err) {
-      message.error(`${err?.message}`);
+      message.open({
+        type: 'error',
+        content: `${err?.message}`
+      })
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  }, []);
+  }, [])
 
-  return [isLoading, dataMember, getUserMember];
-};
-
-export const useGetUserReguler = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [dataReguler, setDataReguler] = useState([]);
-
-  const getUserReguler = useCallback(async () => {
-    try {
-      const res = await api.getUserByRole('reguler'); 
-      setDataReguler(res?.data?.users);
-    } catch (err) {
-      message.error(`${err?.message}`);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  return [isLoading, dataReguler, getUserReguler];
-};
+  return [isLoading, data, getMember]
+}
