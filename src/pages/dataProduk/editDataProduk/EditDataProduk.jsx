@@ -47,16 +47,22 @@ const EditDataProduk = () => {
     setIsModalVisible(false);
   };
 
-const fetchData = async () => {
-  try {
-    const response = await axios.get(
-      "http://localhost:8080/admin/products/b9b1dcd7-ebeb-4ca2-9fd0-7745c3e2d7d9"
-    );
-    setData(response.data);
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-};
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8080/admin/products/b9b1dcd7-ebeb-4ca2-9fd0-7745c3e2d7d9"
+      );
+      setData(response.data);
+      // Set initial form values with fetched data
+      form.setFieldsValue({
+        name: response.data.name,
+        Image: response.data.image,
+      });
+      setJumlahProduk(response.data.jumlahProduk);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   useEffect(() => {
     fetchData();
@@ -95,6 +101,7 @@ const fetchData = async () => {
     setUploadedFile(file);
   };
 
+ 
   return (
     <div className="bro">
       <h1 className="judul" style={{ marginBottom: "-3%" }}>
@@ -117,7 +124,7 @@ const fetchData = async () => {
           label="Nama Produk"
           className="form-item-label"
           name="namaProduk">
-          <Input placeholder="Keyboard" className="nama-produk" />
+          <Input placeholder="Masukan nama produk" className="nama-produk" />
         </Form.Item>
 
         <Form.Item
@@ -187,7 +194,7 @@ const fetchData = async () => {
             addonBefore={
               <span style={{ fontWeight: "bold", color: "#ffffff" }}>RP</span>
             }
-            placeholder="100000"
+            placeholder="000000"
             style={{ backgroundColor: "#00317B", width: "25%" }}
           />
         </Form.Item>
@@ -292,4 +299,3 @@ const fetchData = async () => {
 };
 
 export default EditDataProduk;
-
