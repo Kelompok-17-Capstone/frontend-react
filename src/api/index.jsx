@@ -28,6 +28,9 @@ export const api = {
   getMember: () => {
     return altaAPIWithToken.get('/admin/users?role=member')
   },
+  getReguler: () => {
+    return altaAPIWithToken.get('/admin/users?role=reguler')
+  },
 
   // API Get Pesanan
   getPesanan: () => {

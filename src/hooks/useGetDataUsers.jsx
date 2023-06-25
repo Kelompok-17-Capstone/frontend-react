@@ -32,7 +32,7 @@ export const useGetMember = () => {
   const getMember = useCallback(async () => {
     try {
       const res = await api.getMember('member')
-      setData(res?.data?.users)
+      setData(res?.data?.data)
     } catch (err) {
       message.open({
         type: 'error',
@@ -45,3 +45,26 @@ export const useGetMember = () => {
 
   return [isLoading, data, getMember]
 }
+
+export const useGetReguler = () => {
+  const [isLoading, setIsLoading] = useState(true)
+  const [data, setData] = useState()
+
+  const getReguler = useCallback(async () => {
+    try {
+      const res = await api.getReguler('reguler')
+      setData(res?.data?.data)
+    } catch (err) {
+      message.open({
+        type: 'error',
+        content: `${err?.message}`
+      })
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
+
+  return [isLoading, data, getReguler]
+}
+
+

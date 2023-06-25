@@ -1,3 +1,6 @@
+import { Popconfirm, Space } from "antd"
+import {Trash, NotePencil} from "@phosphor-icons/react"
+
 export const dataProdukHeader = [
     {
         title: "Nama Produk",
@@ -31,9 +34,21 @@ export const dataProdukHeader = [
     },
     {
         title: "Action",
-        dataIndex: "actionProdukHeader",
-        key: 'actionProdukHeader'
-    },
+        dataIndex: "action",
+        render: (_, record) =>
+           (
+            <Space>
+              <a onClick={() => handleEdit(record)}><NotePencil size={20} color="#264eca" /></a>
+              <Popconfirm
+                title="Sure to delete?"
+                arrow={false}
+                // onConfirm={() => onDelete(record.id)}
+              >
+                <a><Trash size={20} color="#ee2e2e" /></a>
+              </Popconfirm>
+            </Space>
+          ) 
+      },
 ]
 
 export const dataUserHeader = [
@@ -64,9 +79,21 @@ export const dataUserHeader = [
     },
     {
         title: "Action",
-        dataIndex: "actionUserHeader",
-        key: 'actionUserHeader'
-    },
+        dataIndex: "action",
+        render: (_, record) =>
+           (
+            <Space>
+              <a onClick={() => handleEdit(record)}><NotePencil size={20} color="#264eca" /></a>
+              <Popconfirm
+                title="Sure to delete?"
+                arrow={false}
+                // onConfirm={() => onDelete(record.id)}
+              >
+                <a><Trash size={20} color="#ee2e2e" /></a>
+              </Popconfirm>
+            </Space>
+          ) 
+      },
 ]
 
 export const dataPesanananHeader = [
@@ -112,9 +139,21 @@ export const dataPesanananHeader = [
     },
     {
         title: "Action",
-        dataIndex: "actionPesananHeader",
-        key: 'actionPesananHeader'
-    },
+        dataIndex: "action",
+        render: (_, record) =>
+           (
+            <Space>
+              <a onClick={() => handleEdit(record)}><NotePencil size={20} color="#264eca" /></a>
+              <Popconfirm
+                title="Sure to delete?"
+                arrow={false}
+                // onConfirm={() => onDelete(record.id)}
+              >
+                <a><Trash size={20} color="#ee2e2e" /></a>
+              </Popconfirm>
+            </Space>
+          ) 
+      },
 ]
 
 // Tabs Constants
