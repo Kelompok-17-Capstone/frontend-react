@@ -1,10 +1,5 @@
-import TableComponent from "../../components/tableComponent/TableComponent";
-import { Space, Modal } from "antd";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { INITIAL_TABLE_DATA } from "./constants";
-import { useDeleteUser, useGetUser } from "./hooks/useUsers";
-import { Delete, DeleteUser, Edit } from "../../assets";
+import React from 'react';
+import TableComponent from '../../components/tableComponent/TableComponent';
 
 const DataUser = () => {
   const [isLoadingUser, user, getUser] = useGetUser();
@@ -100,9 +95,9 @@ const DataUser = () => {
   }, []);
 
   return (
-    <>
-      <TableComponent />
-    </>
+    <div>
+      <TableComponent/>
+    </div>
   );
 };
 
