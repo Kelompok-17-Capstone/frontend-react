@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-import { baseAPI } from "../config/apiService";
-
-export const api = {
-  // API Auth
-  // register: (body) => {
-  //   return sheetDBAPI.post(`?sheet=`, body);
-  // },
-  // getProfile: () => {
-  //   return sheetDBAPI.get(`?sheet=`);
-  // },
-=======
 import { altaAPI, altaAPIWithToken } from "../config/apiService";
 
 export const api = {
@@ -17,7 +5,6 @@ export const api = {
   postLogin: (body) => {
     return altaAPI.post('/login', body);
   },
->>>>>>> origin/development
 
   // API Get Product
   getProduct: () => {
@@ -49,21 +36,6 @@ export const api = {
   getPesanan: () => {
     return altaAPIWithToken.get('/admin/orders')
   },
-<<<<<<< HEAD
-
-  updateUsers: (id, body) => {
-    return baseAPI.put(`/users/${id}`, body);
-  },
-
-  deleteUsers: (id) => {
-    return baseAPI.delete(`/users/${id}`);
-  },
-
-  // createBiodata: (body) => {
-  //   return baseAPI.post(`/biodatas`, body);
-  // },
-
-=======
   getPesananDikemas: () => {
     return altaAPIWithToken.get('/admin/orders?status=dikemas');
   },
@@ -76,7 +48,6 @@ export const api = {
   getPesananByStatus: (status) => {
     return altaAPIWithToken.get(`/admin/orders?status=${status}`);
   },
->>>>>>> origin/development
 };
 
 

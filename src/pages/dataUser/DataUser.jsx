@@ -95,9 +95,9 @@ const DataUser = () => {
   }, []);
 
   return (
-    <div>
+    <>
       <TableComponent/>
-    </div>
+    </>
   );
 };
 
