@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Layout, Menu, theme } from "antd";
+import { Button, Layout, Menu, Modal, theme, Input } from "antd";
 import { useState } from "react";
 import "./layoutsComponent.css";
 import { LogoLayout } from "../../assets";
@@ -13,16 +13,30 @@ import {
   Package,
   User,
 } from "@phosphor-icons/react";
-import Search from "antd/es/input/Search";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const { Header, Sider, Content } = Layout;
+const { Search } = Input;
 
 const LayoutsComponent = ({ children }) => {
+  const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-  console.log(collapsed)
+
+  const [showModal, setShowModal] = useState(false);
+  const handleLogout = () => {
+    setShowModal(true);
+  };
+  const confirmLogout = () => {
+    localStorage.removeItem("token");
+    setShowModal(false);
+    navigate("/");
+  };
+  const cancelLogout = () => {
+    setShowModal(false);
+  };
+
   return (
     <Layout>
       <Sider
@@ -30,6 +44,7 @@ const LayoutsComponent = ({ children }) => {
         collapsible
         collapsed={collapsed}
         className="siderLayout"
+        style={{ height: "100vh", left: "0" }}
         width={250}
       >
         {!collapsed && (
@@ -38,21 +53,21 @@ const LayoutsComponent = ({ children }) => {
             <p className="text-logo">Alta Tech</p>
           </div>
         )}
-        {collapsed && 
-            <Button
-              type="text"
-              icon={<List size={28} weight="fill" color="white" />}
-              onClick={() => setCollapsed(!collapsed)}
-              style={{
-                fontSize: "16px",
-                width: 50,
-                height: 50,
-                backgroundColor: "#00317B",
-                marginTop: "15px",
-                marginLeft: "18px"
-              }}
-            />
-          }
+        {collapsed && (
+          <Button
+            type="text"
+            icon={<List size={28} weight="fill" color="white" />}
+            onClick={() => setCollapsed(!collapsed)}
+            style={{
+              fontSize: "16px",
+              width: 50,
+              height: 50,
+              backgroundColor: "#00317B",
+              marginTop: "15px",
+              marginLeft: "18px",
+            }}
+          />
+        )}
 
         <Menu
           theme="dark"
@@ -61,7 +76,8 @@ const LayoutsComponent = ({ children }) => {
           style={{
             backgroundColor: "#00317B",
           }}
-          items={[
+        >
+          {[
             {
               key: "/dashboard",
               icon: <House size={25} />,
@@ -82,19 +98,42 @@ const LayoutsComponent = ({ children }) => {
               icon: <Package size={25} />,
               label: <Link to="/data-produk">Data Product</Link>,
             },
-          ]}
-        />
+          ].map((item) => (
+            <Menu.Item key={item.key} icon={item.icon}>
+              {item.label}
+            </Menu.Item>
+          ))}
+        </Menu>
+
         <div className="logout-container">
-          <Link to='/'>
-            <Button
-             className="logout-button"
-             onClick={() => {
-              localStorage.removeItem('token')
-             }}>
-              <DoorOpen size={25} />
-              {!collapsed && <span>Logout</span>}
-            </Button>
-          </Link>
+          <Button className="logout-button" onClick={handleLogout}>
+            <DoorOpen size={25} />
+            {!collapsed && <span>Logout</span>}
+          </Button>
+          <Modal open={showModal} onCancel={cancelLogout} footer={null}>
+            <h4 className="titleLogout">Konfirmasi Log out</h4>
+            <p className="bodyLogout">Apakah anda yakin untuk Log Out ?</p>
+            <div
+              className="modal-buttons-container"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                marginTop: "1rem",
+              }}
+            >
+              <Button onClick={cancelLogout} className="btnCancelLogout">
+                Kembali Ke Home Page
+              </Button>
+              <Button
+                type="primary"
+                onClick={confirmLogout}
+                className="btnConfirmLogout"
+              >
+                Logout
+              </Button>
+            </div>
+          </Modal>
         </div>
       </Sider>
       <Layout>
@@ -108,7 +147,7 @@ const LayoutsComponent = ({ children }) => {
             alignItems: "center",
           }}
         >
-          {!collapsed && 
+          {!collapsed && (
             <Button
               type="text"
               icon={<List size={28} weight="fill" color="white" />}
@@ -120,9 +159,10 @@ const LayoutsComponent = ({ children }) => {
                 backgroundColor: "#00317B",
                 marginTop: "15px",
                 marginRight: "auto",
+                borderRadius: "0 10px 10px 0",
               }}
             />
-          }
+          )}
 
           <div
             style={{
@@ -133,8 +173,12 @@ const LayoutsComponent = ({ children }) => {
           >
             <Bell size={20} style={{ marginRight: "10px" }} />
             <Search
-              placeholder="Search..."
-              style={{ width: 200, marginRight: "10px" }}
+              placeholder="input search text"
+              // onSearch={onSearch}
+              style={{
+                width: 200,
+                marginRight: '20px',
+              }}
             />
             <span style={{ marginRight: "10px" }}>Hi, Admin</span>
             <User size={20} />

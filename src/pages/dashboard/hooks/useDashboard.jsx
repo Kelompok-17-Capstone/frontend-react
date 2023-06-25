@@ -11,8 +11,8 @@ export const useGetDashboardData = () => {
     const getDashboardData = useCallback(async() => {
         try {
             const res = await api.getDashboardData();
-            console.log({ res });
             setData(res.data?.users);
+            console.log(res?.data?.users || []);
         } catch (err) {
             console.log({ err });
             message.open({
