@@ -47,16 +47,16 @@ const EditDataProduk = () => {
     setIsModalVisible(false);
   };
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.VITE_APP_BASE_URL}/api/data`
-      );
-      setData(response.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+const fetchData = async () => {
+  try {
+    const response = await axios.get(
+      "http://localhost:8080/admin/products/b9b1dcd7-ebeb-4ca2-9fd0-7745c3e2d7d9"
+    );
+    setData(response.data);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
 
   useEffect(() => {
     fetchData();
