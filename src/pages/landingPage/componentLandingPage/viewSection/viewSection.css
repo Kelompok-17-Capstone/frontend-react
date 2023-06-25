@@ -1,0 +1,8 @@
+.viewContainer{
+    background-color: #ECEDEF;
+    display: flex;
+    justify-content: center;
+}
+.viewImageStyle{
+    width: 1000px;
+}

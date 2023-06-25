@@ -1,10 +1,10 @@
 import React from 'react';
-import TableComponent from '../../components/tableComponent/TableComponent';
+import TableUser from '../../components/tableComponent/TableUser';
 
 const DataUser = () => {
   return (
     <div>
-      <TableComponent/>
+      <TableUser/>
     </div>
   );
 }
