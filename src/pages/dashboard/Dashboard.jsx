@@ -1,5 +1,5 @@
 import { Col, Row} from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Table} from 'antd';
 import { useState } from "react";
 import { INITIAL_TABLE_DATAS } from "./constans";
@@ -7,6 +7,10 @@ import "./dashBoard.css";
 import { INITIAL_TABLE_DATASS } from "./constans";
 import { INITIAL_TABLE_DATASSS } from "./constans";
 import { PieChart, Pie, Cell, Legend, Tooltip, } from 'recharts';
+import { CaretRight } from '@phosphor-icons/react'; 
+import { useGetDashboardData } from './hooks/useDashboard';
+
+
 
 const data = [
   { name: 'Data 1', value: 30 },
@@ -14,34 +18,37 @@ const data = [
   { name: 'Data 3', value: 20 },
   { name: 'Data 4', value: 40 },
 ];
+
 const PieChartComponent = () => {
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#00FFFF']; // warna untuk setiap sektor pie chart
   const [datas] = useState(INITIAL_TABLE_DATAS);
+
+const [isLoadingData, dashboardData, getDashboardData] = useGetDashboardData();
+  useEffect(() => {
+  getDashboardData()
+  }, 
+  []);  
   const columns = [
     {
-        dataIndex: 'ICON',
-        key: 'ICON',
-        className:'data1',
+      dataIndex: 'name',
+      key: 'name',
+      className:'data1',
       },
     {
-      dataIndex: 'names',
+      dataIndex: 'phone_numer',
       className:'data1',
-      key: 'names',
+      key: 'phone_number',
     },
-    {
-      dataIndex: 'gender',
-      className:'data1',
-      key: 'gender',
-    },
+  
     {
       dataIndex: 'address',
       className:'data1',
       key: 'address',
     },
     {
-      dataIndex: 'member',
+      dataIndex: 'role',
       className:'data1',
-      key: 'member',
+      key: 'role',
     },
    
 ];
@@ -49,9 +56,9 @@ const [datass] = useState(INITIAL_TABLE_DATASS);
 const columnss = [
 
   {
-    dataIndex: 'names',
+    dataIndex: 'user_name',
     className:'data1',
-    key: 'names',
+    key: 'user_name',
   },
   {
     dataIndex: 'address',
@@ -59,19 +66,19 @@ const columnss = [
     key: 'address',
   },
   {
-    dataIndex: 'item',
+    dataIndex: 'product_name',
     className:'data1',
-    key: 'item',
+    key: 'product_name',
   },
   {
-    dataIndex: 'jumlah',
+    dataIndex: 'quantity',
     className:'data1',
-    key: 'jumlah',
+    key: 'quantity',
   },
   {
-    dataIndex: 'tanggal',
+    dataIndex: 'order_at',
     className:'data1',
-    key: 'tanggal',
+    key: 'order_at',
   },
   {
     dataIndex: 'informasi',
@@ -84,29 +91,29 @@ const [datasss] = useState(INITIAL_TABLE_DATASSS);
 const columnsss = [
 
   {
-    dataIndex: 'item',
+    dataIndex: 'name',
     className:'data1',
-    key: 'item',
+    key: 'name',
   },
   {
-    dataIndex: 'kondisi',
+    dataIndex: 'description',
     className:'data1',
-    key: 'kondisi',
+    key: 'description',
   },
   {
-    dataIndex: 'jumlah',
+    dataIndex: 'stock',
     className:'data1',
-    key: 'jumlah',
+    key: 'stock',
   },
   {
-    dataIndex: 'harga',
+    dataIndex: 'price',
     className:'data1',
-    key: 'harga',
+    key: 'price',
   },
   {
-    dataIndex: 'informasi',
+    dataIndex: 'status',
     className:'data1',
-    key: 'informasi',
+    key: 'status',
   },
  
 ];
@@ -116,19 +123,19 @@ const columnsss = [
         <h1 className='judul'>Welcome to your dashboard, Admin 1</h1>
   <Row>
     <Col span={12} push={11} className='data1'>
-      <a><h1 className='jarak'>Data Pesanan</h1></a>
-    <Table columns={columnss} dataSource={datass} />
+      <a><h1 className='jarak'>Data Pesanan<CaretRight size={32} className='icon1'/></h1></a>
+    <Table columns={columnss} dataSource={dashboardData?.datass} />
     </Col >
     <Col span={9} pull={11} className='data1'>
-    <a><h1 className='jarak'>Data User</h1></a>
-    <Table columns={columns} dataSource={datas} />
+    <a><h1 className='jarak'>Data User<CaretRight size={32} className='icon1'/></h1></a>
+    <Table columns={columns} dataSource={dashboardData?.users} />
     </Col>
   </Row>
   <br />
   <br />
   <Row>
     <Col span={12} push={16} className='data2'>
-    <a><h1 className='jarak'>Data Penjualan</h1></a>
+    <a><h1 className='jarak'>Data Penjualan<CaretRight size={32} className='icon1'/></h1></a>
     <PieChart width={400} height={200}>
       <Pie
         data={data}
@@ -151,8 +158,8 @@ const columnsss = [
      <br />
     </Col>
     <Col span={13} pull={9} className='data3'>
-    <a><h1 className='jarak'>Data Produk</h1></a>
-    <Table columns={columnsss} dataSource={datasss} />
+    <a><h1 className='jarak'>Data Produk<CaretRight size={32} className='icon1' /></h1></a>
+    <Table columns={columnsss} dataSource={dashboardData?.datasss} />
     </Col>
   </Row>
   </div>

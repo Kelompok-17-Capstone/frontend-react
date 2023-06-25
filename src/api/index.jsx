@@ -1,38 +1,74 @@
-import { baseAPI, sheetDBAPI } from "../config/apiService";
+import { altaAPI, altaAPIWithToken } from "../config/apiService";
 
 export const api = {
   // API Auth
-  register: (body) => {
-    return sheetDBAPI.post(`?sheet=profile`, body);
-  },
-  getProfile: () => {
-    return sheetDBAPI.get(`?sheet=profile`);
+  postLogin: (body) => {
+    return altaAPI.post('/login', body);
   },
 
-  // API Users
+  // API Get Product
+  getProduct: () => {
+    return altaAPIWithToken.get('/admin/products')
+  },
+  getProductTersedia: () => {
+    return altaAPIWithToken.get('/admin/products?status=tersedia');
+  },
+
+  getProductHabis: () => {
+    return altaAPIWithToken.get('/admin/products?status=habis');
+  },
+
+  getProductByStatus: (status) => {
+    return altaAPIWithToken.get(`/admin/products?status=${status}`);
+  },
+  // API Get User
   getUsers: () => {
-    return baseAPI.get(`/users`);
+    return altaAPIWithToken.get('/admin/users')
+  },
+  getMember: () => {
+    return altaAPIWithToken.get('/admin/users?role=member')
+  },
+  getReguler: () => {
+    return altaAPIWithToken.get('/admin/users?role=reguler')
   },
 
-  getUsersById: (id) => {
-    return baseAPI.get(`/users/${id}`);
+  // API Get Pesanan
+  getPesanan: () => {
+    return altaAPIWithToken.get('/admin/orders')
+  },
+  getPesananDikemas: () => {
+    return altaAPIWithToken.get('/admin/orders?status=dikemas');
+  },
+  getPesananDikirim: () => {
+    return altaAPIWithToken.get('/admin/orders?status=dikirim');
+  },
+  getPesananDiterima: () => {
+    return altaAPIWithToken.get('/admin/orders?status=diterima')
+  },
+  getPesananByStatus: (status) => {
+    return altaAPIWithToken.get(`/admin/orders?status=${status}`);
   },
 
-  // API Biodata
-  getBiodata: () => {
-    return baseAPI.get(`/biodatas`);
+  //API Get Dashboard
+  getDashboardData: () => {
+    return altaAPIWithToken.get(`/admin/dashboard`)
   },
-  getBiodataById: (id) => {
-    return baseAPI.get(`/biodatas/${id}`);
-  },
-  createBiodata: (body) => {
-    return baseAPI.post(`/biodatas`, body);
-  },
-  updateBiodata: (id, body) => {
-    return baseAPI.put(`/biodatas/${id}`, body);
-  },
-  deleteBiodata: (id) => {
-    return baseAPI.delete(`/biodatas/${id}`);
-  },
-
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

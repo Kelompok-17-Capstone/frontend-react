@@ -5,7 +5,7 @@ export const INITIAL_TABLE_DATAS = [
       names: 'Wahyu',
       gender:'Laki-laki',
       address:'Jakarta',
-      member:'Member'
+      member: 'Member'
 
     },
     {
