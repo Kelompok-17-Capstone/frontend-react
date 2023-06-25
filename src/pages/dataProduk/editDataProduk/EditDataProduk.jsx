@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Form, Input, Radio, Button, Modal } from "antd";
-import { PlusOutlined, MinusOutlined, UploadOutlined } from "@ant-design/icons";
+import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
 import "./editDataProduk.css";
+import { useParams } from "react-router-dom";
 
 const EditDataProduk = () => {
   const [componentSize, setComponentSize] = useState("default");
@@ -47,26 +48,23 @@ const EditDataProduk = () => {
     setIsModalVisible(false);
   };
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:8080/admin/products/b9b1dcd7-ebeb-4ca2-9fd0-7745c3e2d7d9"
-      );
-      setData(response.data);
-      // Set initial form values with fetched data
-      form.setFieldsValue({
-        name: response.data.name,
-        Image: response.data.image,
-      });
-      setJumlahProduk(response.data.jumlahProduk);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  const { id } = useParams();
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.VITE_APP_BASE_URL}/api/data/${id}`
+        );
+        setData(response.data);
+        form.setFieldsValue(response.data?.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
     fetchData();
-  }, []);
+  }, [id, form]);
 
   const onFinish = async (values) => {
     const formValues = Object.values(values);
@@ -101,7 +99,6 @@ const EditDataProduk = () => {
     setUploadedFile(file);
   };
 
- 
   return (
     <div className="bro">
       <h1 className="judul" style={{ marginBottom: "-3%" }}>
@@ -115,8 +112,6 @@ const EditDataProduk = () => {
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 15 }}
         layout="horizontal"
-        initialValues={{ size: componentSize }}
-        onValuesChange={onFormLayoutChange}
         size={componentSize}
         style={{ maxWidth: 1400 }}
         onFinish={onFinish}>
@@ -249,7 +244,7 @@ const EditDataProduk = () => {
 
       <Modal
         title={<h2 className="modal-title-success">Success</h2>}
-        visible={isSuccessModalVisible}
+        open={isSuccessModalVisible}
         footer={[
           <Button
             key="confirm-button"
@@ -274,7 +269,7 @@ const EditDataProduk = () => {
             Failed
           </h2>
         }
-        visible={isFailureModalVisible}
+        open={isFailureModalVisible}
         footer={[
           <Button
             key="try-again-button"
@@ -289,7 +284,7 @@ const EditDataProduk = () => {
 
       <Modal
         title="Konfirmasi"
-        visible={isModalVisible}
+        open={isModalVisible}
         onOk={handleModalOk}
         onCancel={handleModalCancel}>
         <p>Anda yakin ingin membatalkan?</p>
