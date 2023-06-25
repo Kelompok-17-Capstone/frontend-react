@@ -1,14 +1,6 @@
 import axios from "axios";
 import { BASE_URL } from "../utils";
 
-<<<<<<< HEAD
-export const baseAPI = axios.create({
-  baseURL: BASE_URL.API,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-})
-=======
 // const baseURL = import.meta.env.VITE_APP_BASE_URL
 // const url = 'http://54.255.178.155:5174/${baseURL}'
 
@@ -30,4 +22,3 @@ const altaAPIWithToken = axios.create({
 })
 
 export { altaAPI, altaAPIWithToken };
->>>>>>> origin/development
