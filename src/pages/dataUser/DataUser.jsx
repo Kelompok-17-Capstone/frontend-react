@@ -1,19 +1,19 @@
 import TableComponent from "../../components/tableComponent/TableComponent";
-import { Popconfirm, Space } from "antd";
+import { Space, Modal } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { INITIAL_TABLE_DATA } from "./constants";
 import { useDeleteUser, useGetUser } from "./hooks/useUsers";
-import { Delete, Edit } from "../../assets";
-
+import { Delete, DeleteUser, Edit } from "../../assets";
 
 const DataUser = () => {
-
   const [isLoadingUser, user, getUser] = useGetUser();
   const [isLoadingDeleteUser, deleteUser] = useDeleteUser();
 
   const [rowData, setRowData] = useState();
   const [isEdit, setIsEdit] = useState(false);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const TABLE_COLUMNS = [
     {
@@ -52,19 +52,26 @@ const DataUser = () => {
                 src={Edit}
                 alt="Edit"
                 onClick={() => handleEdit(record)}
-              >
-              </img>
+              ></img>
             </a>
 
-            <Popconfirm
-              title="Yakin mau dihapus?"
+            <a>
+              <img src={Delete} alt="Delete" />
+            </a>
+            <Modal
+              open={isModalOpen}
+              onOk={() => onDelete(record.id)}
+              onCancel={handleCancel}
               arrow={false}
-              onConfirm={() => onDelete(record.id)}
             >
               <a>
-                <img src={Delete} alt="Delete" />
+                <img
+                  src={DeleteUser}
+                  alt="Delete User"
+                  style={{ width: "100%" }}
+                />
               </a>
-            </Popconfirm>
+            </Modal>
           </Space>
         ) : null,
     },
@@ -82,6 +89,10 @@ const DataUser = () => {
     deleteUser(row_id, () => {
       getUser();
     });
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
   };
 
   useEffect(() => {

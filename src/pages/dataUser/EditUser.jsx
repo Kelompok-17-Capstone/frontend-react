@@ -13,15 +13,21 @@ import { DownloadOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { useGetUser, useUpdateUser } from "./hooks/useUsers";
 import Gap from "../../components/gap/Gap";
-import { Koin, MemberCard, Rp } from "../../assets";
-import { useParams } from "react-router-dom";
+import {
+  DataUserBerhasil,
+  DataUserGagal,
+  Koin,
+  MemberCard,
+  Rp,
+} from "../../assets";
+import { useParams, useNavigate } from "react-router-dom";
 
 const EditUser = () => {
   const { Title } = Typography;
   const { TextArea } = Input;
+
   const { name } = useParams();
   console.log(name);
-
   const [formBio] = Form.useForm();
   const [isLoadingUser, user, getUser] = useGetUser();
   const [isLoadingUpdateUser, updateUser] = useUpdateUser();
@@ -32,16 +38,16 @@ const EditUser = () => {
   const [open, setOpen] = useState(false);
   const [size] = useState("medium");
 
-  //   to handle cancel button
+  // to handle cancel button
   const handleCancel = () => {
     setRowData();
     setIsEdit(false);
     formBio.resetFields();
   };
 
-  const handleGoBack = () => {
-    history.goBack();
-  };
+  // const handleGoBack = () => {
+  //   history.goBack();
+  // };
 
   useEffect(() => {
     getUser();
@@ -300,11 +306,18 @@ const EditUser = () => {
           {isEdit ? (
             <Space>
               <Button
+                loading={isLoadingUpdateUser}
+                style={{
+                  backgroundColor: "white",
+                  color: "black",
+                  width: "150px",
+                  height: "40px",
+                }}
                 onClick={handleCancel}
-                style={{ width: "100px", height: "40px" }}
               >
                 Cancel
               </Button>
+
               <Button
                 htmlType="submit"
                 loading={isLoadingUpdateUser}
@@ -319,12 +332,7 @@ const EditUser = () => {
               </Button>
             </Space>
           ) : (
-            <Button
-              onClick={handleGoBack}
-              style={{ width: "100px", height: "40px" }}
-            >
-              Kembali
-            </Button>
+            <Button style={{ width: "100px", height: "40px" }}>Kembali</Button>
           )}
         </div>
       </Form>

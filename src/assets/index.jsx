@@ -12,6 +12,9 @@ import Admin from "./img/icons/Admin.png";
 import Member from "./img/icons/Member.png";
 import Reguler from "./img/icons/Reguler.png";
 import MemberCard from "./img/icons/MemberCard.png";
+import DeleteUser from "./img/icons/DeleteUser.png";
+import DataUserBerhasil from "./img/icons/DataUserBerhasil.png";
+import DataUserGagal from "./img/icons/DataUserGagal.png";
 export {
   LogoLayout,
   BG_Login,
@@ -27,4 +30,7 @@ export {
   Member,
   Reguler,
   MemberCard,
+  DeleteUser,
+  DataUserBerhasil,
+  DataUserGagal,
 };
