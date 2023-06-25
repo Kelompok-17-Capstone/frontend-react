@@ -17,17 +17,8 @@ const altaAPIWithToken = axios.create({
   baseURL: BASE_URL.API,
   headers: {
     Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json'
   },
 })
-
-// altaAPI.interceptors.request.use((config) => {
-//   const token = localStorage.getItem("access_token");
-//   if (token) {
-//     config.headers.Authorization = token;
-//   }
-
-//   return config;
-// });
-
 
 export { altaAPI, altaAPIWithToken };

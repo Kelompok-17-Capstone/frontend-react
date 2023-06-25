@@ -12,22 +12,22 @@ export const dataProdukHeader = [
     {
         title: "Kondisi",
         dataIndex: "kondisi",
-        key: 'kondisi'
+        render: () => "baru"
     },
     {
         title: "Jumlah Produk",
-        dataIndex: "jumlahProduk",
-        key: 'jumlahProduk'
+        dataIndex: "stock",
+        key: 'stock'
     },
     {
         title: "Harga Produk",
-        dataIndex: "hargaProduk",
-        key: 'hargaProduk'
+        dataIndex: "price",
+        key: 'price'
     },
     {
         title: "Status",
-        dataIndex: "statusProdukHeader",
-        key: 'statusProdukHeader'
+        dataIndex: "status",
+        key: 'status'
     },
     {
         title: "Action",
@@ -39,8 +39,8 @@ export const dataProdukHeader = [
 export const dataUserHeader = [
     {
         title: "Nama",
-        dataIndex: "nama",
-        key: 'nama'
+        dataIndex: "name",
+        key: 'name'
     },
     {
         title: "Email",
@@ -49,18 +49,18 @@ export const dataUserHeader = [
     },
     {
         title: "No Telepon",
-        dataIndex: "noTelepon",
-        key: 'noTelepon'
+        dataIndex: "phone_number",
+        key: 'phone_number'
     },
     {
         title: "Alamat",
-        dataIndex: "alamat",
-        key: 'alamat'
+        dataIndex: "address",
+        key: 'address'
     },
     {
         title: "Status",
-        dataIndex: "statusUserHeader",
-        key: 'statusUserHeader'
+        dataIndex: "status",
+        key: 'status'
     },
     {
         title: "Action",
@@ -72,43 +72,43 @@ export const dataUserHeader = [
 export const dataPesanananHeader = [
     {
         title: "Nama Pesanan",
-        dataIndex: "namaPesanan",
-        key: 'namaPesanan'
+        dataIndex: "name",
+        key: 'name'
     },
     {
         title: "Alamat",
-        dataIndex: "alamat",
-        key: 'alamat'
+        dataIndex: "address",
+        key: 'address'
     },
     {
         title: "Produk",
-        dataIndex: "produk",
-        key: 'produk'
+        dataIndex: "product",
+        key: 'product'
     },
     {
         title: "Jumlah Produk",
-        dataIndex: "jumlahProduk",
-        key: 'jumlahProduk'
+        dataIndex: "total_quantity",
+        key: 'total_quantity'
     },
     {
         title: "Total Harga (RP)",
-        dataIndex: "totalHarga",
-        key: 'totalHarga'
+        dataIndex: "total_price",
+        key: 'total_price'
     },
     {
         title: "Waktu Pesan",
-        dataIndex: "waktuPesan",
-        key: 'waktuPesan'
+        dataIndex: "order_at",
+        key: 'order_at'
     },
     {
         title: "Waktu Sampai",
-        dataIndex: "waktuSampai",
-        key: 'waktuSampai'
+        dataIndex: "arrived_at",
+        key: 'arrived_at'
     },
     {
         title: "Status",
-        dataIndex: "statusPesananHeader",
-        key: 'statusPesananHeader'
+        dataIndex: "status",
+        key: 'status'
     },
     {
         title: "Action",
@@ -164,9 +164,5 @@ export const dataPesananTab = [
     {
         tab: "Diterima",
         key: 'diterima'
-    },
-    {
-        tab: "Dibatalkan",
-        key: 'dibatalkan'
     },
 ]
