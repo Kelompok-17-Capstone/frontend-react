@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Form, Input, Radio, Button, Modal } from "antd";
@@ -56,7 +57,7 @@ const EditDataProduk = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_APP_BASE_URL}/admin/products?keyword=${id}`,
+          `${import.meta.env.VITE_APP_BASE_URL}/admin/products/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -67,8 +68,8 @@ const EditDataProduk = () => {
         const data = await response.json();
         console.log(data);
 
-        setData(response.data);
-        form.setFieldsValue(response.data?.data);
+        setData(data);
+        form.setFieldsValue(data?.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -76,6 +77,7 @@ const EditDataProduk = () => {
 
     fetchData();
   }, [id, form]);
+
 
   const onFinish = async (values) => {
     const formValues = Object.values(values);
@@ -126,17 +128,14 @@ const EditDataProduk = () => {
         size={componentSize}
         style={{ maxWidth: 1400 }}
         onFinish={onFinish}>
-        <Form.Item
-          label="Nama Produk"
-          className="form-item-label"
-          name="namaProduk">
+        <Form.Item label="Nama Produk" className="form-item-label" name="name">
           <Input placeholder="Masukan nama produk" className="nama-produk" />
         </Form.Item>
 
         <Form.Item
           label="Deskripsi"
           className="form-item-label"
-          name="deskripsiProduk">
+          name="description">
           <Input.TextArea
             placeholder="Deskripsi Produk"
             className="Deskripsis"
@@ -146,7 +145,7 @@ const EditDataProduk = () => {
         <Form.Item
           label="Jumlah Produk"
           className="form-item-label"
-          name="jumlahProduk">
+          name="jumlah">
           <div
             className="Jumlahproduk"
             style={{
@@ -194,7 +193,7 @@ const EditDataProduk = () => {
         <Form.Item
           label="Harga Produk"
           className="form-item-label"
-          name="hargaProduk">
+          name="price">
           <Input
             className="form-item-label-harga"
             addonBefore={
@@ -228,7 +227,7 @@ const EditDataProduk = () => {
         <Form.Item
           label="Status Produk"
           className="form-item-label"
-          name="statusProduk">
+          name="status">
           <Radio.Group>
             <Radio value="Tersedia" className="radio-container">
               Tersedia

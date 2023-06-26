@@ -40,7 +40,7 @@ export const dataProdukHeader = [
     render: (_, record) => (
       <Space>
         {/* Menggunakan Link untuk tombol edit */}
-        <Link to={`/edit-data-produk/${record.name}`}>
+        <Link to={`/edit-data-produk/${record.id}`}>
           <NotePencil size={20} color="#264eca" />
         </Link>
         <Popconfirm title="Sure to delete?" arrow={false}>

@@ -54,7 +54,7 @@ export const api = {
     return altaAPIWithToken.get(`/admin/orders?status=${status}`);
   },
   updateProduk: (id, body) => {
-    return baseAPI.put(`/admin/products?${id}`, body);
+    return baseAPI.put(`/admin/products/${id}`, body);
   },
 };
 
