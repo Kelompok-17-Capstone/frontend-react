@@ -13,10 +13,11 @@ import { Link } from 'react-router-dom';
 
 
 const data = [
-  { name: 'Data 1', value: 30 },
-  { name: 'Data 2', value: 50 },
-  { name: 'Data 3', value: 20 },
-  { name: 'Data 4', value: 40 },
+  { name: 'Keyboard', value: 15 },
+  { name: 'Mouse Gaming', value: 6 },
+  { name: 'Mouse Pad', value: 4 },
+  { name: 'Headset', value: 3 },
+  { name: 'Kursi Gaming', value: 2 },
 ];
 
 const PieChartComponent = () => {
@@ -100,29 +101,18 @@ const PieChartComponent = () => {
       className: 'data1'
     },
     {
-      dataIndex: 'status',
-      key: 'status',
-      className: 'data1',
-      render: (status) => {
-        let backgroundColor, color, fontWeight;
-        if (status === 'Tersedia') {
-          backgroundColor = 'green';
-          color = 'white';
-          fontWeight = 'bold';
-        } else if (status === 'tidak tersedia') {
-          backgroundColor = 'blue';
-          color = 'white';
-          fontWeight = 'bold';
-        }
-        return (
-          <span style={{ backgroundColor, color, padding: '4px 8px', borderRadius: '4px', fontWeight }}>
-            {status}
-          </span>
-        );
-      },
-    },
-  ];
 
+        dataIndex: "dikirim",
+        key: "dikirim",
+        className: 'data1',
+        render: () => <span style={{          
+          backgroundColor : 'rgba(0, 49, 123, 1)',
+          color : 'white',
+          fontWeight : 'bold',
+          padding: '4px 8px', 
+          borderRadius: '4px',}}>Dikirim</span>
+ },
+  ]
   const [products] = useState(INITIAL_TABLE_DATASSS);
   const columnsss = [
     {
@@ -175,7 +165,9 @@ const PieChartComponent = () => {
 
   return (
     <div>
-      <div><h1>Welcome to your dashboard, Admin 1</h1></div>
+<div>
+<h1 style={{ fontSize: '32px' }}>Welcome to your dashboard, Admin 1</h1>
+</div>
 
       <Row>
         <Col span={12} push={11} className='data1'>
@@ -202,7 +194,7 @@ const PieChartComponent = () => {
               dataKey="value"
               cx="50%"
               cy="50%"
-              outerRadius={80}
+              outerRadius={50}
               fill="#8884d8"
               label
             >
