@@ -7,7 +7,6 @@ import {
   Radio,
   InputNumber,
   Modal,
-  Row,
 } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
@@ -18,119 +17,71 @@ import {
   useGetReguler,
   useGetUsers,
   useUpdateUser,
+  useGetUserById
 } from "../../hooks/useGetDataUsers";
 
 const EditUser = () => {
   const { Title } = Typography;
   const { TextArea } = Input;
 
+  const {id} = useParams()
   const [formBio] = Form.useForm();
-  const navigate = useNavigate();
   const [isLoadingUser, user, getUser] = useGetUsers();
   const [isLoadingMember, member, getMember] = useGetMember();
   const [isLoadingReguler, reguler, getReguler] = useGetReguler();
   const [isLoadingUpdateUser, updateUser] = useUpdateUser();
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [rowData, setRowData] = useState();
-  const [isEdit, setIsEdit] = useState(true);
-  const [modalContent, setModalContent] = useState(null);
+  const [isLoadingGetUserById, userData, getUserById] = useGetUserById()
   const [open, setOpen] = useState(false);
-  const [size] = useState("medium");
+  const [size] = useState("large");
+  const navigate = useNavigate();
 
-  // to handle cancel button
   const handleCancel = () => {
-    setRowData();
-    setIsEdit(false);
     formBio.resetFields();
     navigate("/data-user");
   };
 
   const handleSave = (values) => {
-    const id = rowData?.id;
+    const id = userData?.id;
     updateUser(id, values, () => {
-      useGetUsers();
+      getUserById();
       handleCancel();
+      navigate("/data-user");
     });
-
-    try {
-      setModalContent("success");
-      setIsModalVisible(true);
-    } catch (error) {
-      console.error(error);
-    }
   };
-
-  const handleModalConfirm = () => {
-    setIsModalVisible(false);
-    navigate("/data-user");
-  };
-
-  const closeModal = () => {
-    setIsModalVisible(false);
-  };
-
-  const { id } = useParams();
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_APP_BASE_URL}/admin/users/${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        const data = await response.json();
-        console.log(data);
-        setData(data);
-        Form.setFieldsValue(data?.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-}, [id, Form]);    
+  
+  useEffect (() => {
+    getUserById(id);
+  }, [id])
 
   return (
     <>
       <Title style={{ textAlign: "center" }}>Edit Data User</Title>
       <Title style={{ fontSize: "30px" }}>Informasi Member</Title>
       {/* Form */}
-      <Row></Row>
       <Form
         name="form-bio"
         form={formBio}
         layout="horizontal"
         onFinish={handleSave}
         labelAlign="left"
-        // fields={[
-        //   {
-        //     name: ["name"],
-        //     value: rowData?.name,
-        //   },
-        //   {
-        //     name: ["email"],
-        //     value: rowData?.email,
-        //   },
-        //   {
-        //     name: ["noTelepon"],
-        //     value: rowData?.noTelepon,
-        //   },
-        //   {
-        //     name: ["alamat"],
-        //     value: rowData?.alamat,
-        //   },
-        //   {
-        //     name: ["status"],
-        //     value: rowData?.status,
-        //   },
-        // ]}
+        fields={[
+          {
+            name: ["name"],
+            value: userData?.name,
+          },
+          {
+            name: ["phone_number"],
+            value: userData?.phone_number,
+          },
+          {
+            name: ["address"],
+            value: userData?.address,
+          },
+          {
+            name: ["status"],
+            value: userData?.status,
+          },
+        ]}
       >
         <Form.Item
           name="name"
@@ -168,12 +119,6 @@ const EditUser = () => {
             <Form.Item
               name="city"
               label="Kota"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your Kota",
-                },
-              ]}
             >
               <Input style={{ width: "200px" }} placeholder="Input your Kota" />
             </Form.Item>
@@ -183,12 +128,6 @@ const EditUser = () => {
             <Form.Item
               name="province"
               label="Provinsi"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your Provinsi",
-                },
-              ]}
             >
               <Input
                 style={{ width: "200px" }}
@@ -221,12 +160,6 @@ const EditUser = () => {
             <Form.Item
               name="saldo"
               label="Saldo"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your saldo",
-                },
-              ]}
             >
               <InputNumber
                 style={{
@@ -250,12 +183,6 @@ const EditUser = () => {
             <Form.Item
               name="koin"
               label="Jumlah Koin"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your koin",
-                },
-              ]}
             >
               <InputNumber
                 style={{
@@ -349,7 +276,6 @@ const EditUser = () => {
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <Space>
               <Button
-                loading={isLoadingUpdateUser}
                 style={{
                   backgroundColor: "white",
                   color: "black",
@@ -370,46 +296,10 @@ const EditUser = () => {
                   width: "150px",
                   height: "40px",
                 }}
-                onClick={handleSave}
               >
                 Save
               </Button>
             </Space>
-          <Modal
-            centered
-            visible={isModalVisible}
-            onCancel={() => setIsModalVisible(false)}
-            footer={null}
-            className="custom-modal"
-          >
-            {modalContent === "success" ? (
-              <>
-                <h3 className="SuccessText">Success</h3>
-                <p>Data User Berhasil Diubah</p>
-                <Button
-                  key="confirm"
-                  type="primary"
-                  onClick={handleModalConfirm}
-                  className="btnLoginSuccess"
-                >
-                  Confirm
-                </Button>
-              </>
-            ) : (
-              <>
-                <h3 className="FailedText">Failed</h3>
-                <p>Data User Gagal Diubah</p>
-                <Button
-                  key="try-again"
-                  type="primary"
-                  onClick={closeModal}
-                  className="btnFailed"
-                >
-                  Try Again
-                </Button>
-              </>
-            )}
-          </Modal>
         </div>
       </Form>
     </>

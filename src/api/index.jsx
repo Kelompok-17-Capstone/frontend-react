@@ -37,6 +37,9 @@ export const api = {
   deleteUser: (id) => {
     return altaAPIWithToken.delete(`/admin/users/${id}`);
   },
+  getUserById: (id) => {
+    return altaAPIWithToken.get(`/admin/users/${id}`)
+  },
 
   // API Get Pesanan
   getPesanan: () => {

@@ -118,3 +118,34 @@ export const useDeleteUser = () => {
 
   return [isLoading, deleteData];
 };
+
+export const useGetUserById = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState()
+
+  const getUserById = useCallback(async (id, onSuccess) => {
+    try {
+      setIsLoading(true);
+      const res = await api.getUserById(id);
+      if(res) {
+        setData(res.data.user)
+        console.log(res)
+        onSuccess && onSuccess();
+        message.open({
+          type: "success",
+          content: "Berhasil update data",
+        });
+        setIsLoading(false);
+      }
+    } catch (err) {
+      message.open({
+        type: "error",
+        content: `${err?.message}`,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  return [isLoading, data, getUserById];
+};

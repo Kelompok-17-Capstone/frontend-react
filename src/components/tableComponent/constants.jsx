@@ -1,5 +1,6 @@
 import { Popconfirm, Space } from "antd";
 import { Trash, NotePencil } from "@phosphor-icons/react";
+import { Link } from "react-router-dom";
 
 export const dataProdukHeader = [
   {
@@ -91,8 +92,31 @@ export const dataUserHeader = [
         <Popconfirm
           title="Sure to delete?"
           arrow={false}
-          // onConfirm={() => onDelete(record.id)}
-        >
+          onConfirm={async () => {
+            const token = localStorage.getItem("token");
+            try {
+              const response = await fetch(
+                `${import.meta.env.VITE_APP_BASE_URL}/admin/users/${
+                  record.id
+                }`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                  method: "DELETE",
+                }
+              );
+
+              if (!response.ok) {
+                throw new Error(response.statusText);
+              }
+              const data = await response.json();
+              console.log(data);
+              window.location.reload();
+            } catch (error) {
+              console.log(error);
+            }
+          }}>
           <a>
             <Trash size={20} color="#ee2e2e" />
           </a>

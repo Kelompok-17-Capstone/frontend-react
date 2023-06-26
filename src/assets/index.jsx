@@ -11,6 +11,7 @@ import MemberCard from "./img/icons/MemberCard.png";
 import Rp from "./img/icons/Rp.png";
 import DataUserBerhasil from "./img/icons/DataUserBerhasil.png";
 import DataUserGagal from "./img/icons/DataUserGagal.png";
+import DisplayImg from "./img/landingPage/displaySection/DisplayImg.svg";
 
 export {
   LogoLayout,
@@ -26,4 +27,5 @@ export {
   Rp,
   DataUserBerhasil,
   DataUserGagal,
+  DisplayImg,
 };
