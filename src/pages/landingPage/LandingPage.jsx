@@ -6,6 +6,7 @@ import FooterLandingPage from './layoutsLandingPage/footerLandingPage/FooterLand
 import './landingPage.css'
 import HeadlineSection from './componentLandingPage/headlineSection/HeadlineSection';
 import ViewSection from './componentLandingPage/viewSection/ViewSection';
+import DisplaySection from './componentLandingPage/displaySection/DisplaySection';
 
 const LandingPage = () => {
     const {Content} = Layout
@@ -21,6 +22,7 @@ const LandingPage = () => {
                     <HeroSection/>
                     <HeadlineSection/>
                     <ViewSection/>
+                    <DisplaySection/>
                 </Content>
 
                 {/* Footer Section */}
