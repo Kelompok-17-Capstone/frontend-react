@@ -48,6 +48,11 @@ export const api = {
   getPesananByStatus: (status) => {
     return altaAPIWithToken.get(`/admin/orders?status=${status}`);
   },
+
+  // API Get Dashboard
+  getDashboardData: () => {
+    return altaAPIWithToken.get('/admin/dashboard')
+  },
 };
 
 
