@@ -33,17 +33,43 @@ export const dataProdukHeader = [
     dataIndex: "status",
     key: "status",
   },
-  
+
   {
     title: "Action",
     dataIndex: "action",
     render: (_, record) => (
       <Space>
- 
         <Link to={`/edit-data-produk/${record.id}`}>
           <NotePencil size={20} color="#264eca" />
         </Link>
-        <Popconfirm title="Sure to delete?" arrow={false}>
+        <Popconfirm
+          title="Sure to delete?"
+          arrow={false}
+          onConfirm={async () => {
+            const token = localStorage.getItem("token");
+            try {
+              const response = await fetch(
+                `${import.meta.env.VITE_APP_BASE_URL}/admin/products/${
+                  record.id
+                }`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                  method: "DELETE",
+                }
+              );
+
+              if (!response.ok) {
+                throw new Error(response.statusText);
+              }
+              const data = await response.json();
+              console.log(data);
+              window.location.reload();
+            } catch (error) {
+              console.log(error);
+            }
+          }}>
           <a>
             <Trash size={20} color="#ee2e2e" />
           </a>

@@ -5,8 +5,10 @@ import { Form, Input, Radio, Button, Modal } from "antd";
 import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
 import "./editDataProduk.css";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const EditDataProduk = () => {
+  const navigate = useNavigate();
   const [componentSize, setComponentSize] = useState("default");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
@@ -43,6 +45,7 @@ const EditDataProduk = () => {
   const handleModalOk = () => {
     form.resetFields();
     setIsModalVisible(false);
+    navigate("/data-produk", { replace: true });
   };
 
   const handleModalCancel = () => {
@@ -78,32 +81,49 @@ const EditDataProduk = () => {
     fetchData();
   }, [id, form]);
 
-
   const onFinish = async (values) => {
+    const token = localStorage.getItem("token");
     const formValues = Object.values(values);
-    const isFormEmpty = formValues.some(
-      (value) => value === undefined || value === ""
-    );
 
-    if (!isFormEmpty) {
-      
-      try {
-      
-        const response = await axios.post(
-          `${import.meta.env.VITE_APP_BASE_URL}/admin/products/${id}`,
-          values
-        );
+    formValues[2] = jumlahProduk;
 
-        
-        if (response.data.success) {
-          showSuccessModal();
-        } else {
-          showFailureModal();
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      ContentType: "multipart/form-data",
+    };
+
+    const formData = new FormData();
+    formData.append("name", formValues[0]);
+    formData.append("description", formValues[1]);
+    formData.append("stock", formValues[2]);
+    formData.append("price", formValues[3]);
+    formData.append("image", "");
+
+    console.log(formValues);
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_APP_BASE_URL}/admin/products/${id}`,
+        {
+          method: "PUT",
+          headers: headers,
+          body: formData,
         }
-      } catch (error) {
-        console.error("Error saving data:", error);
+      );
+
+      const responseData = await response.json();
+
+      if (response.ok && responseData.success) {
+        alert("ok");
+        showSuccessModal();
+      } else {
+        alert("gagal");
         showFailureModal();
       }
+    } catch (error) {
+      console.error("Error saving data:", error);
+      alert("Error saving data");
+      showFailureModal();
     }
   };
 

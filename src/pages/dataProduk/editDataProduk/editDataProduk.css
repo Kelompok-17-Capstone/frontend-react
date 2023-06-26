@@ -222,9 +222,10 @@
 }
 
 .try-again-button {
-  width: 600px;
+  width: 1000px;
   background-color: #f5222d;
   border-color: #f5222d;
+  margin-bottom: 53%;
 }
 
 .try-again-button:hover,
