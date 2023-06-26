@@ -24,7 +24,7 @@ const PieChartComponent = () => {
   const [isLoading, dataDashboard, getDashboard] = useGetDashboardData();
   console.log(dataDashboard);
 
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#00FFFF']; // warna untuk setiap sektor pie chart
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#00FFFF' , 'Black']; // warna untuk setiap sektor pie chart
   const [users] = useState(INITIAL_TABLE_DATAS);
 
   const columns = [
