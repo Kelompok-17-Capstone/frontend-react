@@ -1,0 +1,16 @@
+.productSectionContainer{
+    background-color: #ECEDEF;
+    padding-top: 150px;
+    text-align: center;
+}
+.titleProduct{
+    margin: 0;
+    color: #264ECA;
+    font-family: 'Poppins';
+    font-size: 100px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+.productContainer{
+    padding-inline: 80px;
+}
