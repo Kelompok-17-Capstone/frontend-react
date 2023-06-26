@@ -12,14 +12,17 @@ import {
   Modal,
 } from 'antd';
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
+import { useParams } from "react-router-dom";
 import './editPesanan.css';
 
 const App = () => {
-  const [componentSize, setComponentSize] = useState('default');
+  const [componentSize, setComponentSize] = useState("default");
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [form] = Form.useForm();
+  const [jumlahProduk, setjumlahProduk] = useState(0);
   const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
   const [isFailureModalVisible, setIsFailureModalVisible] = useState(false);
-  const [form] = Form.useForm();
+  const [data, setData] = useState(null);
 
   const onFormLayoutChange = ({ size }) => {
     setComponentSize(size);
@@ -56,18 +59,65 @@ const App = () => {
     const formValues = Object.values(values);
     const isFormEmpty = formValues.some((value) => value === undefined || value === '');
 
-    if (isFormEmpty) {
-      showFailureModal();message.error('Gagal mengirim. Pastikan semua form telah diisi.');
-    } else {
-      const { waktuPesan, waktuSampai } = values;
-      if (waktuPesan && waktuSampai && waktuPesan.isAfter(waktuSampai)) {
-        showFailureModal();message.error('Waktu pesan tidak boleh lebih besar dari waktu sampai.');
-      } else {
-        showSuccessModal();message.success('Form berhasil dikirim!');
-      }
-    }
-  };
+    const { id } = useParams();
+
+    useEffect(() => {
+      const token = localStorage.getItem("token");
   
+      const fetchData = async () => {
+        try {
+          const response = await fetch(
+            `${import.meta.env.VITE_APP_BASE_URL}/admin/orders/${id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+  
+          const data = await response.json();
+          console.log(data);
+  
+          setData(data);
+          form.setFieldsValue(data?.data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+  
+      fetchData();
+    }, [id, form]);
+  
+      
+
+    const onFinish = async (values) => {
+      const formValues = Object.values(values);
+      const isFormEmpty = formValues.some(
+        (value) => value === undefined || value === ""
+      );
+  
+      if (!isFormEmpty) {
+        // Make an API request to save the form data
+        try {
+          // Assuming you have an API endpoint for saving the data
+          const response = await axios.post(
+            `${process.env.VITE_APP_BASE_URL}/api/save`,
+            values
+          );
+  
+          // Check the response and show success or failure modal accordingly
+          if (response.data.success) {
+            showSuccessModal();
+          } else {
+            showFailureModal();
+          }
+        } catch (error) {
+          console.error("Error saving data:", error);
+          showFailureModal();
+        }
+      }
+    };
+  }
 
 
   return (
