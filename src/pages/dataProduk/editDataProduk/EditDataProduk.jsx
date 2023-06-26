@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Form, Input, Radio, Button, Modal } from "antd";
@@ -77,6 +78,7 @@ const EditDataProduk = () => {
     fetchData();
   }, [id, form]);
 
+
   const onFinish = async (values) => {
     const formValues = Object.values(values);
     const isFormEmpty = formValues.some(
@@ -84,15 +86,15 @@ const EditDataProduk = () => {
     );
 
     if (!isFormEmpty) {
-      // Make an API request to save the form data
+      
       try {
-        // Assuming you have an API endpoint for saving the data
+      
         const response = await axios.post(
-          `${process.env.VITE_APP_BASE_URL}/api/save`,
+          `${import.meta.env.VITE_APP_BASE_URL}/admin/products/${id}`,
           values
         );
 
-        // Check the response and show success or failure modal accordingly
+        
         if (response.data.success) {
           showSuccessModal();
         } else {
