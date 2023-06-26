@@ -5,6 +5,8 @@ import AltaTech from "./img/landingPage/AltaTech.svg";
 import Keyboard from "./img/landingPage/HeroSection/keyboard.svg";
 import Circle1 from "./img/landingPage/HeroSection/circle1.svg";
 import Circle2 from "./img/landingPage/HeroSection/circle2.svg";
+import ViewImage from "./img/landingPage/viewSection/ViewImage.svg"
+import DisplayImg from "./img/landingPage/displaySection/DisplayImg.svg"
 
 export {
   LogoLayout,
@@ -14,4 +16,6 @@ export {
   Keyboard,
   Circle1,
   Circle2,
+  ViewImage,
+  DisplayImg
 };

@@ -1,0 +1,55 @@
+.viewContainer{
+    background-color: #ECEDEF;
+    text-align: center;
+}
+.viewImageStyle{
+    width: 1000px;
+}
+.textViewContainer{
+    padding-top: 50px;
+}
+.titleView{
+    color: #264ECA;
+    width: 1000px;
+    margin: 0 auto;
+    font-family: 'Poppins';
+    font-weight: 700;
+    text-align: center;
+    font-size: 60px;
+}
+.bodyTextView{
+    width: 1000px;
+    margin: 0 auto;
+    font-family: 'Poppins';
+    font-weight: 400;
+    text-align: center;
+    font-size: 28px;
+}
+.btnView{
+    margin-top: 20px;
+    background-color: #111111;
+    color: white;
+    width: 300px;
+    height: 50px;
+}
+.buttonContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btnViewContainer{
+    display: flex;
+    justify-content: center;
+}
+.textButton{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.verticalCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 18px;
+}

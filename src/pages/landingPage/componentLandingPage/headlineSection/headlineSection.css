@@ -1,0 +1,50 @@
+.textHeadline{
+    width: 1000px;
+    margin: 0 auto;
+    font-family: 'Poppins';
+    font-weight: 700;
+    text-align: center;
+    font-size: 48px;
+}
+.bodyTextHeadline{
+    width: 800px;
+    margin: 0 auto;
+    font-family: 'Poppins';
+    font-weight: 400;
+    text-align: center;
+    font-size: 28px;
+}
+.headlineContainer{
+    padding-top: 25px;
+    background-color: #ECEDEF;
+    padding-bottom: 50px;
+}
+.circleContainer{
+    text-align: center;
+    background-color: #ECEDEF;
+}
+.rowContainer {
+    display: flex;
+    align-items: center;
+}
+.circleStyle1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 60px;
+}
+.circleStyle2{
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    width: 90px;
+    margin-top: 100px;
+}
+.circleStyle3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+

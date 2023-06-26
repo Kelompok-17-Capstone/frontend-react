@@ -1,10 +1,10 @@
 import React from 'react';
-import TableComponent from '../../components/tableComponent/TableComponent';
+import TablePesanan from '../../components/tableComponent/TablePesanan';
 
 const DaftarPesanan = () => {
     return (
         <div>
-            <TableComponent/>
+            <TablePesanan/>
         </div>
     );
 }
