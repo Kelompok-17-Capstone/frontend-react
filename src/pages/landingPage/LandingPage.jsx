@@ -7,6 +7,7 @@ import './landingPage.css'
 import HeadlineSection from './componentLandingPage/headlineSection/HeadlineSection';
 import ViewSection from './componentLandingPage/viewSection/ViewSection';
 import DisplaySection from './componentLandingPage/displaySection/DisplaySection';
+import ProductSection from './componentLandingPage/productSection/ProductSection';
 
 const LandingPage = () => {
     const {Content} = Layout
@@ -23,6 +24,7 @@ const LandingPage = () => {
                     <HeadlineSection/>
                     <ViewSection/>
                     <DisplaySection/>
+                    <ProductSection/>
                 </Content>
 
                 {/* Footer Section */}
