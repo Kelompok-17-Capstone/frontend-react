@@ -8,15 +8,16 @@
 .data3{
     position:absolute;
     background-color: #F3F3F3;
-    left: 332px;
+    left: 105px;
 }
 .jarak{
     position: relative;
     left: 15px;
+    color: rgba(0, 49, 123, 1);
+    ;
 }
-.judul{
-    position: relative;
-    left: 60px;
-    color: #4F4F4F;
-    font-size: 40px;
+
+.Caret{
+    position: absolute;
+    bottom: -7px;
 }

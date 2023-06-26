@@ -175,7 +175,7 @@ export const dataPesanananHeader = [
               <Popconfirm
                 title="Sure to delete?"
                 arrow={false}
-                // onConfirm={() => onDelete(record.id)}
+                onConfirm={() => onDelete(record.id)}
               >
                 <a><Trash size={20} color="#ee2e2e" /></a>
               </Popconfirm>

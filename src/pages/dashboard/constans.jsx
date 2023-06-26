@@ -2,34 +2,34 @@ import { User } from '@phosphor-icons/react';
 export const INITIAL_TABLE_DATAS = [
     {
       ICON: <User size={24} color="#000" />,
-      names: 'Wahyu',
-      gender:'Laki-laki',
-      address:'Jakarta',
-      member:'Member'
+      user_name: 'Jajang',
+        phone_number:'3212121',
+        address:'Malang',
+        role:'Member'
 
     },
     {
       ICON: <User size={24} color="#000" />,
-        names: 'Jajang',
-        gender:'Laki-laki',
+      user_name: 'Jajang',
+        phone_number:'089612521',
         address:'Malang',
-        member:'Member'
+        role:'Member'
         
     },
     {
       ICON: <User size={24} color="#000" />,
-        names: 'Suci',
-        gender:'Perempuan',
-        address:'Bandung',
-        member:'Member'
+      user_name: 'Jajang',
+        phone_number:'32913921',
+        address:'Malang',
+        role:'Member'
   
       },
       {
         ICON: <User size={24} color="#000" />,
-          names: 'Suci',
-          gender:'Perempuan',
-          address:'Bandung',
-          member:'Member'
+        user_name: 'Jajang',
+        phone_number:'321321421',
+        address:'Malang',
+        role:'Member'
       },
   ];
 
@@ -72,7 +72,7 @@ export const INITIAL_TABLE_DATAS = [
           item:'Mouse',
           jumlah:'1',
           tanggal:'27 April 2023',
-          informasi:'Dikirim'
+          status:'Dikirim'
       },
   ];
 
