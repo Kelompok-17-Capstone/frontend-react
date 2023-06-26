@@ -2,10 +2,10 @@ import { User } from '@phosphor-icons/react';
 export const INITIAL_TABLE_DATAS = [
     {
       ICON: <User size={24} color="#000" />,
-      user_name: 'Jajang',
-        phone_number:'3212121',
-        address:'Malang',
-        role:'Member'
+      names: 'Wahyu',
+      gender:'Laki-laki',
+      address:'Jakarta',
+      member: 'Member'
 
     },
     {

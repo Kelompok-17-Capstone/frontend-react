@@ -36,6 +36,15 @@ export const api = {
   getReguler: () => {
     return altaAPIWithToken.get("/admin/users?role=reguler");
   },
+  updateUser: (id, body) => {
+    return altaAPIWithToken.put(`/admin/users/${id}`, body)
+  },
+  deleteUser: (id) => {
+    return altaAPIWithToken.delete(`/admin/users/${id}`);
+  },
+  getUserById: (id) => {
+    return altaAPIWithToken.get(`/admin/users/${id}`)
+  },
 
   // API Get Pesanan
   getPesanan: () => {
@@ -53,16 +62,4 @@ export const api = {
   getPesananByStatus: (status) => {
     return altaAPIWithToken.get(`/admin/orders?status=${status}`);
   },
-<<<<<<< HEAD
-  updateProduk: (id, body) => {
-    return baseAPI.put(`/admin/products/${id}`, body);
-=======
-
-  // API Get Dashboard
-  getDashboardData: () => {
-    return altaAPIWithToken.get('/admin/dashboard')
->>>>>>> origin/dashboard
-  },
 };
-
-

@@ -1,15 +1,15 @@
-import { Col, Row } from 'antd';
+import { Col, Row} from 'antd';
 import React, { useEffect } from 'react';
-import { Table } from 'antd';
+import { Table} from 'antd';
 import { useState } from "react";
 import { INITIAL_TABLE_DATAS } from "./constans";
 import "./dashBoard.css";
 import { INITIAL_TABLE_DATASS } from "./constans";
 import { INITIAL_TABLE_DATASSS } from "./constans";
-import { PieChart, Pie, Cell, Legend, Tooltip } from 'recharts';
+import { PieChart, Pie, Cell, Legend, Tooltip, } from 'recharts';
+import { CaretRight } from '@phosphor-icons/react'; 
 import { useGetDashboardData } from './hooks/useDashboard';
-import { User, CaretRight } from '@phosphor-icons/react';
-import { Link } from 'react-router-dom';
+
 
 
 const data = [
@@ -21,29 +21,26 @@ const data = [
 ];
 
 const PieChartComponent = () => {
-  const [isLoading, dataDashboard, getDashboard] = useGetDashboardData();
-  console.log(dataDashboard);
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#00FFFF']; // warna untuk setiap sektor pie chart
+  const [datas] = useState(INITIAL_TABLE_DATAS);
 
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#00FFFF' , 'Black']; // warna untuk setiap sektor pie chart
-  const [users] = useState(INITIAL_TABLE_DATAS);
-
+const [isLoadingData, dashboardData, getDashboardData] = useGetDashboardData();
+  useEffect(() => {
+  getDashboardData()
+  }, 
+  []);  
   const columns = [
-    {
-      dataIndex: "icon",
-      key: 'icon',
-      className: 'data1',
-      render: () => <User size={24} color="#000" />
-    },
     {
       dataIndex: 'name',
       key: 'name',
-      className: 'data1',
-    },
+      className:'data1',
+      },
     {
-      dataIndex: 'phone_number',
+      dataIndex: 'phone_numer',
+      className:'data1',
       key: 'phone_number',
-      className: 'data1',
     },
+  
     {
       dataIndex: 'address',
       key: 'address',
@@ -51,25 +48,8 @@ const PieChartComponent = () => {
     },
     {
       dataIndex: 'role',
+      className:'data1',
       key: 'role',
-      className: 'data1',
-      render: (role) => {
-        let backgroundColor, color, fontWeight;
-        if (role === 'member') {
-          backgroundColor = 'rgba(0, 49, 123, 1)';
-          color = 'white';
-          fontWeight = 'bold';
-        } else if (role === 'reguler') {
-          backgroundColor = 'green';
-          color = 'white';
-          fontWeight = 'bold';
-        }
-        return (
-          <span style={{ backgroundColor, color, padding: '4px 8px', borderRadius: '4px', fontWeight }}>
-            {role}
-          </span>
-        );
-      },
     },
   ];
 

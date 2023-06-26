@@ -1,29 +1,32 @@
-import { useCallback, useState } from "react";
-import { api } from "../../../api";
+import { useCallback, useState} from "react";
+import { api } from "../../../api/index";
 import { message } from "antd";
 
 export const useGetDashboardData = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [dataDashboard, setDataDashboard] = useState({ users: [], orders: [], products: [] });
+    const [isLoading, setIsLoading] = useState(true);
+    const [data, setData] = useState();
+    
+    
 
-  const getDashboard = useCallback(async () => {
-    try {
-      const res = await api.getDashboardData();
-      console.log({res})
-      setDataDashboard({
-        users : res?.data.data[0].users,
-        orders : res?.data.data[0].orders,
-        products : res?.data.data[0].products,
-      });
-    } catch (err) {
-      message.open({
-        type: "error",
-        content: `${err?.message}`
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  return [isLoading, dataDashboard, getDashboard];
+    const getDashboardData = useCallback(async() => {
+        try {
+            const res = await api.getDashboardData();
+            setData(res.data?.users);
+            console.log(res?.data?.users || []);
+        } catch (err) {
+            console.log({ err });
+            message.open({
+                type: "error",
+                content: '$${err?.message'
+            });
+        } finally {
+            setIsLoading(false);
+            message.open({
+                type : "success",
+                content:'Berhasil Fetch Data!'
+            });
+        }
+    
+    }, []);
+    return [isLoading, data, getDashboardData];
 };
