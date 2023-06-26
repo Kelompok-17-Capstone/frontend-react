@@ -28,6 +28,42 @@
   margin: 0 8px;
 }
 
+.custom-modal p {
+  width: 500px;
+}
+
+.SuccessText{
+  color: #33DF3A;
+  font-size: 25px;
+  margin-block: 10px;
+}
+
+.btnSuccess{
+  width: 500px;
+  background-color: #33DF3A;
+  height: 40px;
+  font-size: 18px;
+}
+.btnSuccess:hover{
+  width: 500px;
+  background-color: #16b11b !important;
+  height: 40px;
+  font-size: 18px;
+}
+
+.btnFailed{
+  width: 500px;
+  background-color: #F15757;
+  height: 40px;
+  font-size: 18px;
+}
+.btnFailed:hover{
+  width: 500px;
+  background-color: #d63f3f !important;
+  height: 40px;
+  font-size: 18px;
+}
+
 .confirm-button {
   width: 500px;
   height: 50px;
@@ -55,7 +91,6 @@
   background-color: #cf1322;
   border-color: #cf1322;
 }
-
 
 .modal-content {
   font-size: 24px;

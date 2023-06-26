@@ -31,6 +31,12 @@ export const api = {
   getReguler: () => {
     return altaAPIWithToken.get('/admin/users?role=reguler')
   },
+  updateUser: (id, body) => {
+    return altaAPIWithToken.put(`/admin/users/${id}`, body)
+  },
+  deleteUser: (id) => {
+    return altaAPIWithToken.delete(`/admin/users/${id}`);
+  },
 
   // API Get Pesanan
   getPesanan: () => {

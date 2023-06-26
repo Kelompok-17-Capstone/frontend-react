@@ -11,16 +11,13 @@ import {
 } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
-import { useGetUser, useUpdateUser } from "./hooks/useUsers";
-import Gap from "../../components/gap/Gap";
 import {
-  DataUserBerhasil,
-  DataUserGagal,
   Koin,
   MemberCard,
   Rp,
 } from "../../assets";
 import { useParams, useNavigate } from "react-router-dom";
+import { useGetMember, useGetReguler, useGetUsers, useUpdateUser } from "../../hooks/useGetDataUsers";
 
 const EditUser = () => {
   const { Title } = Typography;
@@ -29,12 +26,15 @@ const EditUser = () => {
   const { name } = useParams();
   console.log(name);
   const [formBio] = Form.useForm();
-  const [isLoadingUser, user, getUser] = useGetUser();
+  const navigate = useNavigate();
+  const [isLoadingUser, user, getUser] = useGetUsers();
+  const [isLoadingMember, member, getMember] = useGetMember();
+  const [isLoadingReguler, reguler, getReguler] = useGetReguler();
   const [isLoadingUpdateUser, updateUser] = useUpdateUser();
-
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [rowData, setRowData] = useState();
   const [isEdit, setIsEdit] = useState(true);
-
+  const [modalContent, setModalContent] = useState(null);
   const [open, setOpen] = useState(false);
   const [size] = useState("medium");
 
@@ -43,14 +43,37 @@ const EditUser = () => {
     setRowData();
     setIsEdit(false);
     formBio.resetFields();
+    navigate("/data-user");
   };
 
-  // const handleGoBack = () => {
-  //   history.goBack();
-  // };
+  const handleSave = (values) => {
+    const id = rowData?.id;
+    updateUser(id, values, () => {
+      useGetUsers();
+      handleCancel();
+    });
+    
+    try {
+      setModalContent("success");
+      setIsModalVisible(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleModalConfirm = () => {
+    setIsModalVisible(false);
+    navigate("/data-user");
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+  };
 
   useEffect(() => {
-    getUser();
+    useGetUsers();
+    useGetMember();
+    getReguler();
   }, []);
 
   return (
@@ -63,7 +86,7 @@ const EditUser = () => {
         name="form-bio"
         form={formBio}
         layout="horizontal"
-        onFinish={isEdit}
+        onFinish={handleSave}
         labelAlign="left"
         // fields={[
         //   {
@@ -327,13 +350,54 @@ const EditUser = () => {
                   width: "150px",
                   height: "40px",
                 }}
+                onClick={handleSave}
               >
                 Save
               </Button>
             </Space>
           ) : (
-            <Button style={{ width: "100px", height: "40px" }}>Kembali</Button>
+            <Button
+              style={{ width: "100px", height: "40px" }}
+              onClick={handleCancel}
+            >
+              Kembali
+            </Button>
           )}
+          <Modal
+            centered
+            visible={isModalVisible}
+            onCancel={() => setIsModalVisible(false)}
+            footer={null}
+            className="custom-modal"
+          >
+            {modalContent === "success" ? (
+              <>
+                <h3 className="SuccessText">Success</h3>
+                <p>Data User Berhasil Diubah</p>
+                <Button
+                  key="confirm"
+                  type="primary"
+                  onClick={handleModalConfirm}
+                  className="btnLoginSuccess"
+                >
+                  Confirm
+                </Button>
+              </>
+            ) : (
+              <>
+                <h3 className="FailedText">Failed</h3>
+                <p>Data User Gagal Diubah</p>
+                <Button
+                  key="try-again"
+                  type="primary"
+                  onClick={closeModal}
+                  className="btnFailed"
+                >
+                  Try Again
+                </Button>
+              </>
+            )}
+          </Modal>
         </div>
       </Form>
     </>
