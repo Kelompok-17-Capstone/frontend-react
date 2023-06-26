@@ -20,9 +20,6 @@ export const useLogin = () => {
     try {
       setIsLoading(true);
       const res = await api.postLogin(body);
-
-      console.log({ res });
-
       if (res.status === 200) {
         const token = res.data?.token;
         localStorage.setItem("token", token);
