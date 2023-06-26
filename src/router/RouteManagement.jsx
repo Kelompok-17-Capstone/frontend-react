@@ -32,8 +32,11 @@ const RouteManagement = () => {
                         <Route path="/data-user" element={<LayoutsComponent><DataUser /></LayoutsComponent>} />
                         <Route path="/daftar-pesanan" element={<LayoutsComponent><DaftarPesanan /></LayoutsComponent>} />
                         <Route path="/data-produk" element={<LayoutsComponent><DataProduk /></LayoutsComponent>} />
+<<<<<<< HEAD
                         <Route path="/edit-data-produk/:id" element={<LayoutsComponent><EditDataProduk/></LayoutsComponent>}/>
                         <Route path="/tambah-data-produk" element={<LayoutsComponent><TambahDataProduk/></LayoutsComponent>}/>
+=======
+>>>>>>> origin
                     </React.Fragment>
                 )}
                 <Route path="*" element={<Navigate to="/" />} />
@@ -41,7 +44,7 @@ const RouteManagement = () => {
         </Suspense>
     );
 };
-
+// sd
 export default RouteManagement;
 
 
