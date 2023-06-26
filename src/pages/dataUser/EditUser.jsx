@@ -23,8 +23,7 @@ const EditUser = () => {
   const { Title } = Typography;
   const { TextArea } = Input;
 
-  const { name } = useParams();
-  console.log(name);
+  const { id } = useParams();
   const [formBio] = Form.useForm();
   const navigate = useNavigate();
   const [isLoadingUser, user, getUser] = useGetUsers();
@@ -71,8 +70,8 @@ const EditUser = () => {
   };
 
   useEffect(() => {
-    useGetUsers();
-    useGetMember();
+    getUser();
+    getMember();
     getReguler();
   }, []);
 
