@@ -1,57 +1,55 @@
 import { Popconfirm, Space } from "antd"
-import { Trash, NotePencil } from "@phosphor-icons/react"
-import { Link } from "react-router-dom";
+import {Trash, NotePencil} from "@phosphor-icons/react"
 
 export const dataProdukHeader = [
-  {
-    title: "Nama Produk",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "Deskripsi",
-    dataIndex: "description",
-    key: "description",
-  },
-  {
-    title: "Kondisi",
-    dataIndex: "kondisi",
-    render: () => "baru",
-  },
-  {
-    title: "Jumlah Produk",
-    dataIndex: "stock",
-    key: "stock",
-  },
-  {
-    title: "Harga Produk",
-    dataIndex: "price",
-    key: "price",
-  },
-  {
-    title: "Status",
-    dataIndex: "status",
-    key: "status",
-  },
-  
-  {
-    title: "Action",
-    dataIndex: "action",
-    render: (_, record) => (
-      <Space>
-        {/* Menggunakan Link untuk tombol edit */}
-        <Link to={`/edit-data-produk/${record.id}`}>
-          <NotePencil size={20} color="#264eca" />
-        </Link>
-        <Popconfirm title="Sure to delete?" arrow={false}>
-          <a>
-            <Trash size={20} color="#ee2e2e" />
-          </a>
-        </Popconfirm>
-      </Space>
-    ),
-  },
-];
+    {
+        title: "Nama Produk",
+        dataIndex: "name",
+        key: 'name'
+    },
+    {
+        title: "Deskripsi",
+        dataIndex: "description",
+        key: 'description'
+    },
+    {
+        title: "Kondisi",
+        dataIndex: "kondisi",
+        render: () => "baru"
+    },
+    {
+        title: "Jumlah Produk",
+        dataIndex: "stock",
+        key: 'stock'
+    },
+    {
+        title: "Harga Produk",
+        dataIndex: "price",
+        key: 'price'
+    },
+    {
+        title: "Status",
+        dataIndex: "status",
+        key: 'status'
+    },
+    {
+        title: "Action",
+        dataIndex: "action",
+        render: (_, record) =>
+           (
+            <Space>
+              <a onClick={() => handleEdit(record)}><NotePencil size={20} color="#264eca" /></a>
+              <Popconfirm
+                title="Sure to delete?"
+                arrow={false}
+                // onConfirm={() => onDelete(record.id)}
+              >
+                <a><Trash size={20} color="#ee2e2e" /></a>
+              </Popconfirm>
+            </Space>
+          ) 
+      },
+]
 
 export const dataUserHeader = [
     {
@@ -142,22 +140,21 @@ export const dataPesanananHeader = [
     {
         title: "Action",
         dataIndex: "action",
-        render: (_, record) => (
+        render: (_, record) =>
+           (
             <Space>
-              <Link to={`/edit-pesanan/${record.id}`}>
-                <NotePencil size={20} color="#264eca" />
-              </Link>
-              <Popconfirm title="Sure to delete?" arrow={false}
-              onConfirm={() => onDelete(record.id)}>
-               
-                <a>
-                  <Trash size={20} color="#ee2e2e" />
-                </a>
+              <a onClick={() => handleEdit(record)}><NotePencil size={20} color="#264eca" /></a>
+              <Popconfirm
+                title="Sure to delete?"
+                arrow={false}
+                // onConfirm={() => onDelete(record.id)}
+              >
+                <a><Trash size={20} color="#ee2e2e" /></a>
               </Popconfirm>
             </Space>
-          ),
-        },
-      ];
+          ) 
+      },
+]
 
 // Tabs Constants
 export const dataProdukTab = [
@@ -206,5 +203,5 @@ export const dataPesananTab = [
     {
         tab: "Diterima",
         key: 'diterima'
-    },
+    },
 ]
