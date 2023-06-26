@@ -3,69 +3,69 @@ import { api } from "../api";
 import { message } from "antd";
 
 export const useGetUsers = () => {
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
 
   const getUsers = useCallback(async () => {
     try {
       const res = await api.getUsers();
       console.log(res?.data?.data?.users || []);
-      setData(res?.data?.data || [])
-      console.log(res)
+      setData(res?.data?.data || []);
+      console.log(res);
     } catch (err) {
       message.open({
-        type: 'error',
-        content: `${err?.message}`
-      })
+        type: "error",
+        content: `${err?.message}`,
+      });
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }, [])
+  }, []);
 
-  return [isLoading, data, getUsers]
+  return [isLoading, data, getUsers];
 };
 
 export const useGetMember = () => {
-  const [isLoading, setIsLoading] = useState(true)
-  const [data, setData] = useState()
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState();
 
   const getMember = useCallback(async () => {
     try {
-      const res = await api.getMember('member')
-      setData(res?.data?.data)
+      const res = await api.getMember("member");
+      setData(res?.data?.data);
     } catch (err) {
       message.open({
-        type: 'error',
-        content: `${err?.message}`
-      })
+        type: "error",
+        content: `${err?.message}`,
+      });
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }, [])
+  }, []);
 
-  return [isLoading, data, getMember]
-}
+  return [isLoading, data, getMember];
+};
 
 export const useGetReguler = () => {
-  const [isLoading, setIsLoading] = useState(true)
-  const [data, setData] = useState()
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState();
 
   const getReguler = useCallback(async () => {
     try {
-      const res = await api.getReguler('reguler')
-      setData(res?.data?.data)
+      const res = await api.getReguler("reguler");
+      setData(res?.data?.data);
     } catch (err) {
       message.open({
-        type: 'error',
-        content: `${err?.message}`
-      })
+        type: "error",
+        content: `${err?.message}`,
+      });
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }, [])
+  }, []);
 
-  return [isLoading, data, getReguler]
-}
+  return [isLoading, data, getReguler];
+};
 
 export const useUpdateUser = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -91,7 +91,7 @@ export const useUpdateUser = () => {
   }, []);
 
   return [isLoading, updateData];
-}
+};
 
 export const useDeleteUser = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -118,5 +118,3 @@ export const useDeleteUser = () => {
 
   return [isLoading, deleteData];
 };
-
-

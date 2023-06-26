@@ -11,19 +11,19 @@ import {
 } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
-import {
-  Koin,
-  MemberCard,
-  Rp,
-} from "../../assets";
+import { Koin, MemberCard, Rp } from "../../assets";
 import { useParams, useNavigate } from "react-router-dom";
-import { useGetMember, useGetReguler, useGetUsers, useUpdateUser } from "../../hooks/useGetDataUsers";
+import {
+  useGetMember,
+  useGetReguler,
+  useGetUsers,
+  useUpdateUser,
+} from "../../hooks/useGetDataUsers";
 
 const EditUser = () => {
   const { Title } = Typography;
   const { TextArea } = Input;
 
-  const { id } = useParams();
   const [formBio] = Form.useForm();
   const navigate = useNavigate();
   const [isLoadingUser, user, getUser] = useGetUsers();
@@ -51,7 +51,7 @@ const EditUser = () => {
       useGetUsers();
       handleCancel();
     });
-    
+
     try {
       setModalContent("success");
       setIsModalVisible(true);
@@ -69,11 +69,33 @@ const EditUser = () => {
     setIsModalVisible(false);
   };
 
+  const { id } = useParams();
+
   useEffect(() => {
-    getUser();
-    getMember();
-    getReguler();
-  }, []);
+    const token = localStorage.getItem("token");
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_APP_BASE_URL}/admin/users/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const data = await response.json();
+        console.log(data);
+        setData(data);
+        Form.setFieldsValue(data?.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+}, [id, Form]);    
 
   return (
     <>
@@ -125,7 +147,7 @@ const EditUser = () => {
         </Form.Item>
 
         <Form.Item
-          name="noTelepon"
+          name="phone_number"
           label="No. Telepon"
           labelCol={{ span: 3 }}
           rules={[
@@ -144,7 +166,7 @@ const EditUser = () => {
         <div style={{ display: "flex" }}>
           <div style={{ flex: 1 }}>
             <Form.Item
-              name="kota"
+              name="city"
               label="Kota"
               rules={[
                 {
@@ -159,7 +181,7 @@ const EditUser = () => {
 
           <div style={{ flex: 1 }}>
             <Form.Item
-              name="provinsi"
+              name="province"
               label="Provinsi"
               rules={[
                 {
@@ -177,7 +199,7 @@ const EditUser = () => {
         </div>
 
         <Form.Item
-          name="alamat"
+          name="address"
           label="Alamat"
           labelCol={{ span: 3 }}
           rules={[

@@ -85,7 +85,7 @@ export const dataUserHeader = [
     dataIndex: "action",
     render: (_, record) => (
       <Space>
-        <Link to="data-user" onClick={() => handleEdit(record)}>
+        <Link to={`/edit-user/${record.id}`}>
           <NotePencil size={20} color="#264eca" />
         </Link>
         <Popconfirm

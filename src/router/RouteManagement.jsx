@@ -53,7 +53,7 @@ const RouteManagement = () => {
               }
             />
             <Route
-              path="/edit-user"
+              path="/edit-user/:id"
               element={
                 <LayoutsComponent>
                   <EditUser />
