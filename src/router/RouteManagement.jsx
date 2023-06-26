@@ -7,8 +7,8 @@ import DataUser from '../pages/dataUser/DataUser';
 import DataProduk from '../pages/dataProduk/DataProduk';
 import DaftarPesanan from '../pages/daftarPesanan/DaftarPesanan';
 import LandingPage from '../pages/landingPage/LandingPage';
+import EditDataProduk from '../pages/dataProduk/editDataProduk/EditDataProduk';
 import EditPesanan from '../pages/daftarPesanan/editPesanan/EditPesanan';
-
 
 const RouteManagement = () => {
     const token = localStorage.getItem('token');
@@ -32,7 +32,8 @@ const RouteManagement = () => {
                         <Route path="/data-user" element={<LayoutsComponent><DataUser /></LayoutsComponent>} />
                         <Route path="/daftar-pesanan" element={<LayoutsComponent><DaftarPesanan /></LayoutsComponent>} />
                         <Route path="/data-produk" element={<LayoutsComponent><DataProduk /></LayoutsComponent>} />
-                        <Route path="/edit-pesanan" element={<LayoutsComponent><EditPesanan/></LayoutsComponent>} />
+                        <Route path="/edit-produk" element={<LayoutsComponent><EditDataProduk/></LayoutsComponent>}/>
+                        <Route path="/edit-pesanan" element={<LayoutsComponent><EditPesanan/></LayoutsComponent>}/>
                     </React.Fragment>
                 )}
                 <Route path="*" element={<Navigate to="/" />} />
@@ -40,7 +41,7 @@ const RouteManagement = () => {
         </Suspense>
     );
 };
-
+// sd
 export default RouteManagement;
 
 
