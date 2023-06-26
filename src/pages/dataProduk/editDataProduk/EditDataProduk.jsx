@@ -1,10 +1,14 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Form, Input, Radio, Button, Modal } from "antd";
-import { PlusOutlined, MinusOutlined, UploadOutlined } from "@ant-design/icons";
+import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
 import "./editDataProduk.css";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const EditDataProduk = () => {
+  const navigate = useNavigate();
   const [componentSize, setComponentSize] = useState("default");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
@@ -41,52 +45,85 @@ const EditDataProduk = () => {
   const handleModalOk = () => {
     form.resetFields();
     setIsModalVisible(false);
+    navigate("/data-produk", { replace: true });
   };
 
   const handleModalCancel = () => {
     setIsModalVisible(false);
   };
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.VITE_APP_BASE_URL}/api/data`
-      );
-      setData(response.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  const { id } = useParams();
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    const token = localStorage.getItem("token");
 
-  const onFinish = async (values) => {
-    const formValues = Object.values(values);
-    const isFormEmpty = formValues.some(
-      (value) => value === undefined || value === ""
-    );
-
-    if (!isFormEmpty) {
-      // Make an API request to save the form data
+    const fetchData = async () => {
       try {
-        // Assuming you have an API endpoint for saving the data
-        const response = await axios.post(
-          `${process.env.VITE_APP_BASE_URL}/api/save`,
-          values
+        const response = await fetch(
+          `${import.meta.env.VITE_APP_BASE_URL}/admin/products/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
 
-        // Check the response and show success or failure modal accordingly
-        if (response.data.success) {
-          showSuccessModal();
-        } else {
-          showFailureModal();
-        }
+        const data = await response.json();
+        console.log(data);
+
+        setData(data);
+        form.setFieldsValue(data?.data);
       } catch (error) {
-        console.error("Error saving data:", error);
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [id, form]);
+
+  const onFinish = async (values) => {
+    const token = localStorage.getItem("token");
+    const formValues = Object.values(values);
+
+    formValues[2] = jumlahProduk;
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      ContentType: "multipart/form-data",
+    };
+
+    const formData = new FormData();
+    formData.append("name", formValues[0]);
+    formData.append("description", formValues[1]);
+    formData.append("stock", formValues[2]);
+    formData.append("price", formValues[3]);
+    formData.append("image", "");
+
+    console.log(formValues);
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_APP_BASE_URL}/admin/products/${id}`,
+        {
+          method: "PUT",
+          headers: headers,
+          body: formData,
+        }
+      );
+
+      const responseData = await response.json();
+
+      if (response.ok && responseData.success) {
+        alert("ok");
+        showSuccessModal();
+      } else {
+        alert("gagal");
         showFailureModal();
       }
+    } catch (error) {
+      console.error("Error saving data:", error);
+      alert("Error saving data");
+      showFailureModal();
     }
   };
 
@@ -108,22 +145,17 @@ const EditDataProduk = () => {
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 15 }}
         layout="horizontal"
-        initialValues={{ size: componentSize }}
-        onValuesChange={onFormLayoutChange}
         size={componentSize}
         style={{ maxWidth: 1400 }}
         onFinish={onFinish}>
-        <Form.Item
-          label="Nama Produk"
-          className="form-item-label"
-          name="namaProduk">
-          <Input placeholder="Keyboard" className="nama-produk" />
+        <Form.Item label="Nama Produk" className="form-item-label" name="name">
+          <Input placeholder="Masukan nama produk" className="nama-produk" />
         </Form.Item>
 
         <Form.Item
           label="Deskripsi"
           className="form-item-label"
-          name="deskripsiProduk">
+          name="description">
           <Input.TextArea
             placeholder="Deskripsi Produk"
             className="Deskripsis"
@@ -133,7 +165,7 @@ const EditDataProduk = () => {
         <Form.Item
           label="Jumlah Produk"
           className="form-item-label"
-          name="jumlahProduk">
+          name="jumlah">
           <div
             className="Jumlahproduk"
             style={{
@@ -181,13 +213,13 @@ const EditDataProduk = () => {
         <Form.Item
           label="Harga Produk"
           className="form-item-label"
-          name="hargaProduk">
+          name="price">
           <Input
             className="form-item-label-harga"
             addonBefore={
               <span style={{ fontWeight: "bold", color: "#ffffff" }}>RP</span>
             }
-            placeholder="100000"
+            placeholder="000000"
             style={{ backgroundColor: "#00317B", width: "25%" }}
           />
         </Form.Item>
@@ -215,7 +247,7 @@ const EditDataProduk = () => {
         <Form.Item
           label="Status Produk"
           className="form-item-label"
-          name="statusProduk">
+          name="status">
           <Radio.Group>
             <Radio value="Tersedia" className="radio-container">
               Tersedia
@@ -242,7 +274,7 @@ const EditDataProduk = () => {
 
       <Modal
         title={<h2 className="modal-title-success">Success</h2>}
-        visible={isSuccessModalVisible}
+        open={isSuccessModalVisible}
         footer={[
           <Button
             key="confirm-button"
@@ -267,7 +299,7 @@ const EditDataProduk = () => {
             Failed
           </h2>
         }
-        visible={isFailureModalVisible}
+        open={isFailureModalVisible}
         footer={[
           <Button
             key="try-again-button"
@@ -282,7 +314,7 @@ const EditDataProduk = () => {
 
       <Modal
         title="Konfirmasi"
-        visible={isModalVisible}
+        open={isModalVisible}
         onOk={handleModalOk}
         onCancel={handleModalCancel}>
         <p>Anda yakin ingin membatalkan?</p>
@@ -292,4 +324,3 @@ const EditDataProduk = () => {
 };
 
 export default EditDataProduk;
-
