@@ -7,8 +7,6 @@ import DataUser from '../pages/dataUser/DataUser';
 import DataProduk from '../pages/dataProduk/DataProduk';
 import DaftarPesanan from '../pages/daftarPesanan/DaftarPesanan';
 import LandingPage from '../pages/landingPage/LandingPage';
-import EditDataProduk from '../pages/dataProduk/editDataProduk/EditDataProduk';
-import TambahDataProduk from '../pages/dataProduk/tambahDataProduk/TambahDataProduk';
 
 const RouteManagement = () => {
     const token = localStorage.getItem('token');
