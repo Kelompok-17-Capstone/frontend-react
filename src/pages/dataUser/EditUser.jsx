@@ -347,7 +347,6 @@ const EditUser = () => {
         </Form.Item>
 
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          {isEdit ? (
             <Space>
               <Button
                 loading={isLoadingUpdateUser}
@@ -376,14 +375,6 @@ const EditUser = () => {
                 Save
               </Button>
             </Space>
-          ) : (
-            <Button
-              style={{ width: "100px", height: "40px" }}
-              onClick={handleCancel}
-            >
-              Kembali
-            </Button>
-          )}
           <Modal
             centered
             visible={isModalVisible}
