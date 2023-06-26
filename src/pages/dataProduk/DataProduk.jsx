@@ -9,4 +9,4 @@ const DataProduk = () => {
     );
 }
 
-export default DataProduk;
+export default DataProduk;  

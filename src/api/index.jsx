@@ -10,6 +10,11 @@ export const api = {
   getProduct: () => {
     return altaAPIWithToken.get("/admin/products");
   },
+  
+  getProductById: () => {
+    return altaAPIWithToken.get("/admin/products");
+  },
+
   getProductTersedia: () => {
     return altaAPIWithToken.get("/admin/products?status=tersedia");
   },

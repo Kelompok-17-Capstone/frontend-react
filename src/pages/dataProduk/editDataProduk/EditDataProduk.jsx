@@ -51,11 +51,22 @@ const EditDataProduk = () => {
   const { id } = useParams();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.VITE_APP_BASE_URL}/api/data/${id}`
+        const response = await fetch(
+          `${import.meta.env.VITE_APP_BASE_URL}/admin/products?keyword=${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
+
+        const data = await response.json();
+        console.log(data);
+
         setData(response.data);
         form.setFieldsValue(response.data?.data);
       } catch (error) {
