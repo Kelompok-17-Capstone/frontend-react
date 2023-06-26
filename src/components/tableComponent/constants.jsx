@@ -144,11 +144,12 @@ export const dataPesanananHeader = [
         dataIndex: "action",
         render: (_, record) => (
             <Space>
-              {/* Menggunakan Link untuk tombol edit */}
               <Link to={`/edit-pesanan/${record.id}`}>
                 <NotePencil size={20} color="#264eca" />
               </Link>
-              <Popconfirm title="Sure to delete?" arrow={false}>
+              <Popconfirm title="Sure to delete?" arrow={false}
+              onConfirm={() => onDelete(record.id)}>
+               
                 <a>
                   <Trash size={20} color="#ee2e2e" />
                 </a>
