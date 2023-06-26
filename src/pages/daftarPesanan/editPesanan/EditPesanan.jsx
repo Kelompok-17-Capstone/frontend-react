@@ -1,124 +1,63 @@
-import React, { useState } from 'react';
-import {
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  Radio,
-  Button,
-  message,
-  Col,
-  Row,
-  Modal,
-} from 'antd';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { DatePicker, Form, Input, InputNumber, Radio, Button, Col, Row, Modal,Space } from 'antd';
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
-import { useParams } from "react-router-dom";
 import './editPesanan.css';
+import { useGetPesanan, useUpdatePesanan, useGetPesananById } from './hooks/useOrders';
 
 const App = () => {
-  const [componentSize, setComponentSize] = useState("default");
+  const [componentSize, setComponentSize] = useState('default');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
-  const [jumlahProduk, setjumlahProduk] = useState(0);
-  const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
-  const [isFailureModalVisible, setIsFailureModalVisible] = useState(false);
-  const [data, setData] = useState(null);
+  const { id } = useParams();
+  const [formBio] = Form.useForm();
+  const [isLoadingPesanan, data, getPesanan] = useGetPesanan();
+  const [isLoadingUpdatePesanan, updatePesanan] = useUpdatePesanan();
+  const [isLoadingGetPesananById, pesananData, getPesananById] = useGetPesananById();
+  console.log(pesananData);
+  const [rowData, setRowData] = useState();
+  const [isEdit, setIsEdit] = useState(true);
+  const [modalContent, setModalContent] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [size] = useState('medium');
 
   const onFormLayoutChange = ({ size }) => {
     setComponentSize(size);
   };
 
-  const showSuccessModal = () => {
-    setIsSuccessModalVisible(true);
+  const handleCancel = () => {
+    setRowData();
+    setIsEdit(false);
+    formBio.resetFields();
+    navigate("/daftar-pesanan");
   };
 
-  const showFailureModal = () => {
-    setIsFailureModalVisible(true);
+  const handleSave = (values) => {
+    const id = rowData?.id;
+    updateUser(id, values, () => {
+      useGetUsers();
+      handleCancel();
+    });
+
+    try {
+      setModalContent("success");
+      setIsModalVisible(true);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const handleSuccessModalConfirm = () => {
-    setIsSuccessModalVisible(false);
+  const handleModalConfirm = () => {
+    setIsModalVisible(false);
+    navigate("/daftar-pesanan");
   };
-
-  const handleFailureModalTryAgain = () => {
-    setIsFailureModalVisible(false);
-  };
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-  const handleModalOk = () => {
-    form.resetFields();
+  const closeModal = () => {
     setIsModalVisible(false);
   };
-
-  const handleModalCancel = () => {
-    setIsModalVisible(false);
-  };
-
-  const onFinish = (values) => {
-    const formValues = Object.values(values);
-    const isFormEmpty = formValues.some((value) => value === undefined || value === '');
-
-    const { id } = useParams();
-
-    useEffect(() => {
-      const token = localStorage.getItem("token");
   
-      const fetchData = async () => {
-        try {
-          const response = await fetch(
-            `${import.meta.env.VITE_APP_BASE_URL}/admin/orders/${id}`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-  
-          const data = await response.json();
-          console.log(data);
-  
-          setData(data);
-          form.setFieldsValue(data?.data);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
-      };
-  
-      fetchData();
-    }, [id, form]);
-  
-      
-
-    const onFinish = async (values) => {
-      const formValues = Object.values(values);
-      const isFormEmpty = formValues.some(
-        (value) => value === undefined || value === ""
-      );
-  
-      if (!isFormEmpty) {
-        // Make an API request to save the form data
-        try {
-          // Assuming you have an API endpoint for saving the data
-          const response = await axios.post(
-            `${process.env.VITE_APP_BASE_URL}/api/save`,
-            values
-          );
-  
-          // Check the response and show success or failure modal accordingly
-          if (response.data.success) {
-            showSuccessModal();
-          } else {
-            showFailureModal();
-          }
-        } catch (error) {
-          console.error("Error saving data:", error);
-          showFailureModal();
-        }
-      }
-    };
-  }
-
+  useEffect (() => {
+    getPesananById(id);
+  }, [id])
 
   return (
     <div className="bro">
@@ -133,37 +72,60 @@ const App = () => {
         onValuesChange={onFormLayoutChange}
         size={componentSize}
         style={{ maxWidth: 1400 }}
-        onFinish={onFinish}
+        fields={[
+          {
+            name: ["name"],
+            value: pesananData?.name,
+          },
+          {
+            name: ["address"],
+            value: pesananData?.phone_number,
+          },
+          {
+            name: ["product"],
+            value: pesananData?.address,
+          },
+          {
+            name: ["total_quantity"],
+            value: pesananData?.status,
+          },
+          {
+            name: ["total_price"],
+            value: pesananData?.status,
+          },
+          {
+            name: ["order_at"],
+            value: pesananData?.status,
+          },
+          {
+            name: ["arrived_at"],
+            value: pesananData?.status,
+          },
+          {
+            name: ["status"],
+            value: pesananData?.status,
+          },
+        ]}
       >
-        <Form.Item label="Nama Pesanan" name="namaPesanan">
+        <Form.Item label="Nama Pesanan" name="name">
           <Input placeholder="Keyboard" className="nama-pesanan" />
         </Form.Item>
 
         <Row>
           <Col span={10} push={13}>
-            <label>Kode Pos :</label>
-            <Form.Item name="kodePos">
-              <Input
-                className="form-kodepos"
-                type="text"
-                maxLength={8}
-                placeholder="22112"
-                style={{width: "80%" }}
-              />
-            </Form.Item>
           </Col>
           <Col span={12} pull={8}>
-            <Form.Item label="Alamat" className="alamat" name="alamat">
+            <Form.Item label="Alamat" className="alamat" name="address">
               <Input.TextArea placeholder="Jakarta" className="alamats" />
             </Form.Item>
           </Col>
         </Row>
 
-        <Form.Item label="Produk" name="produk">
+        <Form.Item label="Produk" name="product">
           <Input placeholder="Asus" className="produk" />
         </Form.Item>
 
-        <Form.Item label="Jumlah Produk" name="jumlahProduk">
+        <Form.Item label="Jumlah Produk" name="total_quantity">
           <InputNumber
             placeholder="0"
             min={0}
@@ -177,7 +139,7 @@ const App = () => {
                 icon={<PlusOutlined />}
                 onClick={(e) => {
                   e.stopPropagation();
-                  const currentValue = form.getFieldValue('jumlahProduk');
+                  const currentValue = form.getFieldValue('total_quantity');
                   form.setFieldsValue({
                     jumlahProduk: currentValue + 1,
                   });
@@ -190,7 +152,7 @@ const App = () => {
                 icon={<MinusOutlined />}
                 onClick={(e) => {
                   e.stopPropagation();
-                  const currentValue = form.getFieldValue('jumlahProduk');
+                  const currentValue = form.getFieldValue('total_quantity');
                   form.setFieldsValue({
                     jumlahProduk: currentValue - 1,
                   });
@@ -200,7 +162,7 @@ const App = () => {
           />
         </Form.Item>
 
-        <Form.Item label="Harga Produk" name="hargaProduk">
+        <Form.Item label="Harga Produk" name="total_price">
           <Input
             addonBefore={<span style={{ fontWeight: 'bold' }}>RP</span>}
             placeholder="100000"
@@ -210,18 +172,18 @@ const App = () => {
 
         <Row>
           <Col span={12} push={2}>
-            <Form.Item label="Waktu Pesan" name="waktuPesan">
+            <Form.Item label="Waktu Pesan" name="order_at">
               <DatePicker placeholder="Waktu Pemesanan" />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item label="Waktu Sampai" name="waktuSampai">
+            <Form.Item label="Waktu Sampai" name="arrived_at">
               <DatePicker placeholder="Waktu Sampai" />
             </Form.Item>
           </Col>
         </Row>
 
-        <Form.Item label="Status Pembayaran" name="statusPembayaran">
+        <Form.Item label="Status Pembayaran" name="status">
           <Radio.Group>
             <Radio value="Belum Bayar" className="radio-container">
               Belum Bayar
@@ -243,55 +205,76 @@ const App = () => {
 
         <Form.Item wrapperCol={{ offset: 12, span: 40 }}>
           <div className="button-container">
-          <Button type="primary" htmlType="submit" className="save-button">
-              Save
-            </Button>
-            <Button className="cancel-button" onClick={showModal}>
-              Cancel
-            </Button>
+          <Space>
+                <Button
+                  loading={isLoadingUpdatePesanan}
+                  style={{
+                    backgroundColor: "white",
+                    color: "black",
+                    width: "150px",
+                    height: "40px",
+                  }}
+                  onClick={handleCancel}
+                >
+                  Cancel
+                </Button>
+  
+                <Button
+                  htmlType="submit"
+                  loading={isLoadingUpdatePesanan}
+                  style={{
+                    backgroundColor: "green",
+                    color: "white",
+                    width: "150px",
+                    height: "40px",
+                  }}
+                  onClick={handleSave}
+                >
+                  Save
+                </Button>
+              </Space>
           </div>
         </Form.Item>
       </Form>
 
       <Modal
- title={<h2 style={{ textAlign: 'center', fontSize: '42px', color: '#33DF3A', fontFamily : 'Poppins' }}>Success</h2>}
-        open={isSuccessModalVisible}
-        footer={[
-          <Button
-            key="confirm-button"
-            type="primary"
-            className="confirm-button"
-            onClick={handleSuccessModalConfirm}
-          >
-            Confirm
-          </Button>,
-        ]}
-      >
-        <p className="modal-content">Dafar Pesanan Berhasil Diubah</p>
-      </Modal>
-
-      <Modal
- title={<h2 style={{ textAlign: 'center', fontSize: '42px', color: 'red' , fontFamily : 'Poppins'}}>Failed</h2>}
-  open={isFailureModalVisible}
-  footer={[
-    <Button
-      key="try-again-button"
-      type="primary"
-      className="try-again-button"
-      onClick={handleFailureModalTryAgain}
-    >
-      Try Again
-    </Button>,
-  ]}
->
-  <p className="modal-content">Daftar Pesanan Gagal Diubah</p>
-</Modal>
+              centered
+              open={isModalVisible}
+              onCancel={() => setIsModalVisible(false)}
+              footer={null}
+              className="custom-modal"
+            >
+              {modalContent === "success" ? (
+                <>
+                  <h3 className="SuccessText">Success</h3>
+                  <p>Data User Berhasil Diubah</p>
+                  <Button
+                    key="confirm"
+                    type="primary"
+                    onClick={handleModalConfirm}
+                    className="btnLoginSuccess"
+                  >
+                    Confirm
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <h3 className="FailedText">Failed</h3>
+                  <p>Data User Gagal Diubah</p>
+                  <Button
+                    key="try-again"
+                    type="primary"
+                    onClick={closeModal}
+                    className="btnFailed"
+                  >
+                    Try Again
+                  </Button>
+                </>
+              )}
+            </Modal>
 
       <Modal
         title="Konfirmasi"
-        visible={isModalVisible}
-        onOk={handleModalOk}
-        onCancel={handleModalCancel}
       >
         <p>Anda yakin ingin membatalkan?</p>
       </Modal>
